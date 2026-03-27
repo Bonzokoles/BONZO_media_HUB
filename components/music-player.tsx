@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { useMedia, type Track } from "@/lib/media-context"
 import { sampleTracks } from "@/lib/sample-data"
+import { MusicLibraryAI } from "./music-library-ai"
 import { AudioVisualizer } from "./audio-visualizer"
 import { VisualizerSettings, defaultVisualizerConfig, type VisualizerConfig } from "./visualizer-settings"
 import { cn } from "@/lib/utils"
@@ -31,6 +32,7 @@ import {
   ChevronUp,
   ChevronDown,
   Loader2,
+  Brain,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
@@ -78,6 +80,7 @@ export function MusicPlayer() {
   const [queueIndex, setQueueIndex] = useState<number>(0)
   const [showQueue, setShowQueue] = useState(false)
   const [showPlaylists, setShowPlaylists] = useState(false)
+  const [showAILibrary, setShowAILibrary] = useState(false)
   const [newPlaylistName, setNewPlaylistName] = useState("")
   const [shuffleEnabled, setShuffle] = useState(false)
   const [repeatMode, setRepeatMode] = useState<RepeatMode>("none")
@@ -486,6 +489,7 @@ export function MusicPlayer() {
   ]
 
   return (
+    <>
     <div className="flex h-full flex-col font-mono">
       <audio ref={audioRef} preload="auto" />
       
@@ -552,6 +556,15 @@ export function MusicPlayer() {
             >
               <FolderOpen className="h-3 w-3" />
               ADD_FOLDER
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowAILibrary(true)}
+              className={cn("gap-2 text-xs uppercase tracking-wider", showAILibrary && "border-primary bg-primary/10 text-primary")}
+            >
+              <Brain className="h-3 w-3" />
+              AI_LIBRARY
             </Button>
           </div>
         </div>
@@ -1006,5 +1019,29 @@ export function MusicPlayer() {
         </div>
       </div>
     </div>
+
+    <MusicLibraryAI
+      open={showAILibrary}
+      onClose={() => setShowAILibrary(false)}
+      tracks={allTracks}
+      currentTrack={currentTrack}
+      playlists={playlists}
+      onPlaylistCreate={(name, tracks) => {
+        setPlaylists(prev => [...prev, {
+          id: `ai-${Date.now()}`,
+          name,
+          tracks,
+          createdAt: new Date(),
+        }])
+      }}
+      onTrackCoverUpdate={(trackId, coverUrl) => {
+        const track = localTracks.find(t => t.id === trackId)
+        if (track) {
+          removeLocalTrackFromCtx(trackId)
+          addLocalTracks([{ ...track, coverUrl }])
+        }
+      }}
+    />
+    </>
   )
 }
