@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workspace Specification",
+  "version": "2.0.0",
+  "lastUpdated": "2026-03-27",
+  "metadata": {
+    "name": "BONZO_media_HUB",
+    "type": "single-repo",
+    "root": "U:\\www_BONZO_madia_HUB_inc",
+    "owner": "Bonzokoles",
+    "description": "BONZO Media HUB — aplikacja Next.js do zarządzania multimediami, biblioteką filmów, audio i narzędziami AI",
+    "architecture": "web-app",
+    "primaryTechStack": ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4"]
+  },
+  "repositories": {
+    "root": {
+      "path": ".",
+      "type": "application",
+      "remote": "https://github.com/Bonzokoles/BONZO_media_HUB",
+      "branch": "main"
+    },
+    "submodules": []
+  },
+  "services": {
+    "next-app": {
+      "type": "web-app",
+      "description": "Główna aplikacja Next.js dla BONZO Media HUB",
+      "entrypoint": "app/page.tsx",
+      "devCommand": "pnpm dev"
+    }
+  },
+  "portAllocations": {
+    "range": "3000-3001",
+    "specific": {
+      "3000": "next-app dev server"
+    },
+    "configFile": "package.json"
+  },
+  "mcpServers": {
+    "local": [],
+    "npx": ["@modelcontextprotocol/server-github", "@modelcontextprotocol/server-supabase"],
+    "url": [],
+    "configFile": ".workspace_meta/mcp/config.json"
+  },
+  "environmentVariables": {
+    "WORKSPACE_ROOT": "U:\\www_BONZO_madia_HUB_inc",
+    "TMDB_API_KEY": "${env:TMDB_API_KEY}",
+    "TMDB_READ_TOKEN": "${env:TMDB_READ_TOKEN}"
+  },
+  "conventions": {
+    "packageManager": "pnpm",
+    "commitFormat": "[type] description",
+    "typesOfCommits": ["feat", "fix", "docs", "refactor", "chore"]
+  },
+  "documentation": {
+    "root": ".workspace_meta",
+    "primary": [
+      "README.md",
+      ".workspace_meta/README.md"
+    ],
+    "notes": ".workspace_meta/notes",
+    "architecture": ".workspace_meta/notes/decisions.md"
+  },
+  "criticalRules": [
+    "ZAWSZE aktualizuj workspace.spec.json po zmianie architektury",
+    "NIGDY nie commituj secrets do repo",
+    "ZAWSZE dokumentuj decyzje architektoniczne w notes/decisions.md"
+  ]
+}

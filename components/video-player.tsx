@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { sampleVideos } from "@/lib/sample-data"
 import type { Video } from "@/lib/media-context"
 import { cn } from "@/lib/utils"
@@ -28,20 +28,53 @@ export function VideoPlayer() {
   const [currentVideo, setCurrentVideo] = useState<Video>(sampleVideos[0])
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [duration, setDuration] = useState(sampleVideos[0].duration)
   const [volume, setVolume] = useState(80)
   const [isMuted, setIsMuted] = useState(false)
   const [showControls, setShowControls] = useState(true)
   const [localVideos, setLocalVideos] = useState<Video[]>([])
-  const controlsTimeoutRef = useRef<NodeJS.Timeout>()
+  const [isBuffering, setIsBuffering] = useState(false)
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const allVideos = [...sampleVideos, ...localVideos]
 
   const formatTime = (seconds: number) => {
+    if (!seconds || Number.isNaN(seconds)) return "0:00"
     const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
+    const secs = Math.floor(seconds % 60)
     return `${mins}:${secs.toString().padStart(2, "0")}`
+  }
+
+  const currentIndex = allVideos.findIndex((video) => video.id === currentVideo.id)
+
+  const selectVideo = (video: Video, shouldAutoplay = false) => {
+    setCurrentVideo(video)
+    setIsPlaying(shouldAutoplay)
+    setProgress(0)
+    setDuration(video.duration || 0)
+    setShowControls(true)
+  }
+
+  const playNext = () => {
+    if (allVideos.length === 0) return
+    const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % allVideos.length : 0
+    selectVideo(allVideos[nextIndex], true)
+  }
+
+  const playPrevious = () => {
+    const video = videoRef.current
+    if (video && video.currentTime > 3) {
+      video.currentTime = 0
+      setProgress(0)
+      return
+    }
+
+    if (allVideos.length === 0) return
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : allVideos.length - 1
+    selectVideo(allVideos[prevIndex], true)
   }
 
   const handleMouseMove = () => {
@@ -59,25 +92,46 @@ export function VideoPlayer() {
   const handleFileSelect = async (files: FileList | null) => {
     if (!files) return
 
-    const newVideos: Video[] = []
-    
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      if (file.type.startsWith("video/")) {
-        const url = URL.createObjectURL(file)
-        const video: Video = {
-          id: `local-${Date.now()}-${i}`,
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          description: "Local video file",
-          duration: 0,
-          thumbnailUrl: "",
-          videoUrl: url,
-        }
-        newVideos.push(video)
-      }
-    }
+    const newVideos = await Promise.all(
+      Array.from(files)
+        .filter((file) => file.type.startsWith("video/"))
+        .map(
+          (file, index) =>
+            new Promise<Video>((resolve) => {
+              const url = URL.createObjectURL(file)
+              const probe = document.createElement("video")
+              probe.preload = "metadata"
+              probe.src = url
+              probe.onloadedmetadata = () => {
+                const detectedDuration = Number.isFinite(probe.duration) ? Math.round(probe.duration) : 0
+                resolve({
+                  id: `local-${Date.now()}-${index}`,
+                  title: file.name.replace(/\.[^/.]+$/, ""),
+                  description: "Local video file",
+                  duration: detectedDuration,
+                  thumbnailUrl: "",
+                  videoUrl: url,
+                })
+              }
+              probe.onerror = () => {
+                resolve({
+                  id: `local-${Date.now()}-${index}`,
+                  title: file.name.replace(/\.[^/.]+$/, ""),
+                  description: "Local video file",
+                  duration: 0,
+                  thumbnailUrl: "",
+                  videoUrl: url,
+                })
+              }
+            })
+        )
+    )
     
     setLocalVideos(prev => [...prev, ...newVideos])
+
+    if (!currentVideo.videoUrl && newVideos[0]) {
+      selectVideo(newVideos[0])
+    }
   }
 
   const removeLocalVideo = (videoId: string) => {
@@ -87,8 +141,106 @@ export function VideoPlayer() {
     }
     setLocalVideos(prev => prev.filter(v => v.id !== videoId))
     if (currentVideo?.id === videoId) {
-      setCurrentVideo(sampleVideos[0])
+      selectVideo(sampleVideos[0])
     }
+  }
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !currentVideo.videoUrl) return
+
+    video.src = currentVideo.videoUrl
+    video.volume = isMuted ? 0 : volume / 100
+    video.load()
+
+    if (isPlaying) {
+      video.play().catch(() => {
+        setIsPlaying(false)
+      })
+    }
+  }, [currentVideo])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (isPlaying) {
+      video.play().catch(() => {
+        setIsPlaying(false)
+      })
+    } else {
+      video.pause()
+    }
+  }, [isPlaying])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.volume = isMuted ? 0 : volume / 100
+  }, [volume, isMuted])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const updateTime = () => {
+      setProgress(video.currentTime)
+      setDuration(Number.isFinite(video.duration) ? Math.round(video.duration) : currentVideo.duration)
+    }
+
+    const handleLoadedMetadata = () => {
+      setDuration(Number.isFinite(video.duration) ? Math.round(video.duration) : currentVideo.duration)
+      setProgress(video.currentTime || 0)
+    }
+
+    const handleWaiting = () => setIsBuffering(true)
+    const handlePlaying = () => setIsBuffering(false)
+    const handleEnded = () => playNext()
+
+    video.addEventListener("timeupdate", updateTime)
+    video.addEventListener("loadedmetadata", handleLoadedMetadata)
+    video.addEventListener("waiting", handleWaiting)
+    video.addEventListener("playing", handlePlaying)
+    video.addEventListener("ended", handleEnded)
+
+    return () => {
+      video.removeEventListener("timeupdate", updateTime)
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata)
+      video.removeEventListener("waiting", handleWaiting)
+      video.removeEventListener("playing", handlePlaying)
+      video.removeEventListener("ended", handleEnded)
+    }
+  }, [currentVideo, currentIndex, allVideos])
+
+  const handleSeek = (value: number[]) => {
+    const video = videoRef.current
+    if (!video) return
+    video.currentTime = value[0]
+    setProgress(value[0])
+  }
+
+  const togglePictureInPicture = async () => {
+    const video = videoRef.current
+    if (!video || !(document as Document & { pictureInPictureEnabled?: boolean }).pictureInPictureEnabled) return
+
+    if (document.pictureInPictureElement) {
+      await document.exitPictureInPicture()
+      return
+    }
+
+    await video.requestPictureInPicture()
+  }
+
+  const toggleFullscreen = async () => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (document.fullscreenElement) {
+      await document.exitFullscreen()
+      return
+    }
+
+    await video.requestFullscreen()
   }
 
   return (
@@ -150,7 +302,19 @@ export function VideoPlayer() {
             onMouseLeave={() => isPlaying && setShowControls(false)}
             onClick={() => setIsPlaying(!isPlaying)}
           >
-            {currentVideo.thumbnailUrl ? (
+            {currentVideo.videoUrl ? (
+              <video
+                ref={videoRef}
+                className="h-full w-full object-cover"
+                playsInline
+                preload="metadata"
+                poster={currentVideo.thumbnailUrl || undefined}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  setIsPlaying((prev) => !prev)
+                }}
+              />
+            ) : currentVideo.thumbnailUrl ? (
               <img
                 src={currentVideo.thumbnailUrl}
                 alt={currentVideo.title}
@@ -166,8 +330,9 @@ export function VideoPlayer() {
             {/* Terminal overlay */}
             <div className="absolute left-3 top-3 text-xs text-primary/70">
               <div>[SYS] VIDEO_DECODER_v3.1</div>
-              <div>[CODEC] H.264/AVC</div>
+              <div>[CODEC] {currentVideo.videoUrl ? "HTML5_MEDIA" : "STANDBY"}</div>
               <div>[STATUS] {isPlaying ? "PLAYING" : "PAUSED"}</div>
+              {isBuffering && <div>[BUFFER] LOADING...</div>}
             </div>
             
             {/* Play Overlay */}
@@ -182,7 +347,7 @@ export function VideoPlayer() {
             {/* Video Controls */}
             <div
               className={cn(
-                "absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4 transition-opacity",
+                "absolute inset-x-0 bottom-0 bg-linear-to-t from-background/90 to-transparent p-4 transition-opacity",
                 showControls ? "opacity-100" : "opacity-0"
               )}
               onClick={(e) => e.stopPropagation()}
@@ -191,9 +356,9 @@ export function VideoPlayer() {
               <div className="mb-4">
                 <Slider
                   value={[Number(progress) || 0]}
-                  onValueChange={(value) => setProgress(value[0])}
+                  onValueChange={handleSeek}
                   min={0}
-                  max={100}
+                  max={Math.max(duration, 1)}
                   step={0.1}
                   className="w-full"
                 />
@@ -213,6 +378,7 @@ export function VideoPlayer() {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-foreground hover:bg-foreground/20"
+                    onClick={playPrevious}
                   >
                     <SkipBack className="h-4 w-4" />
                   </Button>
@@ -220,6 +386,7 @@ export function VideoPlayer() {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-foreground hover:bg-foreground/20"
+                    onClick={playNext}
                   >
                     <SkipForward className="h-4 w-4" />
                   </Button>
@@ -247,7 +414,7 @@ export function VideoPlayer() {
                   </div>
 
                   <span className="ml-2 text-xs text-foreground">
-                    [{formatTime(Math.floor((progress / 100) * currentVideo.duration))}] / [{formatTime(currentVideo.duration)}]
+                    [{formatTime(progress)}] / [{formatTime(duration || currentVideo.duration)}]
                   </span>
                 </div>
 
@@ -270,6 +437,7 @@ export function VideoPlayer() {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-foreground hover:bg-foreground/20"
+                    onClick={togglePictureInPicture}
                   >
                     <PictureInPicture className="h-4 w-4" />
                   </Button>
@@ -277,6 +445,7 @@ export function VideoPlayer() {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-foreground hover:bg-foreground/20"
+                    onClick={toggleFullscreen}
                   >
                     <Maximize2 className="h-4 w-4" />
                   </Button>
@@ -305,9 +474,7 @@ export function VideoPlayer() {
               <button
                 key={video.id}
                 onClick={() => {
-                  setCurrentVideo(video)
-                  setIsPlaying(false)
-                  setProgress(0)
+                  selectVideo(video)
                 }}
                 className={cn(
                   "flex w-full gap-3 p-4 text-left transition-colors hover:bg-accent/50",
@@ -317,7 +484,7 @@ export function VideoPlayer() {
                 <span className="flex h-6 w-6 items-center justify-center text-xs text-muted-foreground">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <div className="relative h-16 w-28 flex-shrink-0 overflow-hidden border border-border">
+                <div className="relative h-16 w-28 shrink-0 overflow-hidden border border-border">
                   {video.thumbnailUrl ? (
                     <img
                       src={video.thumbnailUrl}
@@ -346,7 +513,7 @@ export function VideoPlayer() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 flex-shrink-0 text-muted-foreground hover:text-destructive"
+                    className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
                     onClick={(e) => {
                       e.stopPropagation()
                       removeLocalVideo(video.id)

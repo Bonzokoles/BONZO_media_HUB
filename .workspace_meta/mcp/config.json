@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "_instructions": "Dodaj swoje serwery MCP poniżej. Używaj ${env:VARIABLE_NAME} dla secrets.",
+
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    },
+
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-supabase"],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "${env:SUPABASE_ACCESS_TOKEN}",
+        "SUPABASE_PROJECT_ID": "${env:SUPABASE_PROJECT_ID}"
+      }
+    },
+
+    "awesome-copilot": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "ghcr.io/github/awesome-copilot-mcp"]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Film, Check, ExternalLink, Info, AlertTriangle } from "lucide-react"
+import { Film, Check, ExternalLink, Info, AlertTriangle, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -20,6 +20,7 @@ type VideoEngine = {
   features: string[]
   status: "available" | "requires-setup" | "browser-native"
   setupUrl?: string
+  recommended?: boolean
 }
 
 const videoEngines: VideoEngine[] = [
@@ -37,6 +38,7 @@ const videoEngines: VideoEngine[] = [
     features: ["HLS/DASH", "Plugins", "Customizable skin", "Accessibility"],
     status: "available",
     setupUrl: "https://videojs.com/",
+    recommended: true,
   },
   {
     id: "plyr",
@@ -169,9 +171,17 @@ export function VideoEngineSettings() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-medium uppercase tracking-wider">
-                      {engine.name}
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-medium uppercase tracking-wider">
+                        {engine.name}
+                      </h4>
+                      {engine.recommended && (
+                        <span className="flex items-center gap-1 rounded bg-primary/20 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider text-primary">
+                          <Star className="h-2.5 w-2.5" />
+                          RECOMMENDED
+                        </span>
+                      )}
+                    </div>
                     {getStatusBadge(engine.status)}
                   </div>
                   <p className="mt-1 text-xs text-muted-foreground">

@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Download, Monitor, Smartphone, Chrome, CheckCircle, ExternalLink } from "lucide-react"
+import { Download, Monitor, Smartphone, Chrome, CheckCircle, Star } from "lucide-react"
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -22,20 +22,18 @@ export function PWAInstaller() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [isInstalled, setIsInstalled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [installing, setInstalling] = useState(false)
 
   useEffect(() => {
-    // Check if already installed
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setIsInstalled(true)
     }
 
-    // Listen for install prompt
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
     }
 
-    // Listen for successful install
     const handleAppInstalled = () => {
       setIsInstalled(true)
       setDeferredPrompt(null)
@@ -52,15 +50,33 @@ export function PWAInstaller() {
 
   const handleInstall = async () => {
     if (!deferredPrompt) return
-
+    setInstalling(true)
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
-
-    if (outcome === "accepted") {
-      setIsInstalled(true)
-    }
+    if (outcome === "accepted") setIsInstalled(true)
     setDeferredPrompt(null)
+    setInstalling(false)
   }
+
+  const InstallButton = ({ label }: { label: string }) => (
+    <div className="mt-4 border-t border-border pt-4">
+      {deferredPrompt ? (
+        <Button
+          onClick={handleInstall}
+          disabled={installing}
+          className="w-full gap-2 text-xs uppercase tracking-wider"
+        >
+          <Download className="h-4 w-4" />
+          {installing ? "INSTALLING..." : label}
+        </Button>
+      ) : (
+        <div className="border border-border bg-secondary/30 p-3 text-xs text-muted-foreground">
+          <span className="mb-1 block uppercase tracking-wider text-foreground">[MANUAL_INSTALL]</span>
+          Install icon appears in address bar when app is installable. Use the browser menu if icon is missing.
+        </div>
+      )}
+    </div>
+  )
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -89,27 +105,10 @@ export function PWAInstaller() {
           <div className="flex items-center gap-3 border border-primary/50 bg-primary/10 p-4">
             <CheckCircle className="h-5 w-5 text-primary" />
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-                APP_INSTALLED
-              </p>
+              <p className="text-sm font-semibold uppercase tracking-wider text-primary">APP_INSTALLED</p>
               <p className="text-xs text-muted-foreground">
                 BONZO_media_HUB is installed and ready for offline use
               </p>
-            </div>
-          </div>
-        ) : deferredPrompt ? (
-          <div className="space-y-4">
-            <div className="border border-border bg-card p-4">
-              <p className="mb-3 text-xs uppercase tracking-wider text-muted-foreground">
-                [QUICK_INSTALL]
-              </p>
-              <Button
-                onClick={handleInstall}
-                className="w-full gap-2 text-xs uppercase tracking-wider"
-              >
-                <Download className="h-4 w-4" />
-                INSTALL_NOW
-              </Button>
             </div>
           </div>
         ) : (
@@ -118,6 +117,7 @@ export function PWAInstaller() {
               <TabsTrigger value="windows" className="gap-2 text-xs uppercase">
                 <Monitor className="h-3 w-3" />
                 WINDOWS
+                <span className="ml-1 rounded bg-primary/20 px-1 py-0.5 text-[9px] text-primary">BEST</span>
               </TabsTrigger>
               <TabsTrigger value="android" className="gap-2 text-xs uppercase">
                 <Smartphone className="h-3 w-3" />
@@ -130,18 +130,28 @@ export function PWAInstaller() {
             </TabsList>
 
             <TabsContent value="windows" className="mt-4 space-y-4">
-              <div className="border border-border bg-card p-4">
-                <p className="mb-3 text-xs uppercase tracking-wider text-primary">
-                  [WINDOWS_INSTALLATION]
+              <div className="border border-primary/40 bg-primary/5 p-3">
+                <div className="flex items-center gap-2">
+                  <Star className="h-3 w-3 text-primary" />
+                  <span className="text-xs font-medium uppercase tracking-wider text-primary">
+                    RECOMMENDED: MICROSOFT_EDGE
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Edge provides the best PWA experience on Windows — runs as native app with system integration
                 </p>
+              </div>
+
+              <div className="border border-border bg-card p-4">
+                <p className="mb-3 text-xs uppercase tracking-wider text-primary">[WINDOWS_INSTALLATION]</p>
                 <div className="space-y-3 text-xs">
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">01.</span>
-                    <span>Open BONZO_media_HUB in Microsoft Edge or Chrome</span>
+                    <span>Open BONZO_media_HUB in Microsoft Edge <span className="text-primary">(recommended)</span> or Chrome</span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">02.</span>
-                    <span>Click the install icon in the address bar (or menu)</span>
+                    <span>Click the install icon (⊕) in the address bar</span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">03.</span>
@@ -149,101 +159,75 @@ export function PWAInstaller() {
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">04.</span>
-                    <span>App will appear in Start Menu and Desktop</span>
+                    <span>App appears in Start Menu, Desktop, and taskbar</span>
                   </div>
                 </div>
-                <div className="mt-4 border-t border-border pt-4">
-                  <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-                    [EDGE_SHORTCUT]
-                  </p>
-                  <code className="block bg-muted p-2 text-xs">
-                    Menu (...) → Apps → Install this site as an app
-                  </code>
-                </div>
-                <div className="mt-4 border-t border-border pt-4">
-                  <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-                    [CHROME_SHORTCUT]
-                  </p>
-                  <code className="block bg-muted p-2 text-xs">
-                    Menu (⋮) → Save and share → Install page as app...
-                  </code>
+                <div className="mt-4 grid grid-cols-2 gap-2 border-t border-border pt-4">
+                  <div>
+                    <p className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">[EDGE]</p>
+                    <code className="block bg-muted p-2 text-xs">(...) → Apps → Install this site</code>
+                  </div>
+                  <div>
+                    <p className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">[CHROME]</p>
+                    <code className="block bg-muted p-2 text-xs">(⋮) → Save and share → Install...</code>
+                  </div>
                 </div>
               </div>
 
-              <div className="border border-accent/30 bg-accent/10 p-4">
-                <p className="mb-2 text-xs uppercase tracking-wider text-accent">
-                  [BACKGROUND_AUDIO]
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  After installation, music will continue playing when the window is minimized
-                  or when using other applications.
-                </p>
-              </div>
+              <InstallButton label="INSTALL_TO_WINDOWS" />
             </TabsContent>
 
             <TabsContent value="android" className="mt-4 space-y-4">
-              <div className="border border-border bg-card p-4">
-                <p className="mb-3 text-xs uppercase tracking-wider text-primary">
-                  [ANDROID_INSTALLATION]
+              <div className="border border-primary/40 bg-primary/5 p-3">
+                <div className="flex items-center gap-2">
+                  <Star className="h-3 w-3 text-primary" />
+                  <span className="text-xs font-medium uppercase tracking-wider text-primary">
+                    RECOMMENDED: CHROME_FOR_ANDROID
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Chrome Android delivers the best PWA install with background audio and lock screen controls
                 </p>
+              </div>
+
+              <div className="border border-border bg-card p-4">
+                <p className="mb-3 text-xs uppercase tracking-wider text-primary">[ANDROID_INSTALLATION]</p>
                 <div className="space-y-3 text-xs">
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">01.</span>
-                    <span>Open BONZO_media_HUB in Chrome browser</span>
+                    <span>Open in Chrome browser <span className="text-primary">(recommended)</span></span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">02.</span>
-                    <span>Tap the menu button (⋮) in top right</span>
+                    <span>Tap the menu button (⋮) → &quot;Add to Home screen&quot;</span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">03.</span>
-                    <span>Select &quot;Add to Home screen&quot; or &quot;Install app&quot;</span>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-muted-foreground">04.</span>
                     <span>Tap &quot;Install&quot; to confirm</span>
                   </div>
                   <div className="flex gap-3">
-                    <span className="text-muted-foreground">05.</span>
-                    <span>App icon will appear on home screen</span>
+                    <span className="text-muted-foreground">04.</span>
+                    <span>App icon appears on home screen</span>
                   </div>
                 </div>
-                <div className="mt-4 border-t border-border pt-4">
-                  <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-                    [ALTERNATIVE_BROWSERS]
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Samsung Internet, Firefox, Opera also support PWA installation
-                  </p>
+                <div className="mt-4 border-t border-border pt-3">
+                  <p className="mb-1 text-xs text-muted-foreground">Also supported: Samsung Internet, Firefox, Opera</p>
                 </div>
               </div>
 
-              <div className="border border-accent/30 bg-accent/10 p-4">
-                <p className="mb-2 text-xs uppercase tracking-wider text-accent">
-                  [BACKGROUND_PLAYBACK]
-                </p>
+              <div className="border border-accent/30 bg-accent/10 p-3">
+                <p className="mb-1 text-xs uppercase tracking-wider text-accent">[BACKGROUND_PLAYBACK]</p>
                 <p className="text-xs text-muted-foreground">
-                  Music continues playing when screen is off or using other apps.
-                  Control playback from notification panel or lock screen.
+                  Music continues when screen is off. Control from notification panel or lock screen.
                 </p>
               </div>
 
-              <div className="border border-primary/30 bg-primary/10 p-4">
-                <p className="mb-2 text-xs uppercase tracking-wider text-primary">
-                  [OFFLINE_MODE]
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Previously loaded content and local media files are available offline.
-                  The app caches essential resources automatically.
-                </p>
-              </div>
+              <InstallButton label="INSTALL_TO_ANDROID" />
             </TabsContent>
 
             <TabsContent value="chrome" className="mt-4 space-y-4">
               <div className="border border-border bg-card p-4">
-                <p className="mb-3 text-xs uppercase tracking-wider text-primary">
-                  [CHROME_DESKTOP_INSTALLATION]
-                </p>
+                <p className="mb-3 text-xs uppercase tracking-wider text-primary">[CHROME_DESKTOP_INSTALLATION]</p>
                 <div className="space-y-3 text-xs">
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">01.</span>
@@ -251,7 +235,7 @@ export function PWAInstaller() {
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">02.</span>
-                    <span>Or click Menu (⋮) → Save and share → Install...</span>
+                    <span>Or: Menu (⋮) → Save and share → Install page as app...</span>
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">03.</span>
@@ -259,55 +243,31 @@ export function PWAInstaller() {
                   </div>
                   <div className="flex gap-3">
                     <span className="text-muted-foreground">04.</span>
-                    <span>App opens in its own window</span>
+                    <span>App opens in its own window without browser UI</span>
                   </div>
                 </div>
               </div>
 
               <div className="border border-border bg-card p-4">
-                <p className="mb-3 text-xs uppercase tracking-wider text-primary">
-                  [MANAGE_INSTALLED_APPS]
-                </p>
-                <code className="block bg-muted p-2 text-xs">
-                  chrome://apps
-                </code>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  View and manage all installed PWAs in Chrome
-                </p>
+                <p className="mb-2 text-xs uppercase tracking-wider text-primary">[MANAGE_INSTALLED_APPS]</p>
+                <code className="block bg-muted p-2 text-xs">chrome://apps</code>
+                <p className="mt-2 text-xs text-muted-foreground">View and manage all installed PWAs in Chrome</p>
               </div>
+
+              <InstallButton label="INSTALL_TO_CHROME" />
             </TabsContent>
           </Tabs>
         )}
 
         <div className="mt-4 border-t border-border pt-4">
-          <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-            [FEATURES_AFTER_INSTALL]
-          </p>
+          <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">[FEATURES_AFTER_INSTALL]</p>
           <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-3 w-3 text-primary" />
-              <span>Offline support</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-3 w-3 text-primary" />
-              <span>Background audio</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-3 w-3 text-primary" />
-              <span>System integration</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-3 w-3 text-primary" />
-              <span>Desktop shortcuts</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-3 w-3 text-primary" />
-              <span>Media controls</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-3 w-3 text-primary" />
-              <span>Auto updates</span>
-            </div>
+            {["Offline support", "Background audio", "System integration", "Desktop shortcuts", "Media controls", "Auto updates"].map((f) => (
+              <div key={f} className="flex items-center gap-2">
+                <CheckCircle className="h-3 w-3 text-primary" />
+                <span>{f}</span>
+              </div>
+            ))}
           </div>
         </div>
       </DialogContent>

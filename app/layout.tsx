@@ -38,8 +38,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${jetbrainsMono.variable} font-mono antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${jetbrainsMono.variable} font-mono antialiased`}>
         <ServiceWorkerRegister />
         {children}
         <Analytics />

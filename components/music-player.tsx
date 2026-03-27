@@ -92,8 +92,16 @@ export function MusicPlayer() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
   const preloadAudioRef = useRef<HTMLAudioElement | null>(null)
+  const preloadedTracksRef = useRef<Set<string>>(new Set())
 
   const allTracks = [...sampleTracks, ...localTracks]
+
+  const ensureTrackSelected = useCallback(() => {
+    if (currentTrack) return currentTrack
+    const fallbackTrack = queue[queueIndex] || sampleTracks[0]
+    setCurrentTrack(fallbackTrack)
+    return fallbackTrack
+  }, [currentTrack, queue, queueIndex, setCurrentTrack])
 
   const formatTime = (seconds: number) => {
     if (!seconds || isNaN(seconds)) return "0:00"
@@ -104,16 +112,17 @@ export function MusicPlayer() {
 
   // Buffer/preload next track
   const preloadTrack = useCallback((track: Track) => {
-    if (!track.audioUrl || bufferStates.get(track.id)?.loaded) return
-    
+    if (!track.audioUrl || preloadedTracksRef.current.has(track.id)) return
+    preloadedTracksRef.current.add(track.id)
+
     if (!preloadAudioRef.current) {
       preloadAudioRef.current = new Audio()
     }
-    
+
     const audio = preloadAudioRef.current
     audio.preload = "auto"
     audio.src = track.audioUrl
-    
+
     setBufferStates(prev => {
       const newMap = new Map(prev)
       newMap.set(track.id, { trackId: track.id, progress: 0, loaded: false })
@@ -143,7 +152,7 @@ export function MusicPlayer() {
     }
     
     audio.load()
-  }, [bufferStates])
+  }, [])
 
   // Preload next track in queue
   useEffect(() => {
@@ -156,6 +165,12 @@ export function MusicPlayer() {
   const handleTrackSelect = (track: Track) => {
     setCurrentTrack(track)
     setIsPlaying(true)
+    if (!queue.find((queuedTrack) => queuedTrack.id === track.id)) {
+      setQueue((prev) => [...prev, track])
+      setQueueIndex(queue.length)
+    } else {
+      setQueueIndex(queue.findIndex((queuedTrack) => queuedTrack.id === track.id))
+    }
   }
 
   const addToQueue = (track: Track) => {
@@ -303,25 +318,43 @@ export function MusicPlayer() {
   const handleFileSelect = async (files: FileList | null) => {
     if (!files) return
 
-    const newTracks: Track[] = []
-    
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      if (file.type.startsWith("audio/")) {
-        const url = URL.createObjectURL(file)
-        const track: Track = {
-          id: `local-${Date.now()}-${i}`,
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          artist: "Local File",
-          album: "Local Library",
-          duration: 0,
-          coverUrl: "",
-          audioUrl: url,
-        }
-        newTracks.push(track)
-      }
-    }
-    
+    const newTracks = await Promise.all(
+      Array.from(files)
+        .filter((file) => file.type.startsWith("audio/"))
+        .map(
+          (file, index) =>
+            new Promise<Track>((resolve) => {
+              const url = URL.createObjectURL(file)
+              const probe = document.createElement("audio")
+              probe.preload = "metadata"
+              probe.src = url
+              probe.onloadedmetadata = () => {
+                const detectedDuration = Number.isFinite(probe.duration) ? Math.round(probe.duration) : 0
+                resolve({
+                  id: `local-${Date.now()}-${index}`,
+                  title: file.name.replace(/\.[^/.]+$/, ""),
+                  artist: "Local File",
+                  album: "Local Library",
+                  duration: detectedDuration,
+                  coverUrl: "",
+                  audioUrl: url,
+                })
+              }
+              probe.onerror = () => {
+                resolve({
+                  id: `local-${Date.now()}-${index}`,
+                  title: file.name.replace(/\.[^/.]+$/, ""),
+                  artist: "Local File",
+                  album: "Local Library",
+                  duration: 0,
+                  coverUrl: "",
+                  audioUrl: url,
+                })
+              }
+            })
+        )
+    )
+
     setLocalTracks(prev => [...prev, ...newTracks])
   }
 
@@ -402,6 +435,22 @@ export function MusicPlayer() {
     audio.volume = isMuted ? 0 : volume / 100
   }, [volume, isMuted])
 
+  useEffect(() => {
+    if (!currentTrack && sampleTracks[0]) {
+      setCurrentTrack(sampleTracks[0])
+    }
+
+    if (queue.length === 0) {
+      setQueue(sampleTracks)
+      setQueueIndex(0)
+    }
+  }, [currentTrack, queue.length, setCurrentTrack])
+
+  const togglePlayback = () => {
+    ensureTrackSelected()
+    setIsPlaying(!isPlaying)
+  }
+
   const handleSeek = (value: number[]) => {
     const audio = audioRef.current
     if (audio && duration) {
@@ -464,6 +513,9 @@ export function MusicPlayer() {
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold uppercase tracking-widest text-primary">
             {">"} AUDIO_PLAYER
+            <span className="ml-2 inline-flex items-center gap-1 align-middle rounded bg-primary/15 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider text-primary/80">
+              ENGINE: WEB_AUDIO_API
+            </span>
           </h2>
           <div className="flex items-center gap-2">
             <Button
@@ -520,7 +572,7 @@ export function MusicPlayer() {
             </div>
             
             {/* TOP OVERLAY: Track Info + Controls */}
-            <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-background/90 to-transparent p-4">
+            <div className="absolute inset-x-0 top-0 bg-linear-to-b from-background/90 to-transparent p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="text-xs text-primary/70 mb-1">[NOW_PLAYING]</div>
@@ -550,7 +602,7 @@ export function MusicPlayer() {
                     size="icon"
                     variant="ghost"
                     className="h-10 w-10 border border-primary bg-primary/20 hover:bg-primary/40"
-                    onClick={() => setIsPlaying(!isPlaying)}
+                    onClick={togglePlayback}
                   >
                     {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="ml-0.5 h-5 w-5" />}
                   </Button>
@@ -624,7 +676,7 @@ export function MusicPlayer() {
             <Button
               size="icon"
               className="h-12 w-12 border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={togglePlayback}
             >
               {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="ml-0.5 h-6 w-6" />}
             </Button>
@@ -836,7 +888,7 @@ export function MusicPlayer() {
                   </span>
                   <button
                     onClick={() => handleTrackSelect(track)}
-                    className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center border border-border bg-secondary"
+                    className="relative flex h-10 w-10 shrink-0 items-center justify-center border border-border bg-secondary"
                   >
                     {track.coverUrl ? (
                       <img
@@ -926,7 +978,7 @@ export function MusicPlayer() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 flex-shrink-0"
+                    className="h-8 w-8 shrink-0"
                     onClick={() => toggleFavorite("tracks", track.id)}
                   >
                     <Heart
@@ -942,7 +994,7 @@ export function MusicPlayer() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 flex-shrink-0 text-muted-foreground hover:text-destructive"
+                      className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
                       onClick={() => removeLocalTrack(track.id)}
                     >
                       <X className="h-4 w-4" />
