@@ -15,3 +15,8 @@ next.user-config.*
 node_modules
 .next/
 .DS_Store
+out/
+
+# Workspace meta
+.workspace_meta/secrets/
+.workspace_meta/awesome-copilot/
