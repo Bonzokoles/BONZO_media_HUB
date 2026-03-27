@@ -20,3 +20,11 @@ out/
 # Workspace meta
 .workspace_meta/secrets/
 .workspace_meta/awesome-copilot/
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
