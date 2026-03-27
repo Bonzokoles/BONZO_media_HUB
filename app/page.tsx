@@ -8,6 +8,7 @@ import { MusicPlayer } from "@/components/music-player"
 import { VideoPlayer } from "@/components/video-player"
 import { FilmLibrary } from "@/components/film-library"
 import { LinksManager } from "@/components/links-manager"
+import { StreamsPanel } from "@/components/streams-panel"
 import { MobileHeader } from "@/components/mobile-header"
 
 function MainContent() {
@@ -23,6 +24,7 @@ function MainContent() {
           {activeView === "video" && <VideoPlayer />}
           {activeView === "films" && <FilmLibrary />}
           {activeView === "links" && <LinksManager />}
+          {activeView === "streams" && <StreamsPanel />}
         </div>
       </main>
       <MobileNav />

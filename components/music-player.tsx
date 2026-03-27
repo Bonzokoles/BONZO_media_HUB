@@ -61,7 +61,7 @@ interface BufferState {
 }
 
 export function MusicPlayer() {
-  const { currentTrack, setCurrentTrack, isPlaying, setIsPlaying, favorites, toggleFavorite } = useMedia()
+  const { currentTrack, setCurrentTrack, isPlaying, setIsPlaying, favorites, toggleFavorite, localTracks, addLocalTracks, removeLocalTrack: removeLocalTrackFromCtx } = useMedia()
   const [progress, setProgress] = useState<number>(0)
   const [duration, setDuration] = useState<number>(0)
   const [volume, setVolume] = useState<number>(75)
@@ -69,7 +69,6 @@ export function MusicPlayer() {
   const [visualizerType, setVisualizerType] = useState<VisualizerType>("spectrum")
   const [visualizerConfig, setVisualizerConfig] = useState<VisualizerConfig>({ ...defaultVisualizerConfig })
   const [searchQuery, setSearchQuery] = useState("")
-  const [localTracks, setLocalTracks] = useState<Track[]>([])
   const [audioAnalyser, setAudioAnalyser] = useState<AnalyserNode | null>(null)
   
   // Playlist & Queue state
@@ -355,15 +354,15 @@ export function MusicPlayer() {
         )
     )
 
-    setLocalTracks(prev => [...prev, ...newTracks])
+    addLocalTracks(newTracks)
   }
 
   const removeLocalTrack = (trackId: string) => {
-    const track = localTracks.find(t => t.id === trackId)
+    const track = localTracks.find((t) => t.id === trackId)
     if (track?.audioUrl) {
       URL.revokeObjectURL(track.audioUrl)
     }
-    setLocalTracks(prev => prev.filter(t => t.id !== trackId))
+    removeLocalTrackFromCtx(trackId)
     if (currentTrack?.id === trackId) {
       setCurrentTrack(null)
       setIsPlaying(false)

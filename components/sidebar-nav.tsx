@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { useMedia } from "@/lib/media-context"
-import { Music, Film, Link2, Video, Heart, Library, Terminal } from "lucide-react"
+import { Music, Film, Link2, Video, Heart, Library, Terminal, Radio } from "lucide-react"
 import { ThemeSettings } from "@/components/theme-settings"
 import { AIToolsPanel } from "@/components/ai-tools-panel"
 import { PWAInstaller } from "@/components/pwa-installer"
@@ -15,6 +15,7 @@ export function SidebarNav() {
     { id: "video" as const, label: "VIDEO", icon: Video },
     { id: "films" as const, label: "FILMS", icon: Film },
     { id: "links" as const, label: "LINKS", icon: Link2 },
+    { id: "streams" as const, label: "STREAMS", icon: Radio },
   ]
 
   return (

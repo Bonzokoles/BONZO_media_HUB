@@ -10,6 +10,8 @@ export interface Track {
   duration: number
   coverUrl: string
   audioUrl?: string
+  sourceService?: string   // "soundcloud" | "tidal" | "indieshuffle" | "musicatlas" | "local"
+  sourceUrl?: string       // URL skąd pochodzi utwór
 }
 
 export interface Video {
@@ -42,7 +44,7 @@ export interface WebLink {
   createdAt: Date
 }
 
-type ActiveView = "music" | "video" | "films" | "links"
+type ActiveView = "music" | "video" | "films" | "links" | "streams"
 
 interface MediaContextType {
   activeView: ActiveView
@@ -59,6 +61,11 @@ interface MediaContextType {
     links: string[]
   }
   toggleFavorite: (type: "tracks" | "films" | "links", id: string) => void
+  // Globalna biblioteka lokalnych tracków (z plików + ze streamów)
+  localTracks: Track[]
+  addLocalTrack: (track: Track) => void
+  addLocalTracks: (tracks: Track[]) => void
+  removeLocalTrack: (id: string) => void
 }
 
 const MediaContext = createContext<MediaContextType | undefined>(undefined)
@@ -77,6 +84,7 @@ export function MediaProvider({ children }: { children: ReactNode }) {
     films: [],
     links: [],
   })
+  const [localTracks, setLocalTracks] = useState<Track[]>([])
 
   const toggleFavorite = useCallback((type: "tracks" | "films" | "links", id: string) => {
     setFavorites((prev) => ({
@@ -85,6 +93,26 @@ export function MediaProvider({ children }: { children: ReactNode }) {
         ? prev[type].filter((i) => i !== id)
         : [...prev[type], id],
     }))
+  }, [])
+
+  const addLocalTrack = useCallback((track: Track) => {
+    setLocalTracks((prev) => {
+      // Unikaj duplikatów po id
+      if (prev.find((t) => t.id === track.id)) return prev
+      return [...prev, track]
+    })
+  }, [])
+
+  const addLocalTracks = useCallback((tracks: Track[]) => {
+    setLocalTracks((prev) => {
+      const existingIds = new Set(prev.map((t) => t.id))
+      const newTracks = tracks.filter((t) => !existingIds.has(t.id))
+      return [...prev, ...newTracks]
+    })
+  }, [])
+
+  const removeLocalTrack = useCallback((id: string) => {
+    setLocalTracks((prev) => prev.filter((t) => t.id !== id))
   }, [])
 
   return (
@@ -100,6 +128,10 @@ export function MediaProvider({ children }: { children: ReactNode }) {
         setCurrentVideo,
         favorites,
         toggleFavorite,
+        localTracks,
+        addLocalTrack,
+        addLocalTracks,
+        removeLocalTrack,
       }}
     >
       {children}
