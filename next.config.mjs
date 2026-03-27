@@ -4,13 +4,9 @@ const BASE_PATH = process.env.NODE_ENV === 'production' ? '/BONZO_media_HUB' : '
 
 const withPWA = withPWAInit({
   dest: 'public',          // sw.js ląduje w public/ → trafia do statycznego buildu
-  cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
-  reloadOnOnline: true,    // odśwież gdy wraca internet
+  // fallbacks NIE działa z output:'export' (wymaga SSR) — pominięte
+  reloadOnOnline: true,
   disable: false,
-  fallbacks: {
-    document: '/offline',  // strona offline
-  },
   workboxOptions: {
     skipWaiting: true,
     clientsClaim: true,
