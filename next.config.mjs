@@ -1,6 +1,11 @@
 import withPWAInit from '@ducanh2912/next-pwa'
 
-const BASE_PATH = process.env.NODE_ENV === 'production' ? '/BONZO_media_HUB' : ''
+// NEXT_PUBLIC_BASE_PATH=/media-hub   → Cloudflare Pages (zenbrowsers.org/media-hub)
+// (brak)                             → GitHub Pages    (/BONZO_media_HUB)
+// NODE_ENV=development               → lokalnie         ('')
+const BASE_PATH =
+  process.env.NEXT_PUBLIC_BASE_PATH ??
+  (process.env.NODE_ENV === 'production' ? '/BONZO_media_HUB' : '')
 
 const withPWA = withPWAInit({
   dest: 'public',          // sw.js ląduje w public/ → trafia do statycznego buildu
