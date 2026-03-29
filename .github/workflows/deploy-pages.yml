@@ -37,6 +37,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          NEXT_STATIC_EXPORT: "1"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
