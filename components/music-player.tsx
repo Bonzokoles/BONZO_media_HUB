@@ -384,6 +384,23 @@ export function MusicPlayer() {
     addLocalTracks(newTracks)
   }
 
+  useEffect(() => {
+    const onLocalFiles = (event: Event) => {
+      const custom = event as CustomEvent<{ kind: "music" | "video"; files: File[] }>
+      if (custom.detail?.kind !== "music") return
+
+      const selected = custom.detail.files || []
+      if (!selected.length) return
+
+      const dataTransfer = new DataTransfer()
+      selected.forEach((file) => dataTransfer.items.add(file))
+      handleFileSelect(dataTransfer.files)
+    }
+
+    window.addEventListener("bonzo-local-files", onLocalFiles)
+    return () => window.removeEventListener("bonzo-local-files", onLocalFiles)
+  }, [addLocalTracks])
+
   const removeLocalTrack = (trackId: string) => {
     const track = localTracks.find((t) => t.id === trackId)
     if (track?.audioUrl) {

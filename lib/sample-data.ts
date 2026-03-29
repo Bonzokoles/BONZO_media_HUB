@@ -1,61 +1,72 @@
 import type { Track, Video, Film, WebLink } from "./media-context"
 
-export const sampleTracks: Track[] = [
-  {
-    id: "1",
-    title: "Midnight Dreams",
-    artist: "Aurora Waves",
-    album: "Nocturnal",
-    duration: 32,
-    coverUrl: "https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=300&h=300&fit=crop",
-    audioUrl: "https://samplelib.com/lib/preview/mp3/sample-3s.mp3",
-  },
-  {
-    id: "2",
-    title: "Electric Pulse",
-    artist: "Neon Lights",
-    album: "Voltage",
-    duration: 75,
-    coverUrl: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop",
-    audioUrl: "https://samplelib.com/lib/preview/mp3/sample-6s.mp3",
-  },
-  {
-    id: "3",
-    title: "Ocean Breeze",
-    artist: "Coastal Vibes",
-    album: "Serenity",
-    duration: 165,
-    coverUrl: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=300&h=300&fit=crop",
-    audioUrl: "https://samplelib.com/lib/preview/mp3/sample-9s.mp3",
-  },
-  {
-    id: "4",
-    title: "Urban Rhythm",
-    artist: "City Beats",
-    album: "Metropolis",
-    duration: 288,
-    coverUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop",
-    audioUrl: "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
-  },
-  {
-    id: "5",
-    title: "Stellar Journey",
-    artist: "Cosmic Sound",
-    album: "Galaxy",
-    duration: 348,
-    coverUrl: "https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&h=300&fit=crop",
-    audioUrl: "https://samplelib.com/lib/preview/mp3/sample-15s.mp3",
-  },
-  {
-    id: "6",
-    title: "Summer Nights",
-    artist: "Tropical Beat",
-    album: "Paradise",
-    duration: 423,
-    coverUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop",
-    audioUrl: "https://samplelib.com/lib/preview/mp3/sample-15s.mp3",
-  },
-]
+const publicMusicFiles = [
+  "01. Personal Jesus.mp3",
+  "02 - Miuosh - Neony.mp3",
+  "02.Męskie Granie 2020 - Byłaś serca biciem.mp3",
+  "03. Nieznajomy.mp3",
+  "03.Męskie Granie 2020 - Prędko, prędzej.mp3",
+  "04.Męskie Granie 2020 - Nie stało się nic.mp3",
+  "044._Swiernalis_-_Blizny.mp3",
+  "05.Męskie Granie 2020 - Boskie Buenos.mp3",
+  "06. Oczy tej małej.mp3",
+  "06.Męskie Granie 2020 - Uważaj na niego.mp3",
+  "07. Czy te oczy mogą kłamać.mp3",
+  "07.Męskie Granie 2020 - Płoną góry, płoną lasy.mp3",
+  "08 - Depeche Mode - Tora! Tora! Tora!.mp3",
+  "08 - The Man Who Sold The World.mp3",
+  "08. Uciekaj moje serce.mp3",
+  "08.Męskie Granie 2020 - Zanim zrozumiesz.mp3",
+  "09.Męskie Granie 2020 - W dobrą stronę.mp3",
+  "10.Męskie Granie 2020 - Korowód.mp3",
+  "11.Męskie Granie 2020 - Bananowy song.mp3",
+  "12.Nosowska - Nero feat. Mata.mp3",
+  "13.Nosowska - Goń.mp3",
+  "bowie Life On Mars.mp3",
+  "Daria Zawiałow & Igor Walaszek - Długość dźwieku samotności.mp3",
+  "Daria Zawiałow - Jeszcze w zielone gramy (Bonus Track).mp3",
+  "gutek - nikt tak pieknie.mp3",
+  "Kilka westchnień.mp3",
+  "Marcin Rozynek - Silacz.mp3",
+  "Massive Attack - Antistar.mp3",
+] as const
+
+const normalizeTrackTitle = (fileName: string) =>
+  fileName
+    .replace(/\.[^/.]+$/, "")
+    .replace(/^\d+[\s._-]*/, "")
+    .trim()
+
+const parseArtistAndTitle = (fileName: string) => {
+  const raw = normalizeTrackTitle(fileName)
+  const parts = raw.split(" - ").map((p) => p.trim()).filter(Boolean)
+
+  if (parts.length >= 2) {
+    return {
+      artist: parts[0],
+      title: parts.slice(1).join(" - "),
+    }
+  }
+
+  return {
+    artist: "BONZO Local Library",
+    title: raw,
+  }
+}
+
+export const sampleTracks: Track[] = publicMusicFiles.map((fileName, index) => {
+  const { artist, title } = parseArtistAndTitle(fileName)
+
+  return {
+    id: `public-${index + 1}`,
+    title,
+    artist,
+    album: "public/music",
+    duration: 0,
+    coverUrl: "",
+    audioUrl: `music/${encodeURIComponent(fileName)}`,
+  }
+})
 
 export const sampleVideos: Video[] = [
   {

@@ -13,6 +13,23 @@ export function ServiceWorkerRegister() {
   useEffect(() => {
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) return
 
+    // Dev mode: wyłącz SW całkowicie, żeby uniknąć pętli odświeżania i konfliktów cache
+    if (process.env.NODE_ENV !== "production") {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+          registration.unregister().catch(() => {})
+        })
+      })
+      if (typeof caches !== "undefined") {
+        caches.keys().then((cacheNames) => {
+          cacheNames.forEach((cacheName) => {
+            caches.delete(cacheName).catch(() => {})
+          })
+        })
+      }
+      return
+    }
+
     // Stan sieci
     setIsOnline(navigator.onLine)
     const onOnline = () => setIsOnline(true)

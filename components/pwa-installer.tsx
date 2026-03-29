@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,6 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Download, Monitor, Smartphone, Chrome, CheckCircle, Star } from "lucide-react"
 
+import { FolderOpen, HardDrive } from "lucide-react"
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>
@@ -24,7 +25,15 @@ export function PWAInstaller() {
   const [isOpen, setIsOpen] = useState(false)
   const [installing, setInstalling] = useState(false)
 
+  const [musicConnected, setMusicConnected] = useState(0)
+  const [videoConnected, setVideoConnected] = useState(0)
+  const [supportsFolderPicker, setSupportsFolderPicker] = useState(false)
+  const musicFolderRef = useRef<HTMLInputElement>(null)
+  const videoFolderRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
+    setSupportsFolderPicker(typeof window !== "undefined" && "showDirectoryPicker" in window)
+
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setIsInstalled(true)
     }
@@ -56,6 +65,27 @@ export function PWAInstaller() {
     if (outcome === "accepted") setIsInstalled(true)
     setDeferredPrompt(null)
     setInstalling(false)
+  }
+
+  const emitLocalFiles = (kind: "music" | "video", files: File[]) => {
+    window.dispatchEvent(
+      new CustomEvent("bonzo-local-files", {
+        detail: { kind, files },
+      })
+    )
+  }
+
+  const handleFolderFiles = (kind: "music" | "video", files: FileList | null) => {
+    if (!files) return
+
+    const selected = Array.from(files)
+    const accepted = selected.filter((file) =>
+      kind === "music" ? file.type.startsWith("audio/") : file.type.startsWith("video/")
+    )
+
+    emitLocalFiles(kind, accepted)
+    if (kind === "music") setMusicConnected(accepted.length)
+    if (kind === "video") setVideoConnected(accepted.length)
   }
 
   const InstallButton = ({ label }: { label: string }) => (
@@ -113,7 +143,7 @@ export function PWAInstaller() {
           </div>
         ) : (
           <Tabs defaultValue="windows" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="windows" className="gap-2 text-xs uppercase">
                 <Monitor className="h-3 w-3" />
                 WINDOWS
@@ -126,6 +156,10 @@ export function PWAInstaller() {
               <TabsTrigger value="chrome" className="gap-2 text-xs uppercase">
                 <Chrome className="h-3 w-3" />
                 CHROME
+              </TabsTrigger>
+              <TabsTrigger value="local" className="gap-2 text-xs uppercase">
+                <HardDrive className="h-3 w-3" />
+                LOCAL_SETUP
               </TabsTrigger>
             </TabsList>
 
@@ -256,6 +290,83 @@ export function PWAInstaller() {
 
               <InstallButton label="INSTALL_TO_CHROME" />
             </TabsContent>
+
+            <TabsContent value="local" className="mt-4 space-y-4">
+              <input
+                ref={musicFolderRef}
+                type="file"
+                accept="audio/*"
+                multiple
+                // @ts-ignore
+                webkitdirectory=""
+                className="hidden"
+                onChange={(e) => handleFolderFiles("music", e.target.files)}
+              />
+
+              <input
+                ref={videoFolderRef}
+                type="file"
+                accept="video/*"
+                multiple
+                // @ts-ignore
+                webkitdirectory=""
+                className="hidden"
+                onChange={(e) => handleFolderFiles("video", e.target.files)}
+              />
+
+              <div className="border border-primary/40 bg-primary/5 p-3">
+                <p className="text-xs font-medium uppercase tracking-wider text-primary">[LOCAL_MEDIA_SETUP]</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Podłącz lokalne foldery do AUDIO_PLAYER i VIDEO_PLAYER jednym kliknięciem.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <Button
+                  variant="outline"
+                  className="gap-2 text-xs uppercase tracking-wider"
+                  onClick={() => musicFolderRef.current?.click()}
+                >
+                  <FolderOpen className="h-3.5 w-3.5" />
+                  CONNECT_MUSIC_FOLDER
+                </Button>
+                <Button
+                  variant="outline"
+                  className="gap-2 text-xs uppercase tracking-wider"
+                  onClick={() => videoFolderRef.current?.click()}
+                >
+                  <FolderOpen className="h-3.5 w-3.5" />
+                  CONNECT_VIDEO_FOLDER
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="border border-border bg-card p-3">
+                  <p className="uppercase tracking-wider text-muted-foreground">music connected</p>
+                  <p className="mt-1 text-sm font-semibold text-primary">{musicConnected} plików</p>
+                </div>
+                <div className="border border-border bg-card p-3">
+                  <p className="uppercase tracking-wider text-muted-foreground">video connected</p>
+                  <p className="mt-1 text-sm font-semibold text-primary">{videoConnected} plików</p>
+                </div>
+              </div>
+
+              <div className="border border-border bg-card p-4 text-xs">
+                <p className="mb-2 uppercase tracking-wider text-primary">[LOCAL_INSTALLER_FILES]</p>
+                <p className="text-muted-foreground">
+                  Windows: <code className="bg-muted px-1 py-0.5">installers/windows/install-bonzo-local.bat</code>
+                </p>
+                <p className="mt-1 text-muted-foreground">
+                  Android: <code className="bg-muted px-1 py-0.5">installers/android/setup-bonzo-android.sh</code>
+                </p>
+                <p className="mt-2 text-muted-foreground">
+                  {supportsFolderPicker
+                    ? "Twoja przeglądarka wspiera nowoczesny filesystem API."
+                    : "Jeśli folder picker jest ograniczony, użyj ręcznie ADD_FOLDER w AUDIO/VIDEO."}
+                </p>
+              </div>
+            </TabsContent>
+
           </Tabs>
         )}
 

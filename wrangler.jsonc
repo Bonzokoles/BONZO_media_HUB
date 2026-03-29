@@ -39,6 +39,9 @@
   "images": {
     "binding": "IMAGES"
   },
+  "vars": {
+    "NEXT_PUBLIC_BASE_PATH": "/ai-hub"
+  },
   "observability": {
     "enabled": true
   }

@@ -10,6 +10,7 @@ import { FilmLibrary } from "@/components/film-library"
 import { LinksManager } from "@/components/links-manager"
 import { StreamsPanel } from "@/components/streams-panel"
 import { MobileHeader } from "@/components/mobile-header"
+import { OpenStandaloneButton } from "@/components/open-standalone-button"
 
 function MainContent() {
   const { activeView } = useMedia()
@@ -27,6 +28,7 @@ function MainContent() {
           {activeView === "streams" && <StreamsPanel />}
         </div>
       </main>
+      <OpenStandaloneButton />
       <MobileNav />
     </div>
   )

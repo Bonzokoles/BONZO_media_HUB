@@ -12,7 +12,7 @@ const withPWA = withPWAInit({
   dest: 'public',          // sw.js ląduje w public/ → trafia do statycznego buildu
   // fallbacks NIE działa z output:'export' (wymaga SSR) — pominięte
   reloadOnOnline: true,
-  disable: false,
+  disable: process.env.NODE_ENV === 'development',
   workboxOptions: {
     skipWaiting: true,
     clientsClaim: true,

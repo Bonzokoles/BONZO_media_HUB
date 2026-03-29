@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import { NextRequest, NextResponse } from "next/server"
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY

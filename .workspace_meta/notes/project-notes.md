@@ -39,3 +39,7 @@
 - uzupełnić projektowe ADR-y w `.workspace_meta/notes/decisions.md`
 - dopisać snapshoty po większych zmianach funkcjonalnych
 - zdecydować, czy `.workspace_meta/awesome-copilot/` ma zostać lokalne-only, czy częściowo wersjonowane
+
+## Odkrycia
+
+- 2026-03-29: Efekt „ciągłego uruchamiania” w dev wynikał z aktywnego PWA/Service Workera w `NODE_ENV=development` (cykliczne requesty i odświeżenia). Rozwiązanie: wyłączyć PWA w dev (`next.config.mjs`) oraz dodać czyszczenie starych rejestracji SW/cache w `components/service-worker-register.tsx`.

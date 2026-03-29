@@ -134,6 +134,23 @@ export function VideoPlayer() {
     }
   }
 
+  useEffect(() => {
+    const onLocalFiles = (event: Event) => {
+      const custom = event as CustomEvent<{ kind: "music" | "video"; files: File[] }>
+      if (custom.detail?.kind !== "video") return
+
+      const selected = custom.detail.files || []
+      if (!selected.length) return
+
+      const dataTransfer = new DataTransfer()
+      selected.forEach((file) => dataTransfer.items.add(file))
+      handleFileSelect(dataTransfer.files)
+    }
+
+    window.addEventListener("bonzo-local-files", onLocalFiles)
+    return () => window.removeEventListener("bonzo-local-files", onLocalFiles)
+  }, [currentVideo.videoUrl])
+
   const removeLocalVideo = (videoId: string) => {
     const video = localVideos.find(v => v.id === videoId)
     if (video?.videoUrl) {
