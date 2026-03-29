@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-static'
+export const revalidate = 3600
+
 export interface CoverResult {
   url: string
   source: string
