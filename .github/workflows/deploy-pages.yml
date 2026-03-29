@@ -33,6 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Disable app/api for static export
+        run: |
+          if [ -d app/api ]; then
+            mv app/api app/__api_disabled_for_pages
+          fi
+
       - name: Build Next.js static export
         run: npm run build
         env:
