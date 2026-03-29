@@ -1,4 +1,4 @@
-const DEFAULT_WORKER_BASE = "https://bonzo-media-hub.stolarnia-ams.workers.dev"
+const DEFAULT_WORKER_BASE = "https://bonzo-media-hub-proxy.stolarnia-ams.workers.dev"
 
 function trimSlash(value: string): string {
   return value.replace(/\/+$/, "")

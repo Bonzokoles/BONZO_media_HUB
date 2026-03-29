@@ -1,4 +1,4 @@
-name = "bonzo-media-hub"
+name = "bonzo-media-hub-proxy"
 main = "./bonzo-media-hub-proxy.mjs"
 compatibility_date = "2025-09-23"
 
