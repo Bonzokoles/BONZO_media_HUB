@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import type { CoverResult } from '@/lib/music-types'
 
 export const dynamic = 'error'
-
-export interface CoverResult {
-  url: string
-  source: string
-  size: string
-}
 
 interface ITunesResponse {
   results?: Array<{ artworkUrl100?: string }>

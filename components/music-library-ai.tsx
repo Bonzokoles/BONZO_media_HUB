@@ -8,7 +8,7 @@ import {
   suggestPlaylists, suggestOrganization,
   type ChatMessage, type ArtistGroup,
 } from "@/lib/deepseek-music-ai"
-import type { CoverResult } from "@/app/api/cover-art/route"
+import type { CoverResult } from "@/lib/music-types"
 import {
   Brain, MessageSquare, FileText, ImageIcon, Users, ListMusic,
   Send, Search, X, Plus, Loader2, Music, Check, ChevronRight,

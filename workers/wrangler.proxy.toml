@@ -1,0 +1,7 @@
+name = "bonzo-media-hub"
+main = "./bonzo-media-hub-proxy.mjs"
+compatibility_date = "2025-09-23"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "bonzo-media-hub"

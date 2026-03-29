@@ -2,6 +2,12 @@
 // Wszystkie wywołania idą przez /api/ai-music (klucz na serwerze)
 
 import type { Track } from './media-context'
+import type {
+  CoverArtApiResponse,
+  CoverResult,
+  LyricsApiResponse,
+  MusicAiApiResponse,
+} from './music-types'
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system'
@@ -43,7 +49,7 @@ export async function askMusicAI(messages: ChatMessage[]): Promise<string> {
     }),
   })
 
-  const data = await res.json()
+  const data = (await res.json()) as MusicAiApiResponse
 
   if (!res.ok || data.error) {
     throw new Error(data.error ?? `HTTP ${res.status}`)
@@ -138,7 +144,7 @@ export async function fetchLyrics(
 ): Promise<string> {
   const params = new URLSearchParams({ artist, title })
   const res = await fetch(`/api/lyrics?${params}`)
-  const data = await res.json()
+  const data = (await res.json()) as LyricsApiResponse
   if (!res.ok || data.error) throw new Error(data.error ?? 'Nie znaleziono tekstu')
   return data.lyrics as string
 }
@@ -148,12 +154,12 @@ export async function fetchCoverArt(
   artist: string,
   album?: string,
   title?: string
-): Promise<import('@/app/api/cover-art/route').CoverResult[]> {
+): Promise<CoverResult[]> {
   const params = new URLSearchParams({ artist })
   if (album) params.set('album', album)
   if (title) params.set('title', title)
   const res = await fetch(`/api/cover-art?${params}`)
-  const data = await res.json()
+  const data = (await res.json()) as CoverArtApiResponse
   if (!res.ok) throw new Error(data.error ?? 'Błąd wyszukiwania okładek')
   return data.results ?? []
 }

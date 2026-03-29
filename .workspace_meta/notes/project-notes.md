@@ -43,3 +43,4 @@
 ## Odkrycia
 
 - 2026-03-29: Efekt „ciągłego uruchamiania” w dev wynikał z aktywnego PWA/Service Workera w `NODE_ENV=development` (cykliczne requesty i odświeżenia). Rozwiązanie: wyłączyć PWA w dev (`next.config.mjs`) oraz dodać czyszczenie starych rejestracji SW/cache w `components/service-worker-register.tsx`.
+- 2026-03-29: `NEXT_STATIC_EXPORT=1` wysypuje `next build`, gdy `app/api/*/route.ts` używają obiektu `Request`/`NextRequest`. Rozwiązanie robocze: wrapper `scripts/run-next-build.mjs` tymczasowo stubuje route handlery na czas static exportu i przywraca je po buildzie; typy klienckie trzeba trzymać poza `app/api`.

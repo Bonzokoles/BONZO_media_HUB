@@ -5,21 +5,12 @@ import { useMedia } from "@/lib/media-context"
 import {
   moviesCollection, reviewStyles, allGenres, katalogCategories, type Movie
 } from "@/lib/movies-data"
-import { gigachadReviews } from "@/lib/gigachad-reviews"
-
-// Dołącza recenzje GIGACHAD do każdego filmu po tytule (fuzzy match)
-function withGigachadReviews(film: Movie): Movie {
-  const key = Object.keys(gigachadReviews).find(k => {
-    const a = k.toLowerCase().replace(/[^a-z0-9]/g, "")
-    const b = film.title.toLowerCase().replace(/[^a-z0-9]/g, "")
-    return a === b || a.startsWith(b) || b.startsWith(a)
-  })
-  if (!key) return film
-  return {
-    ...film,
-    reviews: { ...gigachadReviews[key], ...film.reviews }, // gigachad jako baza, lokalne nadpisują
-  }
-}
+import {
+  buildR2AssetUrl,
+  buildReviewUrl,
+  buildTmdbUrl,
+  fetchJsonWithFallback,
+} from "@/lib/remote-media"
 import { cn } from "@/lib/utils"
 import {
   Search, Star, Heart, X, Calendar, User, Film as FilmIcon,
@@ -59,19 +50,48 @@ interface TrailerVideo {
   type: string
 }
 
+interface ReviewPayload {
+  reviews?: Record<string, string>
+}
+
 // ─── Poster component with TMDB fallback ─────────────────────────────────────
 
 function FilmPoster({
   film, className, imgClassName
 }: {
-  film: { title: string; posterUrl?: string; tmdbId?: number }
+  film: { id?: string; title: string; posterUrl?: string; tmdbId?: number }
   className?: string
   imgClassName?: string
 }) {
-  const src = film.posterUrl || ""
-  const [failed, setFailed] = useState(!film.posterUrl)
+  const posterCandidates = useMemo(() => {
+    const candidates: string[] = []
 
-  if (failed || !src) {
+    if (film.posterUrl) candidates.push(film.posterUrl)
+
+    if (film.tmdbId) {
+      candidates.push(buildR2AssetUrl(`movies/posters/${film.tmdbId}.webp`))
+      candidates.push(buildR2AssetUrl(`movies/posters/${film.tmdbId}.jpg`))
+      candidates.push(buildR2AssetUrl(`movies/posters/${film.tmdbId}.png`))
+    }
+
+    if (film.id) {
+      candidates.push(buildR2AssetUrl(`movies/posters/${film.id}.webp`))
+      candidates.push(buildR2AssetUrl(`movies/posters/${film.id}.jpg`))
+      candidates.push(buildR2AssetUrl(`movies/posters/${film.id}.png`))
+    }
+
+    return [...new Set(candidates)]
+  }, [film.id, film.posterUrl, film.tmdbId])
+
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    setActiveIndex(0)
+  }, [posterCandidates])
+
+  const src = posterCandidates[activeIndex]
+
+  if (!src) {
     return (
       <div className={cn("flex items-center justify-center bg-gradient-to-br from-muted to-secondary/50", className)}>
         <div className="text-center">
@@ -90,7 +110,7 @@ function FilmPoster({
       alt={film.title}
       className={imgClassName}
       crossOrigin="anonymous"
-      onError={() => setFailed(true)}
+      onError={() => setActiveIndex((i) => i + 1)}
     />
   )
 }
@@ -109,8 +129,10 @@ function TrailerPlayer({
   useEffect(() => {
     setLoading(true)
     setError("")
-    fetch(`/api/tmdb?action=videos&id=${tmdbId}&mediaType=${mediaType}`)
-      .then(r => r.json())
+    fetchJsonWithFallback<{ results?: TrailerVideo[] }>(
+      buildTmdbUrl({ action: "videos", id: tmdbId, mediaType }),
+      `/api/tmdb?action=videos&id=${tmdbId}&mediaType=${mediaType}`,
+    )
       .then(data => {
         const videos: TrailerVideo[] = data.results ?? []
         const trailer =
@@ -196,9 +218,29 @@ function FilmModal({
   const [showTrailer, setShowTrailer] = useState(false)
   const [tmdb, setTmdb] = useState<TmdbFullDetails | null>(null)
   const [tmdbLoading, setTmdbLoading] = useState(false)
+  const [remoteReviews, setRemoteReviews] = useState<Record<string, string>>({})
 
-  // Wzbogać film o recenzje GIGACHAD
-  const enriched = useMemo(() => film ? withGigachadReviews(film) : null, [film])
+  const enriched = film
+  const mergedReviews = useMemo(
+    () => ({ ...(remoteReviews || {}), ...(enriched?.reviews || {}) }),
+    [remoteReviews, enriched?.reviews],
+  )
+
+  useEffect(() => {
+    if (!enriched) return
+    setRemoteReviews({})
+
+    fetch(buildReviewUrl(enriched.title, enriched.year))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((payload: ReviewPayload | null) => {
+        if (payload?.reviews) {
+          setRemoteReviews(payload.reviews)
+        }
+      })
+      .catch(() => {
+        // fallback: zostają lokalne recenzje
+      })
+  }, [enriched?.id, enriched?.title, enriched?.year])
 
   useEffect(() => {
     if (!enriched) return
@@ -212,21 +254,23 @@ function FilmModal({
     const fetchDetails = async (tmdbId: number, mediaType = "movie") => {
       setTmdbLoading(true)
       try {
-        const res = await fetch(`/api/tmdb?action=details&id=${tmdbId}&mediaType=${mediaType}`)
-        const d = await res.json()
+        const d = await fetchJsonWithFallback<Record<string, unknown>>(
+          buildTmdbUrl({ action: "details", id: tmdbId, mediaType }),
+          `/api/tmdb?action=details&id=${tmdbId}&mediaType=${mediaType}`,
+        )
         setTmdb({
-          tagline: d.tagline || "",
-          budget: d.budget,
-          revenue: d.revenue,
-          runtime: d.runtime,
-          director: d.credits?.crew?.find((c: { job: string; name: string }) => c.job === "Director")?.name || enriched.director,
-          overview: d.overview || enriched.overview,
-          production_countries: d.production_countries,
-          cast: (d.credits?.cast || []).slice(0, 15).map((c: { name: string; character: string; profile_path: string | null }) => ({
+          tagline: (d.tagline as string) || "",
+          budget: d.budget as number,
+          revenue: d.revenue as number,
+          runtime: d.runtime as number,
+          director: (d as { credits?: { crew?: { job: string; name: string }[] } }).credits?.crew?.find((c: { job: string; name: string }) => c.job === "Director")?.name || enriched.director,
+          overview: (d.overview as string) || enriched.overview,
+          production_countries: d.production_countries as { name: string }[] | undefined,
+          cast: (((d as { credits?: { cast?: { name: string; character: string; profile_path: string | null }[] } }).credits?.cast) || []).slice(0, 15).map((c: { name: string; character: string; profile_path: string | null }) => ({
             name: c.name, character: c.character, profile_path: c.profile_path
           })),
-          keywords: (d.keywords?.keywords || d.keywords?.results || []).map((k: { name: string }) => k.name),
-          recommendations: (d.recommendations?.results || []).slice(0, 6),
+          keywords: ((((d as { keywords?: { keywords?: { name: string }[]; results?: { name: string }[] } }).keywords?.keywords) || ((d as { keywords?: { results?: { name: string }[] } }).keywords?.results) || []).map((k: { name: string }) => k.name)),
+          recommendations: (((d as { recommendations?: { results?: { id: number; title?: string; name?: string; poster_path: string | null; vote_average: number }[] } }).recommendations?.results) || []).slice(0, 6),
         })
       } catch {}
       setTmdbLoading(false)
@@ -239,8 +283,10 @@ function FilmModal({
     } else {
       // Szukamy po tytule
       const q = encodeURIComponent(`${enriched.title} ${enriched.year || ""}`.trim())
-      fetch(`/api/tmdb?action=search&query=${q}&mediaType=movie`)
-        .then(r => r.json())
+      fetchJsonWithFallback<{ results?: { id: number }[] }>(
+        buildTmdbUrl({ action: "search", query: `${enriched.title} ${enriched.year || ""}`.trim(), mediaType: "movie" }),
+        `/api/tmdb?action=search&query=${q}&mediaType=movie`,
+      )
         .then(d => {
           const hit = d.results?.[0]
           if (hit) fetchDetails(hit.id)
@@ -267,7 +313,7 @@ function FilmModal({
     { id: "overview", label: "OVERVIEW" },
     { id: "obsada", label: "OBSADA" },
     { id: "ciekawostki", label: "CIEKAWOSTKI" },
-    ...reviewStyles.filter(s => enriched.reviews[s.id]).map(s => ({ id: s.id, label: s.name })),
+    ...reviewStyles.filter(s => mergedReviews[s.id]).map(s => ({ id: s.id, label: s.name })),
     { id: "personal", label: "PERSONAL" },
   ]
 
@@ -508,13 +554,13 @@ function FilmModal({
 
           {/* Review tabs — GIGACHAD */}
           {reviewStyles.map(style =>
-            activeTab === style.id && enriched.reviews[style.id] ? (
+            activeTab === style.id && mergedReviews[style.id] ? (
               <div key={style.id} className="space-y-4">
                 <div className="border-l-4 border-primary bg-muted/40 p-3">
                   <p className="text-xs font-bold uppercase tracking-widest text-primary">{">"} GIGACHAD REVIEW: {style.name}</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">{style.description}</p>
                 </div>
-                <div className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{enriched.reviews[style.id]}</div>
+                <div className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{mergedReviews[style.id]}</div>
               </div>
             ) : null
           )}
@@ -590,8 +636,10 @@ function TmdbBrowse({ onFilmSelect }: { onFilmSelect: (film: Movie) => void }) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    fetch("/api/tmdb?action=trending&mediaType=movie")
-      .then(r => r.json())
+    fetchJsonWithFallback<{ results?: TmdbResult[] }>(
+      buildTmdbUrl({ action: "trending", mediaType: "movie" }),
+      "/api/tmdb?action=trending&mediaType=movie",
+    )
       .then(d => setTrending((d.results ?? []).slice(0, 12)))
       .catch(() => {})
   }, [])
@@ -599,8 +647,10 @@ function TmdbBrowse({ onFilmSelect }: { onFilmSelect: (film: Movie) => void }) {
   const search = useCallback((q: string) => {
     if (!q.trim()) { setResults([]); return }
     setLoading(true)
-    fetch(`/api/tmdb?action=search&query=${encodeURIComponent(q)}&mediaType=movie`)
-      .then(r => r.json())
+    fetchJsonWithFallback<{ results?: TmdbResult[] }>(
+      buildTmdbUrl({ action: "search", query: q, mediaType: "movie" }),
+      `/api/tmdb?action=search&query=${encodeURIComponent(q)}&mediaType=movie`,
+    )
       .then(d => setResults((d.results ?? []).slice(0, 12)))
       .catch(() => setResults([]))
       .finally(() => setLoading(false))
@@ -808,8 +858,10 @@ function TmdbTopList({
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/tmdb?action=${type}&mediaType=${mediaType}&page=${page}`)
-      .then(r => r.json())
+    fetchJsonWithFallback<{ results?: TmdbResult[] }>(
+      buildTmdbUrl({ action: type, mediaType, page }),
+      `/api/tmdb?action=${type}&mediaType=${mediaType}&page=${page}`,
+    )
       .then(d => setResults(d.results ?? []))
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -955,27 +1007,31 @@ export function FilmLibrary() {
     // Search TMDB
     try {
       const q = year ? `${titleOnly} ${year}` : titleOnly
-      const res = await fetch(`/api/tmdb?action=search&query=${encodeURIComponent(q)}&mediaType=movie`)
-      const data = await res.json()
+      const data = await fetchJsonWithFallback<{ results?: TmdbResult[] }>(
+        buildTmdbUrl({ action: "search", query: q, mediaType: "movie" }),
+        `/api/tmdb?action=search&query=${encodeURIComponent(q)}&mediaType=movie`,
+      )
       const hit: TmdbResult = data.results?.[0]
       if (hit) {
         // Fetch full details
-        const detRes = await fetch(`/api/tmdb?action=details&id=${hit.id}&mediaType=movie`)
-        const det = await detRes.json()
+        const det = await fetchJsonWithFallback<Record<string, unknown>>(
+          buildTmdbUrl({ action: "details", id: hit.id, mediaType: "movie" }),
+          `/api/tmdb?action=details&id=${hit.id}&mediaType=movie`,
+        )
         setSelectedFilm({
           id: `tmdb_${hit.id}`,
           tmdbId: hit.id,
-          title: det.title || titleOnly,
-          year: det.release_date ? parseInt(det.release_date) : year,
-          director: det.credits?.crew?.find((c: { job: string; name: string }) => c.job === "Director")?.name || "",
-          rating: Math.round(det.vote_average * 10) / 10,
-          runtime: det.runtime || 0,
-          genres: det.genres?.map((g: { name: string }) => g.name) || [],
-          cast: det.credits?.cast?.slice(0, 8).map((c: { name: string }) => c.name) || [],
-          keywords: det.keywords?.keywords?.slice(0, 10).map((k: { name: string }) => k.name) || [],
-          overview: det.overview || "",
-          posterUrl: det.poster_path ? `https://image.tmdb.org/t/p/w500${det.poster_path}` : "",
-          backdropUrl: det.backdrop_path ? `https://image.tmdb.org/t/p/w1280${det.backdrop_path}` : "",
+          title: (det.title as string) || titleOnly,
+          year: (det.release_date as string) ? parseInt(det.release_date as string) : year,
+          director: (det as { credits?: { crew?: { job: string; name: string }[] } }).credits?.crew?.find((c: { job: string; name: string }) => c.job === "Director")?.name || "",
+          rating: Math.round(((det.vote_average as number) || 0) * 10) / 10,
+          runtime: (det.runtime as number) || 0,
+          genres: ((det.genres as { name: string }[] | undefined)?.map((g: { name: string }) => g.name)) || [],
+          cast: (((det as { credits?: { cast?: { name: string }[] } }).credits?.cast || []).slice(0, 8).map((c: { name: string }) => c.name)) || [],
+          keywords: (((det as { keywords?: { keywords?: { name: string }[] } }).keywords?.keywords || []).slice(0, 10).map((k: { name: string }) => k.name)) || [],
+          overview: (det.overview as string) || "",
+          posterUrl: (det.poster_path as string) ? `https://image.tmdb.org/t/p/w500${det.poster_path as string}` : "",
+          backdropUrl: (det.backdrop_path as string) ? `https://image.tmdb.org/t/p/w1280${det.backdrop_path as string}` : "",
           reviews: {},
         })
       }

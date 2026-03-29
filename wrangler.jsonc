@@ -3,46 +3,44 @@
   "main": ".open-next/worker.js",
   "name": "bonzo-media-hub",
   "compatibility_date": "2025-09-27",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
   },
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "bonzo-media-hub"
-    }
+      "service": "bonzo-media-hub",
+    },
   ],
   "r2_buckets": [
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
-      "bucket_name": "my-project-opennext-cache"
+      "bucket_name": "my-project-opennext-cache",
     },
     {
       "binding": "MEDIA",
-      "bucket_name": "bonzo-media-hub"
-    }
+      "bucket_name": "bonzo-media-hub",
+    },
   ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "bonzo-media-hub-db",
-      "database_id": "27e549d2-e614-475b-8bea-2a95d7ee8c0a"
-    }
+      "database_id": "27e549d2-e614-475b-8bea-2a95d7ee8c0a",
+    },
   ],
   "ai": {
-    "binding": "AI"
+    "binding": "AI",
   },
   "images": {
-    "binding": "IMAGES"
+    "binding": "IMAGES",
   },
   "vars": {
-    "NEXT_PUBLIC_BASE_PATH": "/ai-hub"
+    "NEXT_PUBLIC_BASE_PATH": "/ai-hub",
   },
   "observability": {
-    "enabled": true
-  }
+    "enabled": true,
+  },
 }

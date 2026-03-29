@@ -2,6 +2,16 @@ param(
     [string]$BasePath = "$env:USERPROFILE\\BONZO_media_HUB_Local"
 )
 
+# CHECKPOINT 2026-03-29
+# RESTART_REQUIRED = true
+# Stan prac zapisany przed restartem komputera:
+# - Worker proxy `bonzo-media-hub` wdrożony pod `https://bonzo-media-hub.stolarnia-ams.workers.dev`
+# - `film-library.tsx` przepięty na Worker/R2 dla TMDB, recenzji i plakatów
+# - dodane: `lib/remote-media.ts`, `lib/music-types.ts`, `workers/bonzo-media-hub-proxy.mjs`
+# - `npm run build` działa przez `scripts/run-next-build.mjs` i omija problem static export dla `app/api/*`
+# - po restarcie do zrobienia: smoke test endpointów Workera i końcowa weryfikacja deployu Pages
+$BONZO_RESTART_CHECKPOINT = $true
+
 $ErrorActionPreference = 'Stop'
 
 Write-Host "== BONZO_media_HUB Local Installer ==" -ForegroundColor Cyan
