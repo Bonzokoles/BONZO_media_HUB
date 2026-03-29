@@ -1,13 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export interface CoverResult {
   url: string
   source: string
   size: string
 }
 
+interface ITunesResponse {
+  results?: Array<{ artworkUrl100?: string }>
+}
+
+interface MusicBrainzResponse {
+  releases?: Array<{ id: string }>
+}
+
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url)
+  const safeUrl = req.url || 'http://localhost/api/cover-art'
+  const { searchParams } = new URL(safeUrl)
   const artist = searchParams.get('artist') ?? ''
   const album = searchParams.get('album') ?? ''
   const title = searchParams.get('title') ?? ''
@@ -26,7 +38,7 @@ export async function GET(req: NextRequest) {
       { next: { revalidate: 3600 } }
     )
     if (res.ok) {
-      const data = await res.json()
+      const data = (await res.json()) as ITunesResponse
       for (const item of data.results ?? []) {
         if (item.artworkUrl100) {
           results.push({
@@ -48,7 +60,7 @@ export async function GET(req: NextRequest) {
         { headers: { 'User-Agent': 'BONZO_media_HUB/1.0 (contact@example.com)' }, next: { revalidate: 3600 } }
       )
       if (mbRes.ok) {
-        const mbData = await mbRes.json()
+        const mbData = (await mbRes.json()) as MusicBrainzResponse
         for (const release of mbData.releases ?? []) {
           results.push({
             url: `https://coverartarchive.org/release/${release.id}/front-500`,

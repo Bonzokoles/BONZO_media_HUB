@@ -4,9 +4,10 @@ import withPWAInit from '@ducanh2912/next-pwa'
 // (brak)                             → GitHub Pages    (/BONZO_media_HUB)
 // NODE_ENV=development               → lokalnie         ('')
 const IS_CF_PAGES = process.env.CF_PAGES === '1'
+const IS_STATIC_EXPORT = process.env.NEXT_STATIC_EXPORT === '1'
 const BASE_PATH =
   process.env.NEXT_PUBLIC_BASE_PATH ??
-  (IS_CF_PAGES ? '' : process.env.NODE_ENV === 'production' ? '/BONZO_media_HUB' : '')
+  (IS_CF_PAGES ? '' : IS_STATIC_EXPORT ? '/BONZO_media_HUB' : '')
 
 const withPWA = withPWAInit({
   dest: 'public',          // sw.js ląduje w public/ → trafia do statycznego buildu
@@ -117,8 +118,9 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output:'export' tylko dla GitHub Pages — CF Pages używa opennextjs-cloudflare
-  ...(IS_CF_PAGES ? {} : { output: 'export' }),
+  // Static export jest opcjonalny (NEXT_STATIC_EXPORT=1).
+  // Domyślnie build działa w trybie runtime (obsługa app/api/*).
+  ...(IS_STATIC_EXPORT ? { output: 'export' } : {}),
   basePath: BASE_PATH,
   typescript: {
     ignoreBuildErrors: true,
@@ -130,4 +132,6 @@ const nextConfig = {
 
 export default withPWA(nextConfig)
 
-import('@opennextjs/cloudflare').then(m => m.initOpenNextCloudflareForDev());
+if (process.env.NODE_ENV === 'development') {
+  import('@opennextjs/cloudflare').then((m) => m.initOpenNextCloudflareForDev())
+}
