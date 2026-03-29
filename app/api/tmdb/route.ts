@@ -1,4 +1,4 @@
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic'
 
 import { NextRequest, NextResponse } from "next/server"
 
@@ -135,6 +135,22 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "ID required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/collection/${id}?language=pl-PL`
+        response = await fetch(url, { headers })
+        break
+
+      case "videos":
+        if (!id) {
+          return NextResponse.json({ error: "ID required" }, { status: 400 })
+        }
+        url = `${TMDB_BASE_URL}/${mediaType}/${id}/videos?language=pl-PL`
+        response = await fetch(url, { headers })
+        break
+
+      case "watch_providers":
+        if (!id) {
+          return NextResponse.json({ error: "ID required" }, { status: 400 })
+        }
+        url = `${TMDB_BASE_URL}/${mediaType}/${id}/watch/providers`
         response = await fetch(url, { headers })
         break
 

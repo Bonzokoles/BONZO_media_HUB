@@ -40,7 +40,14 @@ function App() {
   )
 }
 
-const ClientApp = dynamic(() => Promise.resolve({ default: App }), { ssr: false })
+const ClientApp = dynamic(() => Promise.resolve({ default: App }), {
+  ssr: false,
+  loading: () => (
+    <div style={{ backgroundColor: '#0a0a12', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00d4aa', fontFamily: 'monospace', fontSize: '14px', letterSpacing: '0.1em' }}>
+      BONZO_media_HUB...
+    </div>
+  ),
+})
 
 export default function Home() {
   return <ClientApp />

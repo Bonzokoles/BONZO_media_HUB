@@ -1,0 +1,33 @@
+name = "bonzo-media-hub"
+compatibility_date = "2025-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+pages_build_output_dir = ".open-next/assets"
+
+# ── Workers AI ───────────────────────────────────────────────────────────────
+[ai]
+binding = "AI"
+
+# ── D1 Database ──────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "bonzo-media-hub-db"
+database_id = "27e549d2-e614-475b-8bea-2a95d7ee8c0a"
+
+# ── R2 Media Storage ─────────────────────────────────────────────────────────
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "bonzo-media-hub"
+
+# ── KV (session / cache) ─────────────────────────────────────────────────────
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = ""   # uzupełnij po: wrangler kv namespace create bonzo-cache
+
+# ── Secrets (przez wrangler secret put) ──────────────────────────────────────
+# TMDB_READ_TOKEN
+# DEEPSEEK_API_KEY
+# OPENAI_API_KEY
+
+[vars]
+NEXT_PUBLIC_BASE_PATH = ""

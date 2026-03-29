@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 
 export interface Track {
   id: string
@@ -10,8 +10,8 @@ export interface Track {
   duration: number
   coverUrl: string
   audioUrl?: string
-  sourceService?: string   // "soundcloud" | "tidal" | "indieshuffle" | "musicatlas" | "local"
-  sourceUrl?: string       // URL skąd pochodzi utwór
+  sourceService?: string
+  sourceUrl?: string
 }
 
 export interface Video {
@@ -49,19 +49,12 @@ type ActiveView = "music" | "video" | "films" | "links" | "streams"
 interface MediaContextType {
   activeView: ActiveView
   setActiveView: (view: ActiveView) => void
-  currentTrack: Track | null
-  setCurrentTrack: (track: Track | null) => void
-  isPlaying: boolean
-  setIsPlaying: (playing: boolean) => void
-  currentVideo: Video | null
-  setCurrentVideo: (video: Video | null) => void
   favorites: {
     tracks: string[]
     films: string[]
     links: string[]
   }
   toggleFavorite: (type: "tracks" | "films" | "links", id: string) => void
-  // Globalna biblioteka lokalnych tracków (z plików + ze streamów)
   localTracks: Track[]
   addLocalTrack: (track: Track) => void
   addLocalTracks: (tracks: Track[]) => void
@@ -72,19 +65,22 @@ const MediaContext = createContext<MediaContextType | undefined>(undefined)
 
 export function MediaProvider({ children }: { children: ReactNode }) {
   const [activeView, setActiveView] = useState<ActiveView>("music")
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentVideo, setCurrentVideo] = useState<Video | null>(null)
   const [favorites, setFavorites] = useState<{
     tracks: string[]
     films: string[]
     links: string[]
-  }>({
-    tracks: [],
-    films: [],
-    links: [],
+  }>(() => {
+    if (typeof window === "undefined") return { tracks: [], films: [], links: [] }
+    try {
+      const saved = localStorage.getItem("bonzo-favorites")
+      return saved ? JSON.parse(saved) : { tracks: [], films: [], links: [] }
+    } catch { return { tracks: [], films: [], links: [] } }
   })
   const [localTracks, setLocalTracks] = useState<Track[]>([])
+
+  useEffect(() => {
+    try { localStorage.setItem("bonzo-favorites", JSON.stringify(favorites)) } catch {}
+  }, [favorites])
 
   const toggleFavorite = useCallback((type: "tracks" | "films" | "links", id: string) => {
     setFavorites((prev) => ({
@@ -97,7 +93,6 @@ export function MediaProvider({ children }: { children: ReactNode }) {
 
   const addLocalTrack = useCallback((track: Track) => {
     setLocalTracks((prev) => {
-      // Unikaj duplikatów po id
       if (prev.find((t) => t.id === track.id)) return prev
       return [...prev, track]
     })
@@ -120,12 +115,6 @@ export function MediaProvider({ children }: { children: ReactNode }) {
       value={{
         activeView,
         setActiveView,
-        currentTrack,
-        setCurrentTrack,
-        isPlaying,
-        setIsPlaying,
-        currentVideo,
-        setCurrentVideo,
         favorites,
         toggleFavorite,
         localTracks,

@@ -1,11 +1,12 @@
 import withPWAInit from '@ducanh2912/next-pwa'
 
-// NEXT_PUBLIC_BASE_PATH=/media-hub   → Cloudflare Pages (zenbrowsers.org/media-hub)
+// NEXT_PUBLIC_BASE_PATH=""           → Cloudflare Pages (root)
 // (brak)                             → GitHub Pages    (/BONZO_media_HUB)
 // NODE_ENV=development               → lokalnie         ('')
+const IS_CF_PAGES = process.env.CF_PAGES === '1'
 const BASE_PATH =
   process.env.NEXT_PUBLIC_BASE_PATH ??
-  (process.env.NODE_ENV === 'production' ? '/BONZO_media_HUB' : '')
+  (IS_CF_PAGES ? '' : process.env.NODE_ENV === 'production' ? '/BONZO_media_HUB' : '')
 
 const withPWA = withPWAInit({
   dest: 'public',          // sw.js ląduje w public/ → trafia do statycznego buildu
@@ -116,7 +117,8 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output:'export' tylko dla GitHub Pages — CF Pages używa opennextjs-cloudflare
+  ...(IS_CF_PAGES ? {} : { output: 'export' }),
   basePath: BASE_PATH,
   typescript: {
     ignoreBuildErrors: true,

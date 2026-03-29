@@ -7,6 +7,7 @@ export interface MovieReview {
 
 export interface Movie {
   id: string
+  tmdbId?: number
   title: string
   year: number | null
   director: string
@@ -22,10 +23,11 @@ export interface Movie {
   personalReview?: string | null
 }
 
-// Movie collection from JIMBO Film Vault
+// Movie collection from BONZO Film Vault
 export const moviesCollection: Movie[] = [
   {
     id: "12_monkeys_1995",
+    tmdbId: 63,
     title: "12 Monkeys",
     year: 1995,
     director: "Terry Gilliam",
@@ -46,6 +48,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "a_clockwork_orange_1971",
+    tmdbId: 185,
     title: "A Clockwork Orange",
     year: 1971,
     director: "Stanley Kubrick",
@@ -66,6 +69,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "blade_runner_1982",
+    tmdbId: 78,
     title: "Blade Runner",
     year: 1982,
     director: "Ridley Scott",
@@ -82,6 +86,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "blade_runner_2049",
+    tmdbId: 335984,
     title: "Blade Runner 2049",
     year: 2017,
     director: "Denis Villeneuve",
@@ -98,6 +103,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "pulp_fiction_1994",
+    tmdbId: 680,
     title: "Pulp Fiction",
     year: 1994,
     director: "Quentin Tarantino",
@@ -114,6 +120,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "no_country_for_old_men_2007",
+    tmdbId: 6977,
     title: "No Country for Old Men",
     year: 2007,
     director: "Coen Brothers",
@@ -130,6 +137,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_big_lebowski_1998",
+    tmdbId: 115,
     title: "The Big Lebowski",
     year: 1998,
     director: "Coen Brothers",
@@ -146,6 +154,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "fear_and_loathing_1998",
+    tmdbId: 1235,
     title: "Fear and Loathing in Las Vegas",
     year: 1998,
     director: "Terry Gilliam",
@@ -162,6 +171,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_truman_show_1998",
+    tmdbId: 37165,
     title: "The Truman Show",
     year: 1998,
     director: "Peter Weir",
@@ -178,6 +188,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "la_haine_1995",
+    tmdbId: 1116,
     title: "La Haine",
     year: 1995,
     director: "Mathieu Kassovitz",
@@ -194,6 +205,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "dark_city_1998",
+    tmdbId: 11056,
     title: "Dark City",
     year: 1998,
     director: "Alex Proyas",
@@ -210,6 +222,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "dead_man_1995",
+    tmdbId: 10006,
     title: "Dead Man",
     year: 1995,
     director: "Jim Jarmusch",
@@ -226,6 +239,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "enemy_2013",
+    tmdbId: 194662,
     title: "Enemy",
     year: 2013,
     director: "Denis Villeneuve",
@@ -242,6 +256,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "sicario_2015",
+    tmdbId: 273481,
     title: "Sicario",
     year: 2015,
     director: "Denis Villeneuve",
@@ -258,6 +273,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "gummo_1997",
+    tmdbId: 32684,
     title: "Gummo",
     year: 1997,
     director: "Harmony Korine",
@@ -274,6 +290,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "holy_motors_2012",
+    tmdbId: 89444,
     title: "Holy Motors",
     year: 2012,
     director: "Leos Carax",
@@ -290,6 +307,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_game_1997",
+    tmdbId: 8699,
     title: "The Game",
     year: 1997,
     director: "David Fincher",
@@ -306,6 +324,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "forrest_gump_1994",
+    tmdbId: 13,
     title: "Forrest Gump",
     year: 1994,
     director: "Robert Zemeckis",
@@ -322,6 +341,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "gran_torino_2008",
+    tmdbId: 12697,
     title: "Gran Torino",
     year: 2008,
     director: "Clint Eastwood",
@@ -338,6 +358,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "true_romance_1993",
+    tmdbId: 10696,
     title: "True Romance",
     year: 1993,
     director: "Tony Scott",
@@ -354,6 +375,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "lock_stock_1998",
+    tmdbId: 100,
     title: "Lock, Stock and Two Smoking Barrels",
     year: 1998,
     director: "Guy Ritchie",
@@ -370,6 +392,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "vivarium_2019",
+    tmdbId: 587966,
     title: "Vivarium",
     year: 2019,
     director: "Lorcan Finnegan",
@@ -386,6 +409,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_fisher_king_1991",
+    tmdbId: 9443,
     title: "The Fisher King",
     year: 1991,
     director: "Terry Gilliam",
@@ -402,6 +426,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_florida_project_2017",
+    tmdbId: 438808,
     title: "The Florida Project",
     year: 2017,
     director: "Sean Baker",
@@ -418,6 +443,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "upstream_color_2013",
+    tmdbId: 176483,
     title: "Upstream Color",
     year: 2013,
     director: "Shane Carruth",
@@ -434,6 +460,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "jacobs_ladder_1990",
+    tmdbId: 11612,
     title: "Jacob's Ladder",
     year: 1990,
     director: "Adrian Lyne",
@@ -450,6 +477,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_jacket_2005",
+    tmdbId: 11358,
     title: "The Jacket",
     year: 2005,
     director: "John Maybury",
@@ -466,6 +494,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "k_pax_2001",
+    tmdbId: 11398,
     title: "K-PAX",
     year: 2001,
     director: "Iain Softley",
@@ -482,6 +511,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "devs_2020",
+    tmdbId: 101352,
     title: "Devs",
     year: 2020,
     director: "Alex Garland",
@@ -498,6 +528,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "the_beach_2000",
+    tmdbId: 8398,
     title: "The Beach",
     year: 2000,
     director: "Danny Boyle",
@@ -514,6 +545,7 @@ export const moviesCollection: Movie[] = [
   },
   {
     id: "you_were_never_really_here_2017",
+    tmdbId: 446021,
     title: "You Were Never Really Here",
     year: 2017,
     director: "Lynne Ramsay",
@@ -551,4 +583,85 @@ export const allGenres = [
   "Romance",
   "Fantasy",
   "Adventure",
+  "Western",
+]
+
+export const katalogCategories = [
+  {
+    id: 1,
+    name: "Psychodeliczne, ale bez horroru",
+    slug: "psycho",
+    icon: "🌀",
+    films: [
+      "Upstream Color", "Holy Motors", "The Congress", "Enter the Void",
+      "The Fountain", "A Field in England", "The Holy Mountain",
+      "Mandy", "Synecdoche, New York", "The Green Knight"
+    ]
+  },
+  {
+    id: 2,
+    name: "Czułe o miłości, ale bez kiczu",
+    slug: "milosc",
+    icon: "🌹",
+    films: [
+      "Blue Valentine", "Her", "Before Sunrise", "Past Lives",
+      "In the Mood for Love", "Eternal Sunshine of the Spotless Mind",
+      "Once", "Punch-Drunk Love", "Lost in Translation", "Beginners"
+    ]
+  },
+  {
+    id: 3,
+    name: "Urban Decay",
+    slug: "urban",
+    icon: "🏚",
+    films: [
+      "Heaven Knows What", "Gummo", "Mid90s", "Last Days",
+      "Pixote", "Naked", "Taxi Driver", "Chungking Express",
+      "La Haine", "Honey Boy"
+    ]
+  },
+  {
+    id: 4,
+    name: "Kino o outsiderach",
+    slug: "outsiderzy",
+    icon: "👤",
+    films: [
+      "The Station Agent", "Wendy and Lucy", "Mary and Max",
+      "Submarine", "Frances Ha", "Napoleon Dynamite",
+      "The Peanut Butter Falcon", "Girl, Interrupted", "The Double", "Joker"
+    ]
+  },
+  {
+    id: 5,
+    name: "Brudna, uliczna poezja",
+    slug: "poezja",
+    icon: "📜",
+    films: [
+      "Dead Man", "A Girl Walks Home Alone at Night", "The Rider",
+      "Fish Tank", "Red Rocket", "Frozen River",
+      "Blue Ruin", "The Place Beyond the Pines", "Monster", "Buffalo '66"
+    ]
+  },
+  {
+    id: 6,
+    name: "Senne i eteryczne",
+    slug: "senne",
+    icon: "🌙",
+    films: [
+      "A Ghost Story", "Columbus", "Loveless", "Drive",
+      "Solaris", "All the Real Girls", "The Tree of Life",
+      "Arrival", "Stalker", "Only Lovers Left Alive"
+    ]
+  },
+  {
+    id: 7,
+    name: "Kino o życiu bez ściemy",
+    slug: "zycie",
+    icon: "🎞",
+    films: [
+      "The Florida Project", "The Wrestler", "Short Term 12",
+      "Nebraska", "Manchester by the Sea", "A Separation",
+      "The Father", "Lean on Pete", "The Straight Story", "Nomadland"
+    ]
+  },
 ]

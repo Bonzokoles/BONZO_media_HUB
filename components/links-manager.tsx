@@ -109,7 +109,15 @@ function ConnectionLines({ containerRef, linkCount }: { containerRef: React.RefO
 
 export function LinksManager() {
   const { favorites, toggleFavorite } = useMedia()
-  const [links, setLinks] = useState<WebLink[]>(sampleLinks)
+  const [links, setLinks] = useState<WebLink[]>(() => {
+    if (typeof window === "undefined") return sampleLinks
+    try {
+      const saved = localStorage.getItem("bonzo-links")
+      if (!saved) return sampleLinks
+      const parsed = JSON.parse(saved) as Array<Omit<WebLink, "createdAt"> & { createdAt: string }>
+      return parsed.map(l => ({ ...l, createdAt: new Date(l.createdAt) }))
+    } catch { return sampleLinks }
+  })
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
@@ -123,6 +131,10 @@ export function LinksManager() {
   })
   const [isFetchingMetadata, setIsFetchingMetadata] = useState(false)
   const gridContainerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    try { localStorage.setItem("bonzo-links", JSON.stringify(links)) } catch {}
+  }, [links])
 
   const filteredLinks = links.filter((link) => {
     const matchesSearch =

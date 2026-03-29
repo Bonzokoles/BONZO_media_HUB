@@ -63,7 +63,9 @@ interface BufferState {
 }
 
 export function MusicPlayer() {
-  const { currentTrack, setCurrentTrack, isPlaying, setIsPlaying, favorites, toggleFavorite, localTracks, addLocalTracks, removeLocalTrack: removeLocalTrackFromCtx } = useMedia()
+  const { favorites, toggleFavorite, localTracks, addLocalTracks, removeLocalTrack: removeLocalTrackFromCtx } = useMedia()
+  const [currentTrack, setCurrentTrack] = useState<Track | null>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState<number>(0)
   const [duration, setDuration] = useState<number>(0)
   const [volume, setVolume] = useState<number>(75)
@@ -74,7 +76,15 @@ export function MusicPlayer() {
   const [audioAnalyser, setAudioAnalyser] = useState<AnalyserNode | null>(null)
   
   // Playlist & Queue state
-  const [playlists, setPlaylists] = useState<Playlist[]>([])
+  const [playlists, setPlaylists] = useState<Playlist[]>(() => {
+    if (typeof window === "undefined") return []
+    try {
+      const saved = localStorage.getItem("bonzo-playlists")
+      if (!saved) return []
+      const parsed = JSON.parse(saved) as Array<Omit<Playlist, "createdAt"> & { createdAt: string }>
+      return parsed.map(pl => ({ ...pl, createdAt: new Date(pl.createdAt) }))
+    } catch { return [] }
+  })
   const [activePlaylist, setActivePlaylist] = useState<Playlist | null>(null)
   const [queue, setQueue] = useState<Track[]>([])
   const [queueIndex, setQueueIndex] = useState<number>(0)
@@ -163,6 +173,20 @@ export function MusicPlayer() {
       preloadTrack(nextTrack)
     }
   }, [queueIndex, queue, preloadTrack])
+
+  // Persist playlists — strip blob URLs (local files can't survive reload)
+  useEffect(() => {
+    try {
+      const serializable = playlists.map(pl => ({
+        ...pl,
+        tracks: pl.tracks.map(t => ({
+          ...t,
+          audioUrl: t.audioUrl?.startsWith("blob:") ? undefined : t.audioUrl,
+        })),
+      }))
+      localStorage.setItem("bonzo-playlists", JSON.stringify(serializable))
+    } catch {}
+  }, [playlists])
 
   const handleTrackSelect = (track: Track) => {
     setCurrentTrack(track)

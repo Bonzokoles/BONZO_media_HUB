@@ -1,0 +1,16 @@
+@echo off
+title BONZO media HUB - Dev Server
+cd /d "%~dp0"
+echo.
+echo  ██████╗  ██████╗ ███╗   ██╗███████╗ ██████╗
+echo  ██╔══██╗██╔═══██╗████╗  ██║╚══███╔╝██╔═══██╗
+echo  ██████╔╝██║   ██║██╔██╗ ██║  ███╔╝ ██║   ██║
+echo  ██╔══██╗██║   ██║██║╚██╗██║ ███╔╝  ██║   ██║
+echo  ██████╔╝╚██████╔╝██║ ╚████║███████╗╚██████╔╝
+echo  ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝
+echo.
+echo  media HUB - Dev Server
+echo  http://localhost:4849
+echo.
+npm run dev
+pause

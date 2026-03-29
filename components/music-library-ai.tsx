@@ -429,21 +429,20 @@ function CoversTab({ tracks, currentTrack, onTrackCoverUpdate }: {
           {results.map((r, i) => (
             <div key={i} className="group relative overflow-hidden rounded border border-border">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={r.coverUrl300} alt={r.album} className="aspect-square w-full object-cover" loading="lazy"
-                onError={e => { (e.target as HTMLImageElement).src = r.coverUrl }} />
+              <img src={r.url} alt={r.source} className="aspect-square w-full object-cover" loading="lazy" />
               <div className="absolute inset-0 flex flex-col justify-end bg-black/70 p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-                <p className="truncate text-[9px] font-medium text-white">{r.album}</p>
-                <p className="truncate text-[9px] text-white/60">{r.year ?? ""}</p>
+                <p className="truncate text-[9px] font-medium text-white">{r.source}</p>
+                <p className="truncate text-[9px] text-white/60">{r.size}</p>
                 <button
-                  onClick={() => apply(r.coverUrl)}
+                  onClick={() => apply(r.url)}
                   className={cn(
                     "mt-1 w-full rounded py-0.5 text-[9px] font-bold uppercase transition-colors",
-                    appliedTo === r.coverUrl
+                    appliedTo === r.url
                       ? "bg-green-500 text-white"
                       : "bg-primary text-primary-foreground hover:bg-primary/80",
                   )}
                 >
-                  {appliedTo === r.coverUrl ? "✓ OK" : "UŻYJ"}
+                  {appliedTo === r.url ? "✓ OK" : "UŻYJ"}
                 </button>
               </div>
             </div>

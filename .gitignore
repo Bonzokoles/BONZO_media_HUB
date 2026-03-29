@@ -28,3 +28,12 @@ out/
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Claude Code internal
+.claude/
+
+# Build artifacts
+tsconfig.tsbuildinfo
+
+# Wrangler auto-generated types (442KB, regenerate with: npm run cf-typegen)
+/cloudflare-env.d.ts
