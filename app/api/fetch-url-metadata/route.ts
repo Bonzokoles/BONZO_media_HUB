@@ -1,5 +1,4 @@
-export const dynamic = 'force-static'
-export const revalidate = 3600
+export const dynamic = 'error'
 
 import { NextRequest, NextResponse } from "next/server"
 

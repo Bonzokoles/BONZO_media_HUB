@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-export const dynamic = 'force-static'
-export const revalidate = 3600
+export const dynamic = 'error'
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY
 const TMDB_READ_TOKEN = process.env.TMDB_READ_TOKEN

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const dynamic = 'force-static'
-export const revalidate = 3600
+export const dynamic = 'error'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
