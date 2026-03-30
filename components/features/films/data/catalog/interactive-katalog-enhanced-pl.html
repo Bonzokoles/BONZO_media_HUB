@@ -8,26 +8,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
   <style>
-    :root,[data-theme="light"]{--text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);--text-base:clamp(1rem,.95rem + .25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-12:3rem;--space-16:4rem;--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow-md:0 10px 24px rgba(0,0,0,.08);--content:1280px;--font-display:'Instrument Serif',Georgia,serif;--font-body:'Work Sans',Arial,sans-serif}
-    [data-theme="dark"]{--color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;--color-border:#393836;--color-text:#cdccca;--color-text-muted:#97958f;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--shadow-sm:0 1px 2px rgba(0,0,0,.2);--shadow-md:0 12px 32px rgba(0,0,0,.35)}
+    :root,[data-theme="light"]{--text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);--text-base:clamp(1rem,.95rem + .25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-12:3rem;--space-16:4rem;--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--radius-md:0;--radius-lg:0;--radius-xl:0;--shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow-md:0 10px 24px rgba(0,0,0,.08);--content:1280px;--font-display:'Instrument Serif',Georgia,serif;--font-body:'Work Sans',Arial,sans-serif}
+    [data-theme="dark"]{--color-bg:#060504;--color-surface:#0b0a08;--color-surface-2:#0f0e0c;--color-border:#1d1c1a;--color-text:#c8c6c2;--color-text-muted:#666462;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-md:0 12px 32px rgba(0,0,0,.65)}
     *{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:var(--font-body);font-size:var(--text-base);background:radial-gradient(circle at top left,rgba(79,152,163,.14),transparent 28%),var(--color-bg);color:var(--color-text);line-height:1.6} img{display:block;max-width:100%;height:auto} button,input,select{font:inherit;color:inherit} a{color:inherit;text-decoration:none} .wrap{max-width:var(--content);margin:0 auto;padding:0 var(--space-4)}
     .topbar{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--color-bg) 78%,transparent);border-bottom:1px solid var(--color-border)}
     .topbar-inner{display:flex;gap:var(--space-4);align-items:center;justify-content:space-between;padding:var(--space-4) 0}
     .brand{display:flex;align-items:center;gap:var(--space-3)} .logo{width:42px;height:42px;border:1px solid var(--color-border);border-radius:50%;display:grid;place-items:center;background:var(--color-surface)}
     .logo svg{width:24px;height:24px} .brand h1{font-family:var(--font-display);font-size:var(--text-xl);line-height:1} .muted{color:var(--color-text-muted)}
-    .toolbar{display:grid;grid-template-columns:1.4fr .9fr auto;gap:var(--space-3);padding-bottom:var(--space-4)} input,select{width:100%;background:var(--color-surface);border:1px solid var(--color-border);border-radius:999px;padding:.85rem 1rem} .theme-btn,.jump-btn{border:1px solid var(--color-border);border-radius:999px;padding:.85rem 1rem;background:var(--color-surface);cursor:pointer} .theme-btn:hover,.jump-btn:hover{background:var(--color-surface-2)}
+    .toolbar{display:grid;grid-template-columns:1.4fr .9fr auto;gap:var(--space-3);padding-bottom:var(--space-4)} input,select{width:100%;background:var(--color-surface);border:1px solid var(--color-border);border-radius:0;padding:.85rem 1rem} .theme-btn,.jump-btn{border:1px solid var(--color-border);border-radius:0;padding:.85rem 1rem;background:var(--color-surface);cursor:pointer} .theme-btn:hover,.jump-btn:hover{background:var(--color-surface-2)}
     .hero{padding:var(--space-16) 0 var(--space-12)} .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-8);align-items:end} .eyebrow{font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);font-weight:700;margin-bottom:var(--space-3)}
     .hero h2{font-family:var(--font-display);font-size:clamp(2.6rem,2rem + 3vw,5.2rem);line-height:.95;max-width:12ch;margin-bottom:var(--space-4)} .hero p{max-width:60ch;color:var(--color-text-muted)}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-top:var(--space-6)} .stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4);box-shadow:var(--shadow-sm)} .stat strong{display:block;font-size:var(--text-xl);font-family:var(--font-display)}
-    .sources{background:var(--color-surface);border:1px solid var(--color-border);border-radius:24px;padding:var(--space-6);box-shadow:var(--shadow-md)} .sources ul{list-style:none;display:grid;gap:var(--space-3)} .sources li{display:flex;justify-content:space-between;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px dashed var(--color-border)} .sources li:last-child{border-bottom:0;padding-bottom:0}
+    .sources{background:var(--color-surface);border:1px solid var(--color-border);border-radius:0;padding:var(--space-6);box-shadow:var(--shadow-md)} .sources ul{list-style:none;display:grid;gap:var(--space-3)} .sources li{display:flex;justify-content:space-between;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px dashed var(--color-border)} .sources li:last-child{border-bottom:0;padding-bottom:0}
     .section{padding:var(--space-12) 0} .section-head{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-6)} .section-head h3{font-family:var(--font-display);font-size:var(--text-2xl)}
-    .chips{display:flex;flex-wrap:wrap;gap:.6rem} .chip{padding:.45rem .8rem;border-radius:999px;border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs)}
-    .category{margin-bottom:var(--space-12)} .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4)} .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;min-height:100%;transition:transform .2s,box-shadow .2s} .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .chips{display:flex;flex-wrap:wrap;gap:.6rem} .chip{padding:.45rem .8rem;border-radius:0;border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs)}
+    .category{margin-bottom:var(--space-12)} .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4)} .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:0;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;min-height:100%;transition:transform .2s,box-shadow .2s} .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
     .poster{aspect-ratio:2/3;background:linear-gradient(135deg,rgba(79,152,163,.25),rgba(0,0,0,.08));position:relative} .poster img{width:100%;height:100%;object-fit:cover} .poster .fallback{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-4);text-align:center;color:var(--color-text-muted);font-size:var(--text-sm)}
     .trailer-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;opacity:0;transition:opacity .3s} .card:hover .trailer-overlay{opacity:1} .trailer-btn{background:var(--color-primary);color:white;border:2px solid white;border-radius:50%;width:64px;height:64px;display:grid;place-items:center;cursor:pointer;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,.3)} .trailer-btn:hover{background:var(--color-primary-hover);transform:scale(1.1)}
-    .card-body{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4)} .card h4{font-size:1.02rem;line-height:1.2} .meta{display:flex;flex-wrap:wrap;gap:.45rem} .tag{font-size:var(--text-xs);padding:.35rem .55rem;border-radius:999px;background:color-mix(in srgb,var(--color-primary) 11%,var(--color-surface));border:1px solid color-mix(in srgb,var(--color-primary) 34%,var(--color-border))}
+    .card-body{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4)} .card h4{font-size:1.02rem;line-height:1.2} .meta{display:flex;flex-wrap:wrap;gap:.45rem} .tag{font-size:var(--text-xs);padding:.35rem .55rem;border-radius:0;background:color-mix(in srgb,var(--color-primary) 11%,var(--color-surface));border:1px solid color-mix(in srgb,var(--color-primary) 34%,var(--color-border))}
     .desc{font-size:var(--text-sm);color:var(--color-text-muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;min-height:7.6em}
-    .streaming{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto} .provider{font-size:var(--text-xs);padding:.35rem .55rem;border:1px solid var(--color-border);border-radius:999px;background:var(--color-surface-2)} .provider.missing{opacity:.75}
+    .streaming{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto} .provider{font-size:var(--text-xs);padding:.35rem .55rem;border:1px solid var(--color-border);border-radius:0;background:var(--color-surface-2)} .provider.missing{opacity:.75}
     .rating{display:flex;align-items:center;gap:.3rem;font-size:var(--text-sm);color:var(--color-primary)} .rating svg{width:16px;height:16px;fill:currentColor}
     .footer-note{padding:var(--space-12) 0 var(--space-16);color:var(--color-text-muted);font-size:var(--text-sm)}
     @media (max-width: 980px){.hero-grid,.toolbar{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}} @media (max-width: 640px){.stats{grid-template-columns:1fr}.topbar-inner,.section-head{align-items:flex-start;flex-direction:column}.hero h2{max-width:9ch}}
@@ -130,7 +130,7 @@
           "Drama",
           "Science Fiction"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Upstream%20Color%20%20trailer",
         "tmdb_id": 145197,
         "rating": 6.336
       },
@@ -150,7 +150,7 @@
           "Drama",
           "Fantasy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Holy%20Motors%20%20trailer",
         "tmdb_id": 103328,
         "rating": 6.987
       },
@@ -170,7 +170,7 @@
           "Drama",
           "Science Fiction"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Congress%20%20trailer",
         "tmdb_id": 152795,
         "rating": 6.4
       },
@@ -190,7 +190,7 @@
           "Fantasy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Enter%20the%20Void%20%20trailer",
         "tmdb_id": 34647,
         "rating": 7.291
       },
@@ -210,7 +210,7 @@
           "Drama",
           "Adventure"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Fountain%20%20trailer",
         "tmdb_id": 1381,
         "rating": 6.909
       },
@@ -230,7 +230,7 @@
           "Horror",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=A%20Field%20in%20England%20%20trailer",
         "tmdb_id": 179111,
         "rating": 6.2
       },
@@ -249,7 +249,7 @@
           "arthouse",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Holy%20Mountain%20%20trailer",
         "tmdb_id": 8327,
         "rating": 7.529
       },
@@ -269,7 +269,7 @@
           "Fantasy",
           "Action"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Mandy%20%20trailer",
         "tmdb_id": 460885,
         "rating": 6.203
       },
@@ -288,7 +288,7 @@
           "arthouse",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Synecdoche%2C%20New%20York%20%20trailer",
         "tmdb_id": 4960,
         "rating": 7.545
       },
@@ -328,7 +328,7 @@
           "Science Fiction",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Paprika%202006%20trailer",
         "tmdb_id": 4977,
         "rating": 7.815
       },
@@ -348,7 +348,7 @@
           "Animation",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Waking%20Life%202001%20trailer",
         "tmdb_id": 9081,
         "rating": 7.477
       },
@@ -368,7 +368,7 @@
           "Thriller",
           "Mystery"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Enemy%202013%20trailer",
         "tmdb_id": 181886,
         "rating": 6.8
       },
@@ -408,7 +408,7 @@
           "Science Fiction",
           "Horror"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Beyond%20the%20Black%20Rainbow%202010%20trailer",
         "tmdb_id": 50037,
         "rating": 5.7
       }
@@ -438,7 +438,7 @@
           "Drama",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Blue%20Valentine%20%20trailer",
         "tmdb_id": 46705,
         "rating": 6.961
       },
@@ -518,7 +518,7 @@
           "Drama",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=In%20the%20Mood%20for%20Love%20%20trailer",
         "tmdb_id": 843,
         "rating": 8.089
       },
@@ -538,7 +538,7 @@
           "Science Fiction",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Eternal%20Sunshine%20of%20the%20Spotless%20Mind%20%20trailer",
         "tmdb_id": 38,
         "rating": 8.09
       },
@@ -558,7 +558,7 @@
           "Drama",
           "Music"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Once%20%20trailer",
         "tmdb_id": 5723,
         "rating": 7.417
       },
@@ -578,7 +578,7 @@
           "Romance",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Punch-Drunk%20Love%20%20trailer",
         "tmdb_id": 8051,
         "rating": 7.102
       },
@@ -598,7 +598,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Lost%20in%20Translation%20%20trailer",
         "tmdb_id": 153,
         "rating": 7.382
       },
@@ -618,7 +618,7 @@
           "Drama",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Portrait%20of%20a%20Lady%20on%20Fire%202019%20trailer",
         "tmdb_id": 531428,
         "rating": 8.1
       },
@@ -638,7 +638,7 @@
           "Comedy",
           "Action"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Weekend%202011%20trailer",
         "tmdb_id": 62881,
         "rating": 3.9
       },
@@ -656,7 +656,7 @@
           "melancholia",
           "relacje"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Normal%20People%202020%20trailer",
         "tmdb_id": 1286673,
         "rating": 0
       },
@@ -676,7 +676,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Chungking%20Express%20%20trailer",
         "tmdb_id": 11104,
         "rating": 7.965
       },
@@ -716,7 +716,7 @@
           "Drama",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Phantom%20Thread%202017%20trailer",
         "tmdb_id": 400617,
         "rating": 7.314
       }
@@ -746,7 +746,7 @@
           "Drama",
           "Crime"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Heaven%20Knows%20What%20%20trailer",
         "tmdb_id": 285024,
         "rating": 6.5
       },
@@ -766,7 +766,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Gummo%20%20trailer",
         "tmdb_id": 18415,
         "rating": 6.6
       },
@@ -786,7 +786,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Mid90s%20%20trailer",
         "tmdb_id": 437586,
         "rating": 7.476
       },
@@ -806,7 +806,7 @@
           "Drama",
           "Action"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Last%20Days%20%20trailer",
         "tmdb_id": 1093402,
         "rating": 8
       },
@@ -826,7 +826,7 @@
           "Crime",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Pixote%20%20trailer",
         "tmdb_id": 42148,
         "rating": 7.9
       },
@@ -846,7 +846,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Naked%20%20trailer",
         "tmdb_id": 21450,
         "rating": 7.258
       },
@@ -866,7 +866,7 @@
           "Crime",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Taxi%20Driver%20%20trailer",
         "tmdb_id": 103,
         "rating": 8.127
       },
@@ -886,7 +886,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Chungking%20Express%20%20trailer",
         "tmdb_id": 11104,
         "rating": 7.965
       },
@@ -905,7 +905,7 @@
           "brud",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=La%20Haine%20%20trailer",
         "tmdb_id": 406,
         "rating": 8.084
       },
@@ -925,7 +925,7 @@
           "Crime",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Good%20Time%202017%20trailer",
         "tmdb_id": 429200,
         "rating": 7.2
       },
@@ -945,7 +945,7 @@
           "Drama",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Uncut%20Gems%202019%20trailer",
         "tmdb_id": 473033,
         "rating": 7.159
       },
@@ -965,7 +965,7 @@
           "Crime",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Victoria%202015%20trailer",
         "tmdb_id": 320007,
         "rating": 7.59
       },
@@ -984,7 +984,7 @@
           "brud",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Fish%20Tank%20%20trailer",
         "tmdb_id": 24469,
         "rating": 6.941
       },
@@ -1004,7 +1004,7 @@
           "Drama",
           "Crime"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Gomorrah%202008%20trailer",
         "tmdb_id": 8882,
         "rating": 6.881
       },
@@ -1024,7 +1024,7 @@
           "Drama",
           "Crime"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Spring%20Breakers%202012%20trailer",
         "tmdb_id": 122081,
         "rating": 5.252
       }
@@ -1054,7 +1054,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Station%20Agent%20%20trailer",
         "tmdb_id": 2056,
         "rating": 7.351
       },
@@ -1073,7 +1073,7 @@
           "misfit",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Wendy%20and%20Lucy%20%20trailer",
         "tmdb_id": 8942,
         "rating": 6.8
       },
@@ -1093,7 +1093,7 @@
           "Animation",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Mary%20and%20Max%20%20trailer",
         "tmdb_id": 24238,
         "rating": 7.872
       },
@@ -1113,7 +1113,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Submarine%20%20trailer",
         "tmdb_id": 49020,
         "rating": 7.361
       },
@@ -1133,7 +1133,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Frances%20Ha%20%20trailer",
         "tmdb_id": 121986,
         "rating": 7.334
       },
@@ -1152,7 +1152,7 @@
           "misfit",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Napoleon%20Dynamite%20%20trailer",
         "tmdb_id": 8193,
         "rating": 6.781
       },
@@ -1191,7 +1191,7 @@
           "misfit",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Girl%2C%20Interrupted%20%20trailer",
         "tmdb_id": 3558,
         "rating": 7.564
       },
@@ -1211,7 +1211,7 @@
           "Thriller",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Double%20%20trailer",
         "tmdb_id": 146015,
         "rating": 6.511
       },
@@ -1231,7 +1231,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Lars%20and%20the%20Real%20Girl%202007%20trailer",
         "tmdb_id": 6615,
         "rating": 7.196
       },
@@ -1251,7 +1251,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Ghost%20World%202001%20trailer",
         "tmdb_id": 1548,
         "rating": 7.095
       },
@@ -1271,7 +1271,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Paterson%202016%20trailer",
         "tmdb_id": 370755,
         "rating": 7.114
       },
@@ -1291,7 +1291,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Harold%20and%20Maude%201971%20trailer",
         "tmdb_id": 343,
         "rating": 7.606
       },
@@ -1311,7 +1311,7 @@
           "Crime",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Kajillionaire%202020%20trailer",
         "tmdb_id": 541305,
         "rating": 6.285
       },
@@ -1331,7 +1331,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Lobster%202015%20trailer",
         "tmdb_id": 254320,
         "rating": 7.026
       }
@@ -1361,7 +1361,7 @@
           "Drama",
           "Fantasy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Dead%20Man%20%20trailer",
         "tmdb_id": 922,
         "rating": 7.308
       },
@@ -1381,7 +1381,7 @@
           "Horror",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=A%20Girl%20Walks%20Home%20Alone%20at%20Night%20%20trailer",
         "tmdb_id": 252171,
         "rating": 6.818
       },
@@ -1401,7 +1401,7 @@
           "Drama",
           "Western"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Rider%20%20trailer",
         "tmdb_id": 453278,
         "rating": 7.265
       },
@@ -1420,7 +1420,7 @@
           "gritty",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Fish%20Tank%20%20trailer",
         "tmdb_id": 24469,
         "rating": 6.941
       },
@@ -1440,7 +1440,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Red%20Rocket%20%20trailer",
         "tmdb_id": 763329,
         "rating": 6.796
       },
@@ -1460,7 +1460,7 @@
           "Drama",
           "Crime"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Frozen%20River%20%20trailer",
         "tmdb_id": 10183,
         "rating": 6.6
       },
@@ -1480,7 +1480,7 @@
           "Crime",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Blue%20Ruin%20%20trailer",
         "tmdb_id": 188166,
         "rating": 6.79
       },
@@ -1500,7 +1500,7 @@
           "Drama",
           "Crime"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Place%20Beyond%20the%20Pines%20%20trailer",
         "tmdb_id": 97367,
         "rating": 6.984
       },
@@ -1520,7 +1520,7 @@
           "Crime",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Monster%20%20trailer",
         "tmdb_id": 504,
         "rating": 7.208
       },
@@ -1538,7 +1538,7 @@
           "raw",
           "gritty"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Burning%202018%20trailer",
         "tmdb_id": 813106,
         "rating": 6.4
       },
@@ -1558,7 +1558,7 @@
           "Drama",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Cold%20in%20July%202014%20trailer",
         "tmdb_id": 244509,
         "rating": 6.541
       },
@@ -1578,7 +1578,7 @@
           "Drama",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Shotgun%20Stories%202007%20trailer",
         "tmdb_id": 12247,
         "rating": 6.9
       },
@@ -1597,7 +1597,7 @@
           "gritty",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Leave%20No%20Trace%202018%20trailer",
         "tmdb_id": 443463,
         "rating": 6.809
       },
@@ -1617,7 +1617,7 @@
           "Drama",
           "Mystery"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Winter's%20Bone%202010%20trailer",
         "tmdb_id": 39013,
         "rating": 6.787
       },
@@ -1667,7 +1667,7 @@
           "Drama",
           "Fantasy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=A%20Ghost%20Story%20%20trailer",
         "tmdb_id": 428449,
         "rating": 7.073
       },
@@ -1687,7 +1687,7 @@
           "Drama",
           "Comedy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Columbus%20%20trailer",
         "tmdb_id": 414453,
         "rating": 7.108
       },
@@ -1707,7 +1707,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Loveless%20%20trailer",
         "tmdb_id": 83725,
         "rating": 3.3
       },
@@ -1727,7 +1727,7 @@
           "Drama",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Drive%20%20trailer",
         "tmdb_id": 64690,
         "rating": 7.583
       },
@@ -1747,7 +1747,7 @@
           "Drama",
           "Science Fiction"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Solaris%20%20trailer",
         "tmdb_id": 2103,
         "rating": 5.9
       },
@@ -1767,7 +1767,7 @@
           "Drama",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=All%20the%20Real%20Girls%20%20trailer",
         "tmdb_id": 13132,
         "rating": 5.9
       },
@@ -1787,7 +1787,7 @@
           "Drama",
           "Fantasy"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Tree%20of%20Life%20%20trailer",
         "tmdb_id": 8967,
         "rating": 6.723
       },
@@ -1827,7 +1827,7 @@
           "Horror",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Stalker%20%20trailer",
         "tmdb_id": 1444232,
         "rating": 0
       },
@@ -1866,7 +1866,7 @@
           "Drama",
           "Mystery"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Long%20Day's%20Journey%20Into%20Night%202018%20trailer",
         "tmdb_id": 486898,
         "rating": 7
       },
@@ -1886,7 +1886,7 @@
           "Drama",
           "Mystery"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Personal%20Shopper%202016%20trailer",
         "tmdb_id": 340676,
         "rating": 5.928
       },
@@ -1906,7 +1906,7 @@
           "Drama",
           "Mystery"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Eternal%20Daughter%202022%20trailer",
         "tmdb_id": 790867,
         "rating": 5.9
       },
@@ -1925,7 +1925,7 @@
           "dreamlike",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Millennium%20Mambo%202001%20trailer",
         "tmdb_id": 11553,
         "rating": 7
       },
@@ -1944,7 +1944,7 @@
           "dreamlike",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Somewhere%202010%20trailer",
         "tmdb_id": 39210,
         "rating": 6.1
       }
@@ -1973,7 +1973,7 @@
           "humanizm",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Florida%20Project%20%20trailer",
         "tmdb_id": 394117,
         "rating": 7.43
       },
@@ -1993,7 +1993,7 @@
           "Drama",
           "Romance"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Wrestler%20%20trailer",
         "tmdb_id": 12163,
         "rating": 7.538
       },
@@ -2012,7 +2012,7 @@
           "humanizm",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Short%20Term%2012%20%20trailer",
         "tmdb_id": 169813,
         "rating": 7.8
       },
@@ -2032,7 +2032,7 @@
           "Drama",
           "Adventure"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Nebraska%20%20trailer",
         "tmdb_id": 129670,
         "rating": 7.453
       },
@@ -2051,7 +2051,7 @@
           "humanizm",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Manchester%20by%20the%20Sea%20%20trailer",
         "tmdb_id": 334541,
         "rating": 7.552
       },
@@ -2070,7 +2070,7 @@
           "humanizm",
           "Thriller"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=A%20Separation%20%20trailer",
         "tmdb_id": 1649065,
         "rating": 0
       },
@@ -2089,7 +2089,7 @@
           "humanizm",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Father%20%20trailer",
         "tmdb_id": 600354,
         "rating": 8.097
       },
@@ -2109,7 +2109,7 @@
           "Drama",
           "Adventure"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Lean%20on%20Pete%20%20trailer",
         "tmdb_id": 407890,
         "rating": 7
       },
@@ -2129,7 +2129,7 @@
           "Drama",
           "History"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=The%20Straight%20Story%20%20trailer",
         "tmdb_id": 404,
         "rating": 7.742
       },
@@ -2149,7 +2149,7 @@
           "Drama",
           "Crime"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Shoplifters%202018%20trailer",
         "tmdb_id": 505192,
         "rating": 7.84
       },
@@ -2169,7 +2169,7 @@
           "Comedy",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Another%20Round%202020%20trailer",
         "tmdb_id": 580175,
         "rating": 7.631
       },
@@ -2189,7 +2189,7 @@
           "Drama",
           "Music"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Sound%20of%20Metal%202019%20trailer",
         "tmdb_id": 502033,
         "rating": 7.7
       },
@@ -2227,7 +2227,7 @@
           "humanizm",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Capernaum%202018%20trailer",
         "tmdb_id": 517814,
         "rating": 8.137
       },
@@ -2246,7 +2246,7 @@
           "humanizm",
           "Drama"
         ],
-        "trailer": "#",
+        "trailer": "https://www.youtube.com/results?search_query=Leave%20No%20Trace%202018%20trailer",
         "tmdb_id": 443463,
         "rating": 6.809
       }
@@ -2301,9 +2301,9 @@
               : `<div class="fallback">📽️<br/>${escapeHtml(f.title)}</div>`;
 
             const trailerBtn = f.trailer && f.trailer !== '#'
-              ? `<a href="${escapeHtml(f.trailer)}" target="_blank" class="trailer-overlay" aria-label="Obejrzyj trailer ${escapeHtml(f.title)}">
+              ? `<button data-trailer="${escapeHtml(f.trailer)}" data-title="${escapeHtml(f.title)}" class="trailer-overlay trailer-trigger" aria-label="Obejrzyj trailer ${escapeHtml(f.title)}">
                    <div class="trailer-btn">▶</div>
-                 </a>`
+                 </button>`
               : '';
 
             const tags = (f.tags || []).slice(0, 3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
@@ -2366,6 +2366,20 @@
       html.setAttribute('data-theme', saved);
       if (themeBtn) themeBtn.textContent = saved === 'dark' ? '🌙 Motyw' : '☀️ Motyw';
     }
+
+    // Trailer postMessage handler
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.trailer-trigger');
+      if (!btn) return;
+      e.preventDefault();
+      const url = btn.dataset.trailer;
+      const title = btn.dataset.title;
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'PLAY_TRAILER', url, title }, '*');
+      } else {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    });
 
     // Event listeners
     const t = () => setTimeout(render, 50);

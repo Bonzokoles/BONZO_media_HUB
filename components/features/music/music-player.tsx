@@ -33,6 +33,8 @@ import {
   ChevronDown,
   Loader2,
   Brain,
+  Maximize2,
+  Minimize2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
@@ -91,6 +93,7 @@ export function MusicPlayer() {
   const [showQueue, setShowQueue] = useState(false)
   const [showPlaylists, setShowPlaylists] = useState(false)
   const [showAILibrary, setShowAILibrary] = useState(false)
+  const [isFullVisualizer, setIsFullVisualizer] = useState(false)
   const [newPlaylistName, setNewPlaylistName] = useState("")
   const [shuffleEnabled, setShuffle] = useState(false)
   const [repeatMode, setRepeatMode] = useState<RepeatMode>("none")
@@ -489,6 +492,17 @@ export function MusicPlayer() {
     }
   }, [currentTrack, queue.length, setCurrentTrack])
 
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsFullVisualizer(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleEsc)
+    return () => window.removeEventListener("keydown", handleEsc)
+  }, [])
+
   const togglePlayback = () => {
     ensureTrackSelected()
     setIsPlaying(!isPlaying)
@@ -607,14 +621,37 @@ export function MusicPlayer() {
               <Brain className="h-3 w-3" />
               AI_LIBRARY
             </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsFullVisualizer((prev) => !prev)}
+              className={cn(
+                "gap-2 text-xs uppercase tracking-wider",
+                isFullVisualizer && "border-primary bg-primary/10 text-primary"
+              )}
+            >
+              {isFullVisualizer ? <Minimize2 className="h-3 w-3" /> : <Maximize2 className="h-3 w-3" />}
+              {isFullVisualizer ? "EXIT_FULL" : "FULL_VIS"}
+            </Button>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden lg:grid lg:grid-cols-2 lg:gap-0">
+      <div
+        className={cn(
+          "flex-1 overflow-hidden",
+          isFullVisualizer ? "block" : "lg:grid lg:grid-cols-2 lg:gap-0"
+        )}
+      >
         {/* Now Playing / Visualizer */}
-        <div className="flex flex-col border-b border-border p-6 lg:border-b-0 lg:border-r">
-          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden border border-border bg-card">
+        <div
+          className={cn(
+            "flex min-h-0 flex-col border-b border-border p-4 lg:border-b-0 lg:p-6",
+            !isFullVisualizer && "lg:border-r",
+            isFullVisualizer && "h-full"
+          )}
+        >
+          <div className="relative flex-1 overflow-hidden border border-border bg-card min-h-[420px]">
             <div className="absolute inset-0">
               <AudioVisualizer 
                 isPlaying={isPlaying} 
@@ -625,7 +662,7 @@ export function MusicPlayer() {
             </div>
             
             {/* TOP OVERLAY: Track Info + Controls */}
-            <div className="absolute inset-x-0 top-0 bg-linear-to-b from-background/90 to-transparent p-4">
+            <div className="absolute inset-x-0 top-0 bg-linear-to-b from-background/90 via-background/70 to-transparent p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="text-xs text-primary/70 mb-1">[NOW_PLAYING]</div>
@@ -641,24 +678,81 @@ export function MusicPlayer() {
                   )}
                 </div>
                 
-                {/* Play/Stop/Pause Controls on Visualizer */}
-                <div className="flex items-center gap-1">
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-8 w-8 border border-border bg-background/50 hover:bg-background/80"
-                    onClick={stopPlayback}
-                  >
-                    <Square className="h-3 w-3" />
-                  </Button>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-10 w-10 border border-primary bg-primary/20 hover:bg-primary/40"
-                    onClick={togglePlayback}
-                  >
-                    {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="ml-0.5 h-5 w-5" />}
-                  </Button>
+                <div className="flex flex-col items-end gap-2">
+                  {/* Arrows + Stop + Play */}
+                  <div className="flex items-center gap-1">
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="h-8 w-8 border border-border bg-background/50 hover:bg-background/80"
+                      onClick={playPrevious}
+                      title="Previous"
+                    >
+                      <SkipBack className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="h-8 w-8 border border-border bg-background/50 hover:bg-background/80"
+                      onClick={stopPlayback}
+                      title="Stop"
+                    >
+                      <Square className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="h-10 w-10 border border-primary bg-primary/20 hover:bg-primary/40"
+                      onClick={togglePlayback}
+                      title={isPlaying ? "Pause" : "Play"}
+                    >
+                      {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="ml-0.5 h-5 w-5" />}
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="h-8 w-8 border border-border bg-background/50 hover:bg-background/80"
+                      onClick={playNext}
+                      title="Next"
+                    >
+                      <SkipForward className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+
+                  {/* Config + Volume */}
+                  <div className="flex items-center gap-2 rounded border border-border bg-background/60 px-2 py-1">
+                    <VisualizerSettings
+                      config={visualizerConfig}
+                      onChange={setVisualizerConfig}
+                    />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7"
+                      onClick={() => setIsMuted(!isMuted)}
+                      title={isMuted ? "Unmute" : "Mute"}
+                    >
+                      {isMuted || volume === 0 ? (
+                        <VolumeX className="h-3.5 w-3.5" />
+                      ) : (
+                        <Volume2 className="h-3.5 w-3.5" />
+                      )}
+                    </Button>
+                    <Slider
+                      value={[isMuted ? 0 : (typeof volume === 'number' && !isNaN(volume) ? volume : 75)]}
+                      onValueChange={(value) => {
+                        setVolume(value[0])
+                        setIsMuted(false)
+                      }}
+                      min={0}
+                      max={100}
+                      step={1}
+                      className="w-28"
+                    />
+                    <span className="w-10 text-right font-mono text-[10px] text-muted-foreground">
+                      [{isMuted ? 0 : volume}%]
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -670,12 +764,20 @@ export function MusicPlayer() {
               <div>[COLOR] {visualizerConfig.colorScheme.toUpperCase()}</div>
             </div>
             
-            {/* Settings button */}
-            <div className="absolute right-3 top-16">
-              <VisualizerSettings
-                config={visualizerConfig}
-                onChange={setVisualizerConfig}
+            {/* Bottom Time Bar */}
+            <div className="absolute inset-x-0 bottom-0 border-t border-border/60 bg-background/80 p-3 backdrop-blur-sm">
+              <Slider
+                value={[typeof progress === 'number' && !isNaN(progress) ? progress : 0]}
+                onValueChange={handleSeek}
+                min={0}
+                max={Math.max(duration, 1)}
+                step={0.1}
+                className="w-full"
               />
+              <div className="mt-1.5 flex justify-between font-mono text-xs text-muted-foreground">
+                <span>[{formatTime(progress)}]</span>
+                <span>[{formatTime(duration || activeTrack.duration)}]</span>
+              </div>
             </div>
           </div>
 
@@ -697,23 +799,7 @@ export function MusicPlayer() {
             ))}
           </div>
 
-          {/* Progress Bar */}
-          <div className="mt-4 space-y-2">
-            <Slider
-              value={[typeof progress === 'number' && !isNaN(progress) ? progress : 0]}
-              onValueChange={handleSeek}
-              min={0}
-              max={Math.max(duration, 1)}
-              step={0.1}
-              className="w-full"
-            />
-            <div className="flex justify-between font-mono text-xs text-muted-foreground">
-              <span>[{formatTime(progress)}]</span>
-              <span>[{formatTime(duration || activeTrack.duration)}]</span>
-            </div>
-          </div>
-
-          {/* Playback Controls */}
+          {/* Secondary controls */}
           <div className="mt-4 flex items-center justify-center gap-2">
             <Button 
               variant="ghost" 
@@ -725,13 +811,6 @@ export function MusicPlayer() {
             </Button>
             <Button variant="ghost" size="icon" className="text-foreground" onClick={playPrevious}>
               <SkipBack className="h-5 w-5" />
-            </Button>
-            <Button
-              size="icon"
-              className="h-12 w-12 border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={togglePlayback}
-            >
-              {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="ml-0.5 h-6 w-6" />}
             </Button>
             <Button variant="ghost" size="icon" className="text-foreground" onClick={playNext}>
               <SkipForward className="h-5 w-5" />
@@ -745,40 +824,10 @@ export function MusicPlayer() {
               {repeatMode === "one" ? <Repeat1 className="h-4 w-4" /> : <Repeat className="h-4 w-4" />}
             </Button>
           </div>
-
-          {/* Volume Control */}
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setIsMuted(!isMuted)}
-            >
-              {isMuted || volume === 0 ? (
-                <VolumeX className="h-4 w-4" />
-              ) : (
-                <Volume2 className="h-4 w-4" />
-              )}
-            </Button>
-            <Slider
-              value={[isMuted ? 0 : (typeof volume === 'number' && !isNaN(volume) ? volume : 75)]}
-              onValueChange={(value) => {
-                setVolume(value[0])
-                setIsMuted(false)
-              }}
-              min={0}
-              max={100}
-              step={1}
-              className="w-32"
-            />
-            <span className="w-12 text-right font-mono text-xs text-muted-foreground">
-              [{isMuted ? 0 : volume}%]
-            </span>
-          </div>
         </div>
 
         {/* Right Panel: Track List / Queue / Playlists */}
-        <div className="flex flex-col overflow-hidden">
+        <div className={cn("flex flex-col overflow-hidden", isFullVisualizer && "hidden")}>
           {/* Queue Panel */}
           {showQueue && (
             <div className="border-b border-border">

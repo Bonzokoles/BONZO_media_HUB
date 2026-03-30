@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useMedia, type Track } from "@/lib/media-context"
 import { cn } from "@/lib/utils"
 import {
@@ -21,6 +21,7 @@ import {
   BookmarkPlus,
   Maximize2,
   RefreshCw,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -127,6 +128,15 @@ interface AddTrackFormData {
   sourceService: string
 }
 
+interface StreamMetadataResponse {
+  title?: string
+  artist?: string
+  album?: string
+  coverUrl?: string
+  sourceUrl?: string
+  sourceService?: string
+}
+
 const EMPTY_FORM: AddTrackFormData = {
   title: "",
   artist: "",
@@ -155,9 +165,91 @@ function AddTrackDialog({
     sourceUrl: defaultSourceUrl,
   })
   const [saved, setSaved] = useState(false)
+  const [isFetchingMeta, setIsFetchingMeta] = useState(false)
+  const [fetchError, setFetchError] = useState("")
 
   const set = (k: keyof AddTrackFormData, v: string) =>
     setForm((p) => ({ ...p, [k]: v }))
+
+  const normalizeSourceUrl = (value: string) => {
+    const trimmed = value.trim()
+    if (!trimmed) return ""
+    return trimmed.startsWith("http://") || trimmed.startsWith("https://")
+      ? trimmed
+      : `https://${trimmed}`
+  }
+
+  const fetchMetadataFromSource = async (sourceValue?: string) => {
+    const normalized = normalizeSourceUrl(sourceValue ?? form.sourceUrl)
+    if (!normalized) return
+
+    set("sourceUrl", normalized)
+    setIsFetchingMeta(true)
+    setFetchError("")
+
+    try {
+      const params = new URLSearchParams({ url: normalized })
+      const service = form.sourceService || defaultService
+      if (service) params.set("service", service)
+
+      const response = await fetch(`/api/stream-metadata?${params.toString()}`)
+      const data = (await response.json()) as StreamMetadataResponse & { error?: string }
+
+      if (!response.ok) {
+        throw new Error(data.error ?? "Nie udało się pobrać metadanych")
+      }
+
+      setForm((prev) => ({
+        ...prev,
+        sourceUrl: data.sourceUrl || normalized,
+        sourceService: data.sourceService || prev.sourceService || defaultService,
+        title: prev.title || data.title || "",
+        artist: prev.artist || data.artist || "",
+        album: prev.album || data.album || data.artist || "",
+        coverUrl: prev.coverUrl || data.coverUrl || "",
+      }))
+    } catch (error: unknown) {
+      setFetchError(error instanceof Error ? error.message : "Nie udało się pobrać metadanych")
+    } finally {
+      setIsFetchingMeta(false)
+    }
+  }
+
+  const handleSourceBlur = () => {
+    if (!form.sourceUrl) return
+    if (form.title && form.artist && form.coverUrl) return
+    void fetchMetadataFromSource(form.sourceUrl)
+  }
+
+  const handleSourceFetch = () => {
+    void fetchMetadataFromSource(form.sourceUrl)
+  }
+
+  const handleClose = () => {
+    setFetchError("")
+    setIsFetchingMeta(false)
+    onClose()
+  }
+
+  const resetForm = () => {
+    setForm({
+      ...EMPTY_FORM,
+      sourceService: defaultService,
+      sourceUrl: defaultSourceUrl,
+    })
+    setFetchError("")
+  }
+
+  useEffect(() => {
+    if (!open) return
+    setForm({
+      ...EMPTY_FORM,
+      sourceService: defaultService,
+      sourceUrl: defaultSourceUrl,
+    })
+    setSaved(false)
+    setFetchError("")
+  }, [open, defaultService, defaultSourceUrl])
 
   const handleSave = () => {
     if (!form.title.trim() || !form.artist.trim()) return
@@ -176,13 +268,13 @@ function AddTrackDialog({
     setSaved(true)
     setTimeout(() => {
       setSaved(false)
-      setForm({ ...EMPTY_FORM, sourceService: defaultService })
+      resetForm()
       onClose()
     }, 1200)
   }
 
   return (
-    <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+    <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
       <DialogContent className="font-mono sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-xs uppercase tracking-widest text-primary">
@@ -267,12 +359,31 @@ function AddTrackDialog({
             <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">
               URL źródłowy (link do utworu na platformie)
             </Label>
-            <Input
-              placeholder="https://soundcloud.com/..."
-              value={form.sourceUrl}
-              onChange={(e) => set("sourceUrl", e.target.value)}
-              className="h-8 text-xs font-mono"
-            />
+            <div className="flex gap-2">
+              <Input
+                placeholder="https://soundcloud.com/..."
+                value={form.sourceUrl}
+                onChange={(e) => set("sourceUrl", e.target.value)}
+                onBlur={handleSourceBlur}
+                className="h-8 text-xs font-mono"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleSourceFetch}
+                disabled={!form.sourceUrl.trim() || isFetchingMeta}
+                className="h-8 gap-1 px-2 text-[10px] uppercase tracking-wider"
+              >
+                {isFetchingMeta ? <Loader2 className="h-3 w-3 animate-spin" /> : <RefreshCw className="h-3 w-3" />}
+                META
+              </Button>
+            </div>
+            <p className="text-[10px] text-muted-foreground">
+              [AUTO] Pobierz tytuł, artystę i okładkę z linka
+            </p>
+            {fetchError && (
+              <p className="text-[10px] text-red-400">{fetchError}</p>
+            )}
           </div>
 
           {/* Cover preview */}
@@ -312,7 +423,7 @@ function AddTrackDialog({
             </Button>
             <Button
               variant="outline"
-              onClick={onClose}
+              onClick={handleClose}
               className="text-xs uppercase tracking-wider"
             >
               <X className="h-3 w-3" />
@@ -341,7 +452,13 @@ function SoundCloudEmbed({ url }: { url: string }) {
 
 // ─── Service iframe panel ─────────────────────────────────────────────────────
 
-function ServiceFrame({ service }: { service: StreamService }) {
+function ServiceFrame({
+  service,
+  onAddFromLink,
+}: {
+  service: StreamService
+  onAddFromLink: (serviceId: string, sourceUrl?: string) => void
+}) {
   const [iframeError, setIframeError] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
   const [scUrl, setScUrl] = useState("")
@@ -433,6 +550,16 @@ function ServiceFrame({ service }: { service: StreamService }) {
             <PlayCircle className="h-3 w-3" />
             ODTWÓRZ
           </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => onAddFromLink("soundcloud", scUrl.trim())}
+            disabled={!scUrl.includes("soundcloud.com")}
+            className="gap-1 text-xs uppercase tracking-wider whitespace-nowrap"
+          >
+            <BookmarkPlus className="h-3 w-3" />
+            ADD_TRACK
+          </Button>
         </div>
       )}
 
@@ -518,11 +645,13 @@ export function StreamsPanel() {
   const [selectedId, setSelectedId] = useState<string>("soundcloud")
   const [showAddDialog, setShowAddDialog] = useState(false)
   const [addDialogService, setAddDialogService] = useState("")
+  const [addDialogSourceUrl, setAddDialogSourceUrl] = useState("")
 
   const selected = SERVICES.find((s) => s.id === selectedId) ?? SERVICES[0]
 
-  const openAdd = (serviceId?: string) => {
+  const openAdd = (serviceId?: string, sourceUrl = "") => {
     setAddDialogService(serviceId ?? selectedId)
+    setAddDialogSourceUrl(sourceUrl)
     setShowAddDialog(true)
   }
 
@@ -658,7 +787,7 @@ export function StreamsPanel() {
 
           {/* Main content area */}
           <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-            <ServiceFrame service={selected} />
+            <ServiceFrame service={selected} onAddFromLink={openAdd} />
           </div>
         </div>
       </div>
@@ -668,6 +797,7 @@ export function StreamsPanel() {
         open={showAddDialog}
         onClose={() => setShowAddDialog(false)}
         defaultService={addDialogService}
+        defaultSourceUrl={addDialogSourceUrl}
       />
     </div>
   )

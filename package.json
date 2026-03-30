@@ -3,16 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/run-next-build.mjs",
+    "build": "next build --webpack",
+    "build:static": "node scripts/run-next-build.mjs",
     "dev": "next dev -p 4849 --webpack",
     "start": "next start",
     "lint": "eslint .",
+    "catalog:pl": "node scripts/generate-catalog-with-trailers.mjs",
+    "catalog:r2": "node scripts/upload-to-r2.mjs --film-catalog",
+    "catalog:movies:r2": "node scripts/upload-to-r2.mjs --film-movies",
+    "catalog:publish": "node scripts/generate-catalog-with-trailers.mjs && node scripts/upload-to-r2.mjs --film-catalog --film-movies",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1019.0",
     "@cloudflare/next-on-pages": "^1.13.16",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@github/copilot-sdk": "^0.2.0",

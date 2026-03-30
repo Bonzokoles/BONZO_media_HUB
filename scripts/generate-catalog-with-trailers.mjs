@@ -21,6 +21,7 @@ const OUTPUT_PATH = path.join(__dirname, '../components/features/films/data/cata
 // TMDB API configuration (optional - set env var TMDB_API_KEY to fetch real trailers)
 const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const TMDB_TRAILER_TIMEOUT_MS = Number(process.env.TMDB_TRAILER_TIMEOUT_MS || 8000);
 
 /**
  * Fetch trailer URL for a film from TMDB
@@ -31,15 +32,28 @@ async function fetchTrailerUrl(tmdbId) {
   }
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), TMDB_TRAILER_TIMEOUT_MS);
+
     const response = await fetch(
-      `${TMDB_BASE_URL}/movie/${tmdbId}/videos?api_key=${TMDB_API_KEY}&language=pl-PL`
+      `${TMDB_BASE_URL}/movie/${tmdbId}/videos?api_key=${TMDB_API_KEY}&language=pl-PL`,
+      { signal: controller.signal }
     );
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       // Fallback to English
+      const enController = new AbortController();
+      const enTimeoutId = setTimeout(() => enController.abort(), TMDB_TRAILER_TIMEOUT_MS);
+
       const enResponse = await fetch(
-        `${TMDB_BASE_URL}/movie/${tmdbId}/videos?api_key=${TMDB_API_KEY}&language=en-US`
+        `${TMDB_BASE_URL}/movie/${tmdbId}/videos?api_key=${TMDB_API_KEY}&language=en-US`,
+        { signal: enController.signal }
       );
+
+      clearTimeout(enTimeoutId);
+
       if (enResponse.ok) {
         const data = await enResponse.json();
         const trailer = data.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
@@ -381,6 +395,9 @@ async function main() {
           if (trailerUrl) {
             trailerMap.set(film.tmdb_id, trailerUrl);
             fetched++;
+          } else {
+            const searchQuery = encodeURIComponent(`${film.title} ${film.year || ''} trailer`);
+            trailerMap.set(film.tmdb_id, `https://www.youtube.com/results?search_query=${searchQuery}`);
           }
           // Rate limiting
           await new Promise(resolve => setTimeout(resolve, 250));
