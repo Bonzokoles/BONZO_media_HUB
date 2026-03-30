@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { useMedia } from "@/lib/media-context"
-import { Music, Film, Link2, Video, Radio, Vault } from "lucide-react"
+import { Music, Film, Link2, Video, Radio } from "lucide-react"
 
 export function MobileNav() {
   const { activeView, setActiveView } = useMedia()
@@ -11,7 +11,6 @@ export function MobileNav() {
     { id: "music" as const, label: "Music", icon: Music },
     { id: "video" as const, label: "Videos", icon: Video },
     { id: "films" as const, label: "Films", icon: Film },
-    { id: "vault" as const, label: "Vault", icon: Vault },
     { id: "links" as const, label: "Links", icon: Link2 },
     { id: "streams" as const, label: "Streams", icon: Radio },
   ]

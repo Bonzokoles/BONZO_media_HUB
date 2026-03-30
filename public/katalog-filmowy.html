@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BONZO Film Catalog - Interaktywny katalog filmowy z trailerami</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);--text-base:clamp(1rem,.95rem + .25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-12:3rem;--space-16:4rem;--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow-md:0 10px 24px rgba(0,0,0,.08);--content:1280px;--font-display:'Instrument Serif',Georgia,serif;--font-body:'Work Sans',Arial,sans-serif}
+    [data-theme="dark"]{--color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;--color-border:#393836;--color-text:#cdccca;--color-text-muted:#97958f;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--shadow-sm:0 1px 2px rgba(0,0,0,.2);--shadow-md:0 12px 32px rgba(0,0,0,.35)}
+    *{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:var(--font-body);font-size:var(--text-base);background:radial-gradient(circle at top left,rgba(79,152,163,.14),transparent 28%),var(--color-bg);color:var(--color-text);line-height:1.6} img{display:block;max-width:100%;height:auto} button,input,select{font:inherit;color:inherit} a{color:inherit;text-decoration:none} .wrap{max-width:var(--content);margin:0 auto;padding:0 var(--space-4)}
+    .topbar{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--color-bg) 78%,transparent);border-bottom:1px solid var(--color-border)}
+    .topbar-inner{display:flex;gap:var(--space-4);align-items:center;justify-content:space-between;padding:var(--space-4) 0}
+    .brand{display:flex;align-items:center;gap:var(--space-3)} .logo{width:42px;height:42px;border:1px solid var(--color-border);border-radius:50%;display:grid;place-items:center;background:var(--color-surface)}
+    .logo svg{width:24px;height:24px} .brand h1{font-family:var(--font-display);font-size:var(--text-xl);line-height:1} .muted{color:var(--color-text-muted)}
+    .toolbar{display:grid;grid-template-columns:1.4fr .9fr auto;gap:var(--space-3);padding-bottom:var(--space-4)} input,select{width:100%;background:var(--color-surface);border:1px solid var(--color-border);border-radius:999px;padding:.85rem 1rem} .theme-btn,.jump-btn{border:1px solid var(--color-border);border-radius:999px;padding:.85rem 1rem;background:var(--color-surface);cursor:pointer} .theme-btn:hover,.jump-btn:hover{background:var(--color-surface-2)}
+    .hero{padding:var(--space-16) 0 var(--space-12)} .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-8);align-items:end} .eyebrow{font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);font-weight:700;margin-bottom:var(--space-3)}
+    .hero h2{font-family:var(--font-display);font-size:clamp(2.6rem,2rem + 3vw,5.2rem);line-height:.95;max-width:12ch;margin-bottom:var(--space-4)} .hero p{max-width:60ch;color:var(--color-text-muted)}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-top:var(--space-6)} .stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4);box-shadow:var(--shadow-sm)} .stat strong{display:block;font-size:var(--text-xl);font-family:var(--font-display)}
+    .sources{background:var(--color-surface);border:1px solid var(--color-border);border-radius:24px;padding:var(--space-6);box-shadow:var(--shadow-md)} .sources ul{list-style:none;display:grid;gap:var(--space-3)} .sources li{display:flex;justify-content:space-between;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px dashed var(--color-border)} .sources li:last-child{border-bottom:0;padding-bottom:0}
+    .section{padding:var(--space-12) 0} .section-head{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-6)} .section-head h3{font-family:var(--font-display);font-size:var(--text-2xl)}
+    .chips{display:flex;flex-wrap:wrap;gap:.6rem} .chip{padding:.45rem .8rem;border-radius:999px;border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs)}
+    .category{margin-bottom:var(--space-12)} .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4)} .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;min-height:100%;transition:transform .2s,box-shadow .2s} .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .poster{aspect-ratio:2/3;background:linear-gradient(135deg,rgba(79,152,163,.25),rgba(0,0,0,.08));position:relative} .poster img{width:100%;height:100%;object-fit:cover} .poster .fallback{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-4);text-align:center;color:var(--color-text-muted);font-size:var(--text-sm)}
+    .trailer-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;opacity:0;transition:opacity .3s} .card:hover .trailer-overlay{opacity:1} .trailer-btn{background:var(--color-primary);color:white;border:2px solid white;border-radius:50%;width:64px;height:64px;display:grid;place-items:center;cursor:pointer;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,.3)} .trailer-btn:hover{background:var(--color-primary-hover);transform:scale(1.1)}
+    .card-body{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4)} .card h4{font-size:1.02rem;line-height:1.2} .meta{display:flex;flex-wrap:wrap;gap:.45rem} .tag{font-size:var(--text-xs);padding:.35rem .55rem;border-radius:999px;background:color-mix(in srgb,var(--color-primary) 11%,var(--color-surface));border:1px solid color-mix(in srgb,var(--color-primary) 34%,var(--color-border))}
+    .desc{font-size:var(--text-sm);color:var(--color-text-muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;min-height:7.6em}
+    .streaming{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto} .provider{font-size:var(--text-xs);padding:.35rem .55rem;border:1px solid var(--color-border);border-radius:999px;background:var(--color-surface-2)} .provider.missing{opacity:.75}
+    .rating{display:flex;align-items:center;gap:.3rem;font-size:var(--text-sm);color:var(--color-primary)} .rating svg{width:16px;height:16px;fill:currentColor}
+    .footer-note{padding:var(--space-12) 0 var(--space-16);color:var(--color-text-muted);font-size:var(--text-sm)}
+    @media (max-width: 980px){.hero-grid,.toolbar{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}} @media (max-width: 640px){.stats{grid-template-columns:1fr}.topbar-inner,.section-head{align-items:flex-start;flex-direction:column}.hero h2{max-width:9ch}}
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#catalog">Przejdź do katalogu</a>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4">
+              <circle cx="24" cy="24" r="18"></circle>
+              <path d="M18 16h12M18 24h12M18 32h7"></path>
+            </svg>
+          </div>
+          <div>
+            <h1>BONZO Film Catalog</h1>
+            <div class="muted">Interaktywny katalog z trailerami • 105 filmów</div>
+          </div>
+        </div>
+        <button class="theme-btn" data-theme-toggle aria-label="Przełącz motyw">🌙 Motyw</button>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" type="search" placeholder="Szukaj tytułu, klimatu, źródła..." />
+        <select id="categorySelect">
+          <option value="all">Wszystkie kategorie</option>
+        </select>
+        <button class="jump-btn" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">📖 Przeglądaj</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Curated Cinema Explorer</div>
+          <h2>Kino pod klimat, nie pod algorytm</h2>
+          <p>Kuratorski katalog 105 filmów w 7 autorskich kategoriach. Każdy film ma plakat, opis, ocenę TMDB i <strong>link do trailera</strong>. Filtruj po klimacie i odkrywaj nowe tytuły bez głównego nurtu.</p>
+          <div class="stats">
+            <div class="stat"><strong id="filmCount">105</strong><span>filmów w katalogu</span></div>
+            <div class="stat"><strong>7</strong><span>autorskich kategorii</span></div>
+            <div class="stat"><strong>🎬</strong><span>Trailery + TMDB</span></div>
+          </div>
+        </div>
+        <aside class="sources">
+          <h3 style="font-family:var(--font-display);font-size:var(--text-xl);margin-bottom:var(--space-4)">Źródła danych</h3>
+          <ul>
+            <li><span>Opisy i plakaty</span><strong>TMDB API</strong></li>
+            <li><span>Trailery</span><strong>YouTube (TMDB)</strong></li>
+            <li><span>Streaming</span><strong>TMDB Watch Providers</strong></li>
+            <li><span>Kuracja</span><strong>Autorski katalog BONZO</strong></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section wrap" id="catalog">
+      <div class="section-head">
+        <div>
+          <h3>Katalog filmowy</h3>
+          <p class="muted">Najedź kursorem na plakat, aby zobaczyć przycisk trailera</p>
+        </div>
+        <div class="chips" id="activeInfo"></div>
+      </div>
+      <div id="catalogRoot"></div>
+    </section>
+
+    <section class="wrap footer-note">
+      <p><strong>BONZO Media Hub</strong> • Katalog filmowy wygenerowany automatycznie z danych TMDB • <a href="https://www.themoviedb.org" target="_blank" style="color:var(--color-primary)">Dane z The Movie Database (TMDB)</a></p>
+      <p>Linki do trailerów prowadzą do YouTube. Informacje o dostępności streamingu mogą się różnić w zależności od regionu.</p>
+    </section>
+  </main>
+
+  <script>
+    const data = [
+  {
+    "category": "Psychodeliczne, ale bez horroru",
+    "mood": [
+      "psychodela",
+      "surreal",
+      "arthouse"
+    ],
+    "films": [
+      {
+        "title": "Upstream Color",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/tQ4IWxSYIgZVWnQwLCG8r6sUraU.jpg",
+        "desc": "A man and woman are drawn together, entangled in the lifecycle of an ageless organism. Identity becomes an illusion as they struggle to assemble the loose fragments of wrecked lives.",
+        "streaming": [
+          "Apple TV Store (rent), Apple TV Store (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Drama",
+          "Science Fiction"
+        ],
+        "trailer": "#",
+        "tmdb_id": 145197,
+        "rating": 6.336
+      },
+      {
+        "title": "Holy Motors",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/4ZuTrrDQhCS9f6KzIX6HfsjjyMd.jpg",
+        "desc": "We follow 24 hours in the life of a being moving from life to life like a cold and solitary assassin moving from hit to hit. In each of these interwoven lives, the being possesses an entirely distinct identity: sometimes a man, sometimes a woman, sometimes youthful, sometimes old. By turns murderer, beggar, company chairman, monstrous creature, worker, family man.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Drama",
+          "Fantasy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 103328,
+        "rating": 6.987
+      },
+      {
+        "title": "The Congress",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/oeT9rwfCBayxgVoUn1yZGmkZlUq.jpg",
+        "desc": "An aging, out-of-work actress accepts one last job, though the consequences of her decision affect her in ways she didn't consider.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Drama",
+          "Science Fiction"
+        ],
+        "trailer": "#",
+        "tmdb_id": 152795,
+        "rating": 6.4
+      },
+      {
+        "title": "Enter the Void",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/krKnsfvSJM1PL40tLicRhVQ6kuG.jpg",
+        "desc": "This psychedelic tour of life after death is seen entirely from the point of view of Oscar, a young American drug dealer and addict living in Tokyo with his prostitute sister, Linda. When Oscar is killed by police during a bust gone bad, his spirit journeys from the past -- where he sees his parents before their deaths -- to the present -- where he witnesses his own autopsy -- and then to the future, where he looks out for his sister from beyond the grave.",
+        "streaming": [
+          "FilmBox+ (stream), CDA Premium (stream)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Fantasy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 34647,
+        "rating": 7.291
+      },
+      {
+        "title": "The Fountain",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/4XTf8GuCVLWolubANaKkpk62YPq.jpg",
+        "desc": "Spanning over one thousand years, and three parallel stories, The Fountain is a story of love, death, spirituality, and the fragility of our existence in this world.",
+        "streaming": [
+          "Amazon Prime Video (stream), CANAL+ (stream), HBO Max (stream), Amazon Video (rent), Apple TV Store (buy), Amazon Video (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Drama",
+          "Adventure"
+        ],
+        "trailer": "#",
+        "tmdb_id": 1381,
+        "rating": 6.909
+      },
+      {
+        "title": "A Field in England",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/dKhMJr8yoHVyvxyUiAeIn2hKVdL.jpg",
+        "desc": "During the Civil War in 17th-Century England, a small group of deserters flee from a raging battle through an overgrown field. They are captured by an alchemist, who forces the group to aid him in his search to find a hidden treasure that he believes is buried in the field. Crossing a vast mushroom circle, which provides their first meal, the group quickly descend into a chaos of arguments, fighting and paranoia, and, as it becomes clear that the treasure might be something other than gold, they slowly become victim to the terrifying energies trapped inside the field.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Horror",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 179111,
+        "rating": 6.2
+      },
+      {
+        "title": "The Holy Mountain",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/mP5FGQbNjFkrjcZ6AVHrvokPRe5.jpg",
+        "desc": "The Alchemist assembles together a group of people from all walks of life to represent the planets in the solar system. The occult adept's intention is to put his recruits through strange mystical rites and divest them of their worldly baggage before embarking on a trip to Lotus Island. There they ascend the Holy Mountain to displace the immortal gods who secretly rule the universe.",
+        "streaming": [
+          "Cultpix (stream), Apple TV Store (rent), Apple TV Store (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 8327,
+        "rating": 7.529
+      },
+      {
+        "title": "Mandy",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/m0yf7J7HsKeK6E81SMRcX8vx6mH.jpg",
+        "desc": "The Shadow Mountains, 1983. Red and Mandy lead a loving and peaceful existence; but when their pine-scented haven is savagely destroyed, Red is catapulted into a phantasmagoric journey filled with bloody vengeance and laced with fire.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Fantasy",
+          "Action"
+        ],
+        "trailer": "#",
+        "tmdb_id": 460885,
+        "rating": 6.203
+      },
+      {
+        "title": "Synecdoche, New York",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/5UwdhrjXhUgsiDhe1dpS9z4yj7q.jpg",
+        "desc": "A theater director struggles with his work, and the women in his life, as he attempts to create a life-size replica of New York inside a warehouse as part of his new play.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 4960,
+        "rating": 7.545
+      },
+      {
+        "title": "Under the Skin",
+        "year": 2013,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/55wmcXJIDYITr7JDijJTdvwSaAv.jpg",
+        "desc": "A seductive stranger prowls the streets of Glasgow in search of prey: unsuspecting men who fall under her spell.",
+        "streaming": [
+          "CDA Premium (stream), Amazon Video (rent), Amazon Video (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Thriller",
+          "Science Fiction"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=x0Dz5CSPfDY",
+        "tmdb_id": 97370,
+        "rating": 6.146
+      },
+      {
+        "title": "Paprika",
+        "year": 2006,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/bLUUr474Go1DfeN1HLjE3rnZXBq.jpg",
+        "desc": "When a machine that allows therapists to enter their patient's dreams is stolen, all hell breaks loose. Only a young female therapist can stop it and recover it before damage is done: Paprika.",
+        "streaming": [
+          "CANAL+ (stream), HBO Max (stream), Polsat Box Go (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Science Fiction",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 4977,
+        "rating": 7.815
+      },
+      {
+        "title": "Waking Life",
+        "year": 2001,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/2MRM4PL6H7yraAkwyUEe2EqoQH3.jpg",
+        "desc": "Waking Life is about a young man in a persistent lucid dream-like state. The film follows its protagonist as he initially observes and later participates in philosophical discussions that weave together issues like reality, free will, our relationships with others, and the meaning of life.",
+        "streaming": [
+          "Amazon Video (rent), Amazon Video (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Animation",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 9081,
+        "rating": 7.477
+      },
+      {
+        "title": "Enemy",
+        "year": 2013,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/vf40tyDRKZsBmaLsYeopzfFLzLx.jpg",
+        "desc": "A mild-mannered college professor discovers a look-alike actor and delves into the other man's private affairs.",
+        "streaming": [
+          "CDA Premium (stream), Polsat Box Go (stream)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Thriller",
+          "Mystery"
+        ],
+        "trailer": "#",
+        "tmdb_id": 181886,
+        "rating": 6.8
+      },
+      {
+        "title": "Mulholland Drive",
+        "year": 2001,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/x7A59t6ySylr1L7aubOQEA480vM.jpg",
+        "desc": "Blonde Betty Elms has only just arrived in Hollywood to become a movie star when she meets an enigmatic brunette with amnesia. Meanwhile, as the two set off to solve the second woman's identity, filmmaker Adam Kesher runs into ominous trouble while casting his latest project.",
+        "streaming": [
+          "Player (stream), CDA Premium (stream), Apple TV Store (rent), Amazon Video (rent), Apple TV Store (buy), Amazon Video (buy)"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Thriller",
+          "Drama"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=Sd4D-iT_oXw",
+        "tmdb_id": 1018,
+        "rating": 7.802
+      },
+      {
+        "title": "Beyond the Black Rainbow",
+        "year": 2010,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/uhomcCTQ3lO8L6mLhkCMypsnroO.jpg",
+        "desc": "Deep within the mysterious Arboria Institute, a disturbed and beautiful girl is held captive by a doctor in search of inner peace. Her mind controlled by a sinister technology. Silently, she waits for her next session with deranged therapist Dr. Barry Nyle. If she hopes to escape, she must journey through the darkest reaches of The Institute, but Nyle wonʼt easily part with his most gifted and dangerous creation.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "psychodela",
+          "surreal",
+          "arthouse",
+          "Science Fiction",
+          "Horror"
+        ],
+        "trailer": "#",
+        "tmdb_id": 50037,
+        "rating": 5.7
+      }
+    ]
+  },
+  {
+    "category": "Czułe o miłości, ale bez kiczu",
+    "mood": [
+      "romans",
+      "melancholia",
+      "relacje"
+    ],
+    "films": [
+      {
+        "title": "Blue Valentine",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/dc8BdKnDY5Iy28KzUGtHIXuqqFK.jpg",
+        "desc": "Dean and Cindy live a quiet life in a modest neighborhood. They appear to have the world at their feet at the outset of the relationship. However, his lack of ambition and her retreat into self-absorption cause potentially irreversible cracks in their marriage.",
+        "streaming": [
+          "HBO Max (stream)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 46705,
+        "rating": 6.961
+      },
+      {
+        "title": "Her",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/eCOtqtfvn7mxGl6nfmq4b1exJRc.jpg",
+        "desc": "In the not so distant future, Theodore, a lonely writer, purchases a newly developed operating system designed to meet the user's every need. To Theodore's surprise, a romantic relationship develops between him and his operating system. This unconventional love story blends science fiction and romance in a sweet tale that explores the nature of love and the ways that technology isolates and connects us all.",
+        "streaming": [
+          "HBO Max (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Romance",
+          "Science Fiction"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=qrnovtFNI6M",
+        "tmdb_id": 152601,
+        "rating": 7.841
+      },
+      {
+        "title": "Before Sunrise",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/kf1Jb1c2JAOqjuzA3H4oDM263uB.jpg",
+        "desc": "An unexpected meeting on a train leads two travelers to spend an evening wandering through Vienna. As the night unfolds, they share stories and conversations about life and love, exploring new ideas while a quiet intimacy grows between them, knowing it may be their only night together.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), CHILI (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=PhAlQ8YFOHs",
+        "tmdb_id": 76,
+        "rating": 7.974
+      },
+      {
+        "title": "Past Lives",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/k3waqVXSnvCZWfJYNtdamTgTtTA.jpg",
+        "desc": "After decades apart, childhood friends Nora and Hae Sung are reunited in New York for one fateful weekend as they confront notions of destiny, love, and the choices that make a life.",
+        "streaming": [
+          "Player (stream), CANAL+ (stream), CDA Premium (stream), Polsat Box Go (stream), Player (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Amazon Video (buy), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=0ae8p7mBoYE",
+        "tmdb_id": 666277,
+        "rating": 7.714
+      },
+      {
+        "title": "In the Mood for Love",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/iYypPT4bhqXfq1b6EnmxvRt6b2Y.jpg",
+        "desc": "Two neighbors form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 843,
+        "rating": 8.089
+      },
+      {
+        "title": "Eternal Sunshine of the Spotless Mind",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg",
+        "desc": "Joel Barish, heartbroken that his girlfriend underwent a procedure to erase him from her memory, decides to do the same. However, as he watches his memories of her fade away, he realises that he still loves her, and may be too late to correct his mistake.",
+        "streaming": [
+          "CANAL+ (stream), Apple TV Store (rent), Amazon Video (rent), Apple TV Store (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Science Fiction",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 38,
+        "rating": 8.09
+      },
+      {
+        "title": "Once",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/7nW363kSYRCkr4VGOMvuSGwtzKs.jpg",
+        "desc": "A vacuum repairman moonlights as a street musician and hopes for his big break. One day a Czech immigrant, who earns a living selling flowers, approaches him with the news that she is also an aspiring singer-songwriter. The pair decide to collaborate, and the songs that they compose reflect the story of their blossoming love.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Music"
+        ],
+        "trailer": "#",
+        "tmdb_id": 5723,
+        "rating": 7.417
+      },
+      {
+        "title": "Punch-Drunk Love",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/htYp4yqFu4rzBEIa6j9jP8miDm3.jpg",
+        "desc": "A socially awkward and volatile small business owner meets the love of his life after being threatened by a gang of scammers.",
+        "streaming": [
+          "Google Play Movies (rent), YouTube (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Romance",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 8051,
+        "rating": 7.102
+      },
+      {
+        "title": "Lost in Translation",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/3jCLmYDIIiSMPujbwygNpqdpM8N.jpg",
+        "desc": "Two lost souls visiting Tokyo -- the young, neglected wife of a photographer and a washed-up movie star shooting a TV commercial -- find an odd solace and pensive freedom to be real in each other's company, away from their lives in America.",
+        "streaming": [
+          "Netflix (stream), SkyShowtime (stream), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 153,
+        "rating": 7.382
+      },
+      {
+        "title": "Portrait of a Lady on Fire",
+        "year": 2019,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/2LquGwEhbg3soxSCs9VNyh5VJd9.jpg",
+        "desc": "On an isolated island in Brittany at the end of the eighteenth century, a female painter is obliged to paint a wedding portrait of a young woman.",
+        "streaming": [
+          "Player (stream), FilmBox+ (stream), CDA Premium (stream), Polsat Box Go (stream), TVP (stream), Rakuten TV (rent), Pilot WP (rent), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 531428,
+        "rating": 8.1
+      },
+      {
+        "title": "Weekend",
+        "year": 2011,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/iRvh1XPo0RhdhNDYMQYaxldJqlt.jpg",
+        "desc": "Two gangsters, fighting for influence in the city, decide to get suitcases filled with money and drugs. Meanwhile, another criminal group has the same purpose.",
+        "streaming": [
+          "Amazon Video (rent), Amazon Video (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Comedy",
+          "Action"
+        ],
+        "trailer": "#",
+        "tmdb_id": 62881,
+        "rating": 3.9
+      },
+      {
+        "title": "Normal People",
+        "year": 2020,
+        "source": "TMDB",
+        "poster": "",
+        "desc": "What the future holds for Marianne and Connell's relationship.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje"
+        ],
+        "trailer": "#",
+        "tmdb_id": 1286673,
+        "rating": 0
+      },
+      {
+        "title": "Chungking Express",
+        "year": 1994,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
+        "desc": "Two melancholic Hong Kong policemen fall in love: one with a mysterious underworld figure, the other with a beautiful and ethereal server at a late-night restaurant.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 11104,
+        "rating": 7.965
+      },
+      {
+        "title": "Decision to Leave",
+        "year": 2022,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/N0rskx91Eh6aWjvBybeY6epNic.jpg",
+        "desc": "From a mountain peak in South Korea, a man plummets to his death. Did he jump, or was he pushed? When detective Hae-joon arrives on the scene, he begins to suspect the dead man’s wife Seo-rae. But as he digs deeper into the investigation, he finds himself trapped in a web of deception and desire.",
+        "streaming": [
+          "Player (stream), CDA Premium (stream), Polsat Box Go (stream), TVP (stream), Player (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Amazon Video (buy), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Thriller",
+          "Mystery"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=QxHhqC4EAj4",
+        "tmdb_id": 705996,
+        "rating": 7.313
+      },
+      {
+        "title": "Phantom Thread",
+        "year": 2017,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/hgoWjp9Sh0MI97eAMZCnIoVfgvq.jpg",
+        "desc": "In 1950s London, a renowned dressmaker's meticulous lifestyle begins drastically changing as his relationship with his young muse intensifies.",
+        "streaming": [
+          "Player (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "romans",
+          "melancholia",
+          "relacje",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 400617,
+        "rating": 7.314
+      }
+    ]
+  },
+  {
+    "category": "Miejski Rozkład",
+    "mood": [
+      "miasto",
+      "noc",
+      "brud"
+    ],
+    "films": [
+      {
+        "title": "Heaven Knows What",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/4oyWMOWJ6trsRuyzn5cHPv50zVH.jpg",
+        "desc": "A young heroin addict roams the streets of New York to panhandle and get her next fix, while her unstable boyfriend drifts in and out of her life at random.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Crime"
+        ],
+        "trailer": "#",
+        "tmdb_id": 285024,
+        "rating": 6.5
+      },
+      {
+        "title": "Gummo",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/tMdoCRx0XIPR5uYBwxbxR7WCNBb.jpg",
+        "desc": "Teenagers Solomon and Tummler kill time in Xenia, Ohio, a small town that has never recovered from the tornado that ravaged the community in the 1970s.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 18415,
+        "rating": 6.6
+      },
+      {
+        "title": "Mid90s",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/9Tw0Y3DK5kGIU9X1yw3Q9gCkOlb.jpg",
+        "desc": "In 1990s Los Angeles, a 13-year-old spends his summer navigating between a troubled home life and a crew of new friends he meets at a skate shop.",
+        "streaming": [
+          "Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 437586,
+        "rating": 7.476
+      },
+      {
+        "title": "Last Days",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/kg0FHevBu2SiSa3i9DtOxSa1vNr.jpg",
+        "desc": "Determined to fulfill his life’s mission, 26-year-old John Allen Chau embarks on a dangerous adventure across the globe to convert the uncontacted tribe of North Sentinel Island to Christianity, while a detective from the Andaman Islands races to stop him before he does harm to himself or the tribe.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Action"
+        ],
+        "trailer": "#",
+        "tmdb_id": 1093402,
+        "rating": 8
+      },
+      {
+        "title": "Pixote",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/zaBtclnYKv2JkgRDQ7OiFtWHm4e.jpg",
+        "desc": "10-year-old Pixote endures torture, degradation, and corruption at a local youth detention center where two of its members are murdered by policemen who frame Lilica, a 17-year-old trans hustler. Pixote helps Lilica and three other boys escape and they start to make their living by a life of crime which only escalates to more violence and death.",
+        "streaming": [
+          "MUBI (stream)"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Crime",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 42148,
+        "rating": 7.9
+      },
+      {
+        "title": "Naked",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/xMYP4uaNeyPmX4FQ2xxWk2eIN6K.jpg",
+        "desc": "An unemployed Brit vents his rage on unsuspecting strangers as he embarks on a nocturnal London odyssey.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 21450,
+        "rating": 7.258
+      },
+      {
+        "title": "Taxi Driver",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/ekstpH614fwDX8DUln1a2Opz0N8.jpg",
+        "desc": "Suffering from insomnia, disturbed loner Travis Bickle takes a job as a New York City cabbie, haunting the streets nightly, growing increasingly detached from reality as he dreams of cleaning up the filthy city.",
+        "streaming": [
+          "CANAL+ (stream), HBO Max (stream), Polsat Box Go (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Crime",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 103,
+        "rating": 8.127
+      },
+      {
+        "title": "Chungking Express",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
+        "desc": "Two melancholic Hong Kong policemen fall in love: one with a mysterious underworld figure, the other with a beautiful and ethereal server at a late-night restaurant.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 11104,
+        "rating": 7.965
+      },
+      {
+        "title": "La Haine",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/8rgPyWjYZhsphSSxbXguMnhN7H0.jpg",
+        "desc": "After a chaotic night of rioting in a marginal suburb of Paris, three young friends, Vinz, Hubert and Saïd, wander around unoccupied waiting for news about the state of health of a mutual friend who has been seriously injured when confronting the police.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 406,
+        "rating": 8.084
+      },
+      {
+        "title": "Good Time",
+        "year": 2017,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/yE1c9hj5Hf8a9KplAdRdhADqUro.jpg",
+        "desc": "After a botched bank robbery lands his younger brother in prison, Connie Nikas embarks on a twisted odyssey through New York City's underworld to get his brother Nick out of jail.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Crime",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 429200,
+        "rating": 7.2
+      },
+      {
+        "title": "Uncut Gems",
+        "year": 2019,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/6XN1vxHc7kUSqNWtaQKN45J5x2v.jpg",
+        "desc": "A charismatic New York City jeweler always on the lookout for the next big score makes a series of high-stakes bets that could lead to the windfall of a lifetime. Howard must perform a precarious high-wire act, balancing business, family, and encroaching adversaries on all sides in his relentless pursuit of the ultimate win.",
+        "streaming": [
+          "Netflix (stream)"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 473033,
+        "rating": 7.159
+      },
+      {
+        "title": "Victoria",
+        "year": 2015,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/9P8QgfoMcFX7vp2Gj2cYFecHVRZ.jpg",
+        "desc": "A young Spanish woman who has newly moved to Berlin finds her flirtation with a local guy turn potentially deadly as their night out with his friends reveals a dangerous secret.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Crime",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 320007,
+        "rating": 7.59
+      },
+      {
+        "title": "Fish Tank",
+        "year": 2009,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/rI3MKBDsWzQHi9PWDAMKkgmYcff.jpg",
+        "desc": "Fifteen-year-old Mia is in a constant state of war with her family and the world around her. When she meets her party-girl mother’s charming new boyfriend Connor, she is amazed to find he returns her attention, and believes he might help her start to make sense of her life.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 24469,
+        "rating": 6.941
+      },
+      {
+        "title": "Gomorrah",
+        "year": 2008,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/3XcCTqSovFZE5GRebJmh1kHwziw.jpg",
+        "desc": "An inside look at Italy's modern-day crime families, the Camorra in Naples and Caserta. Based on a book by Roberto Saviano. Power, money and blood: these are the \"values\" that the residents of the Province of Naples and Caserta have to face every day. They hardly ever have a choice and are forced to obey the rules of the Camorra. Only a lucky few can even think of leading a normal life.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Crime"
+        ],
+        "trailer": "#",
+        "tmdb_id": 8882,
+        "rating": 6.881
+      },
+      {
+        "title": "Spring Breakers",
+        "year": 2012,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/9tyPnyEkL44qbAliM9jMRWc6bjg.jpg",
+        "desc": "After four college girls rob a restaurant to fund their spring break in Florida, they get entangled with a weird dude with his own criminal agenda.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "miasto",
+          "noc",
+          "brud",
+          "Drama",
+          "Crime"
+        ],
+        "trailer": "#",
+        "tmdb_id": 122081,
+        "rating": 5.252
+      }
+    ]
+  },
+  {
+    "category": "Kino o outsiderach",
+    "mood": [
+      "outsider",
+      "loner",
+      "misfit"
+    ],
+    "films": [
+      {
+        "title": "The Station Agent",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/kjJg6eJa9I9flfHaJG67ecEv8YX.jpg",
+        "desc": "When his only friend dies, a man born with dwarfism moves to rural New Jersey to live a life of solitude, only to meet a chatty hot dog vendor and a woman dealing with her own personal loss.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 2056,
+        "rating": 7.351
+      },
+      {
+        "title": "Wendy and Lucy",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/cVtF8SW4zMbculTXD52RDvmQAAR.jpg",
+        "desc": "A near-penniless drifter's journey to Alaska in search of work is interrupted when she loses her dog while attempting to shoplift food for it.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 8942,
+        "rating": 6.8
+      },
+      {
+        "title": "Mary and Max",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/ebmsM382m9IClLUzKYY2U5biFwM.jpg",
+        "desc": "A tale of friendship between two unlikely pen pals: Mary, a lonely, eight-year-old girl living in the suburbs of Melbourne, and Max, a forty-four-year old, severely obese man living in New York.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Animation",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 24238,
+        "rating": 7.872
+      },
+      {
+        "title": "Submarine",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/nbzXX3CYtKUBrPeMcG7PVoLQHXB.jpg",
+        "desc": "15-year-old deep-thinking Welsh schoolboy Oliver Tate struggles to initiate and maintain a relationship with Jordana, his devilish, dark-haired classmate at their Swansea high school. As his parents' marriage begins to fall apart, similar problems arise in his relationship with Jordana.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 49020,
+        "rating": 7.361
+      },
+      {
+        "title": "Frances Ha",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/jrq1NoKvsxWCcffVOjegiYwloFN.jpg",
+        "desc": "An aspiring dancer moves to New York City and becomes caught up in a whirlwind of flighty fair-weather friends, diminishing fortunes and career setbacks.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 121986,
+        "rating": 7.334
+      },
+      {
+        "title": "Napoleon Dynamite",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/6Iv6Uwa2SBLN0dSGM00rdrwN4MJ.jpg",
+        "desc": "A listless and alienated teenager decides to help his new friend win the class presidency in their small western high school, while he must deal with his bizarre family life back home.",
+        "streaming": [
+          "CHILI (rent), Rakuten TV (rent), Pilot WP (rent), CHILI (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 8193,
+        "rating": 6.781
+      },
+      {
+        "title": "The Peanut Butter Falcon",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/qyQcRGvdW3VtxHR4fSDgPOePEip.jpg",
+        "desc": "A down-on-his-luck crab fisherman embarks on a journey to get a young man with Down syndrome to a professional wrestling school in rural North Carolina and away from the retirement home where he’s lived for the past two and a half years.",
+        "streaming": [
+          "Player (stream), HBO Max (stream), CDA Premium (stream), Polsat Box Go (stream), Player (rent)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Adventure",
+          "Comedy"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=e2NPQDDetmQ",
+        "tmdb_id": 463257,
+        "rating": 7.397
+      },
+      {
+        "title": "Girl, Interrupted",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/dOBdatHIVppvmRFw2z7bf9VKJr9.jpg",
+        "desc": "Set in the changing world of the late 1960s, Susanna Kaysen's prescribed \"short rest\" from a psychiatrist she had met only once becomes a strange, unknown journey into Alice's Wonderland, where she struggles with the thin line between normal and crazy. Susanna soon realizes how hard it is to get out once she has been committed, and she ultimately has to choose between the world of people who belong inside or the difficult world of reality outside.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 3558,
+        "rating": 7.564
+      },
+      {
+        "title": "The Double",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/7kNcpmP1Pe9fWLKEbEOX5GEWueC.jpg",
+        "desc": "An awkward office drone becomes increasingly unhinged after a charismatic and confident look-alike takes a job at his workplace and seduces the woman he desires.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Thriller",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 146015,
+        "rating": 6.511
+      },
+      {
+        "title": "Lars and the Real Girl",
+        "year": 2007,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/nkAt4a7KIPc7Fi1BhxNHhYYbe2b.jpg",
+        "desc": "Extremely shy Lars finds it impossible to make friends or socialize. His brother and sister-in-law worry about him, so when he announces that he has a girlfriend he met on the Internet, they are overjoyed. But Lars' new lady is a life-size plastic woman. On the advice of a doctor, his family and the rest of the community go along with his delusion.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 6615,
+        "rating": 7.196
+      },
+      {
+        "title": "Ghost World",
+        "year": 2001,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/uwKqnUPE4dSM0kKuMW0vXpURh2T.jpg",
+        "desc": "Two quirky, cynical teenaged girls try to figure out what to do with their lives after high school graduation. After they play a prank on an eccentric, middle aged record collector, one of them befriends him, which causes a rift in the girls’ friendship.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 1548,
+        "rating": 7.095
+      },
+      {
+        "title": "Paterson",
+        "year": 2016,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/AuJ1ZlfqwuAr9H5Qr1U9KILylse.jpg",
+        "desc": "A week in the life of Paterson, a poet bus driver, and his wife Laura, a very creative artist, who live in Paterson, New Jersey, hometown of many famous poets and artists.",
+        "streaming": [
+          "Player (stream), CDA Premium (stream), Polsat Box Go (stream), TVP (stream)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 370755,
+        "rating": 7.114
+      },
+      {
+        "title": "Harold and Maude",
+        "year": 1971,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/t7qEuGwDjcYu8ajaKZ68DeDnOxw.jpg",
+        "desc": "A deadpan young man obsessed with death meets an eccentric septuagenarian who teaches him to live life to the fullest.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 343,
+        "rating": 7.606
+      },
+      {
+        "title": "Kajillionaire",
+        "year": 2020,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/fkqJJDb4u9rEyJu8Jm8H1P2mux4.jpg",
+        "desc": "Two con artists have spent 26 years training their only daughter to swindle, scam and steal at every turn. During a desperate and hastily conceived heist, they charm a stranger into joining them, only to have their entire world turned upside down.",
+        "streaming": [
+          "SkyShowtime (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Crime",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 541305,
+        "rating": 6.285
+      },
+      {
+        "title": "The Lobster",
+        "year": 2015,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/7Y9ILV1unpW9mLpGcqyGQU72LUy.jpg",
+        "desc": "In a dystopian near future, single people, according to the laws of The City, are taken to The Hotel, where they are obliged to find a romantic partner in forty-five days or are transformed into animals and sent off into The Woods.",
+        "streaming": [
+          "HBO Max (stream), Apple TV Store (rent), Amazon Video (rent), Apple TV Store (buy), Amazon Video (buy)"
+        ],
+        "tags": [
+          "outsider",
+          "loner",
+          "misfit",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 254320,
+        "rating": 7.026
+      }
+    ]
+  },
+  {
+    "category": "Brudna, uliczna poezja",
+    "mood": [
+      "ulica",
+      "raw",
+      "gritty"
+    ],
+    "films": [
+      {
+        "title": "Dead Man",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/jX3wGBVoYoAY3IixBpwYk1fjT4z.jpg",
+        "desc": "On the run after committing murder, an accountant encounters a strange Native American man who prepares him for his journey into the spiritual world.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Fantasy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 922,
+        "rating": 7.308
+      },
+      {
+        "title": "A Girl Walks Home Alone at Night",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/cd2rCE1nun7CESjBI8PGNEof1tb.jpg",
+        "desc": "In the Iranian ghost-town Bad City, a place that reeks of death and loneliness, the townspeople are unaware they are being stalked by a lonesome vampire.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Horror",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 252171,
+        "rating": 6.818
+      },
+      {
+        "title": "The Rider",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/cFsrA0Is5xode2INrPj1VJcQ18n.jpg",
+        "desc": "Once a rising star of the rodeo circuit, and a gifted horse trainer, young cowboy Brady is warned that his riding days are over after a horse crushed his skull at a rodeo. In an attempt to regain control of his own fate, Brady undertakes a search for a new identity and what it means to be a man in the heartland of the United States.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Western"
+        ],
+        "trailer": "#",
+        "tmdb_id": 453278,
+        "rating": 7.265
+      },
+      {
+        "title": "Fish Tank",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/rI3MKBDsWzQHi9PWDAMKkgmYcff.jpg",
+        "desc": "Fifteen-year-old Mia is in a constant state of war with her family and the world around her. When she meets her party-girl mother’s charming new boyfriend Connor, she is amazed to find he returns her attention, and believes he might help her start to make sense of her life.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 24469,
+        "rating": 6.941
+      },
+      {
+        "title": "Red Rocket",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/345gLhiNpItU1ICx8OxJQwjgPmH.jpg",
+        "desc": "After hitting rock bottom in Los Angeles, former porn star Mikey Saber returns to his hometown in Texas to stay with his estranged wife and mother-in-law. Just as tensions begin to ease, he becomes infatuated with a young doughnut shop worker named Strawberry.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 763329,
+        "rating": 6.796
+      },
+      {
+        "title": "Frozen River",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/qZRcN4JLwYQWTxKlycZPLQb37mO.jpg",
+        "desc": "After her husband deserts her, working-class mother Ray Eddy is in great need of money to find a home. Lured by the possibility of easy cash, she joins Lila, a widowed Mohawk who earns a living by smuggling immigrants from Canada to the U.S. across the St. Lawrence.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Crime"
+        ],
+        "trailer": "#",
+        "tmdb_id": 10183,
+        "rating": 6.6
+      },
+      {
+        "title": "Blue Ruin",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/q0itEsso2drJXqH9kfdidxIT5dF.jpg",
+        "desc": "When the quiet life of a beach bum is upended by dreadful news, he sets off for his childhood home to carry out an act of vengeance. However, he proves an inept assassin and finds himself in a brutal fight to protect his estranged family.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Crime",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 188166,
+        "rating": 6.79
+      },
+      {
+        "title": "The Place Beyond the Pines",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/vY5j2xQzMGWmxBuhQo0HfA4Lxqb.jpg",
+        "desc": "A motorcycle stunt rider considers committing a crime in order to provide for his wife and child, an act that puts him on a collision course with a cop-turned-politician.",
+        "streaming": [
+          "Amazon Prime Video (stream), CDA Premium (stream), Amazon Video (rent), Amazon Video (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Crime"
+        ],
+        "trailer": "#",
+        "tmdb_id": 97367,
+        "rating": 6.984
+      },
+      {
+        "title": "Monster",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/b45yfHtLk4TSSDxOLgMLBpShner.jpg",
+        "desc": "In 1989, prostitute Aileen Wuornos befriends and enters a relationship with a young woman named Selby. Determined to straighten out her life, Aileen's limited education lands her back on the corner. She's raped by a trick, who she kills. A string of murder and robbery follows that ultimately leads Aileen to becoming America's first female serial killer.",
+        "streaming": [
+          "CDA Premium (stream), Rakuten TV (rent), TVP (rent), Pilot WP (rent), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Crime",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 504,
+        "rating": 7.208
+      },
+      {
+        "title": "Burning",
+        "year": 2018,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/hxGv1O2W5SOJTmiBc45CL842mrx.jpg",
+        "desc": "'Burning' is a conversation between two young mothers brought together by strange and cruel social realities, at a funeral ghat in Varanasi",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty"
+        ],
+        "trailer": "#",
+        "tmdb_id": 813106,
+        "rating": 6.4
+      },
+      {
+        "title": "Cold in July",
+        "year": 2014,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/1rXkxhubAtKVTZl29Xbnwpfen3H.jpg",
+        "desc": "While investigating noises in his house one balmy Texas night in 1989, Richard Dane puts a bullet in the brain of a low-life burglar. Although he’s hailed as a small-town hero, Dane soon finds himself fearing for his family’s safety when Freddy’s ex-con father rolls into town, hell-bent on revenge.",
+        "streaming": [
+          "Apple TV Store (rent), Amazon Video (rent), CHILI (rent), Apple TV Store (buy), Amazon Video (buy), CHILI (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 244509,
+        "rating": 6.541
+      },
+      {
+        "title": "Shotgun Stories",
+        "year": 2007,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/aeIlHt28Z8KmHcKEgl4oLHpwZ8M.jpg",
+        "desc": "Shotgun Stories tracks a feud that erupts between two sets of half brothers following the death of their father. Set against the cotton fields and back roads of Southeast Arkansas, these brothers discover the lengths to which each will go to protect their family.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 12247,
+        "rating": 6.9
+      },
+      {
+        "title": "Leave No Trace",
+        "year": 2018,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/sygnLx3sZV5P8M2dyaGRegHdEL1.jpg",
+        "desc": "A father and daughter live a perfect but mysterious existence in Forest Park, a beautiful nature reserve near Portland, Oregon, rarely making contact with the world. But when a small mistake tips them off to authorities, they are sent on an increasingly erratic journey in search of a place to call their own.",
+        "streaming": [
+          "Netflix (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 443463,
+        "rating": 6.809
+      },
+      {
+        "title": "Winter's Bone",
+        "year": 2010,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/a0qhPkNlxLfsf5B2jFyI1Pp04XV.jpg",
+        "desc": "After discovering her father put their house up for his bail bond and then disappeared, 17-year-old Ree Dolly must confront the local criminal underworld and the harsh Ozark wilderness in order to to track down her father and save her family.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Drama",
+          "Mystery"
+        ],
+        "trailer": "#",
+        "tmdb_id": 39013,
+        "rating": 6.787
+      },
+      {
+        "title": "You Were Never Really Here",
+        "year": 2017,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/nx4lUyQNEzJowcF55VAP0TQEaX0.jpg",
+        "desc": "A traumatized veteran, unafraid of violence, tracks down missing girls for a living. When a job spins out of control, his nightmares begin to overtake him, and a conspiracy is uncovered—leading to what may be his death trip or his awakening.",
+        "streaming": [
+          "Player (stream), Polsat Box Go (stream), Amazon Video (rent), Amazon Video (buy)"
+        ],
+        "tags": [
+          "ulica",
+          "raw",
+          "gritty",
+          "Crime",
+          "Drama"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=QV4i99gcsbw",
+        "tmdb_id": 398181,
+        "rating": 6.548
+      }
+    ]
+  },
+  {
+    "category": "Senne i eteryczne",
+    "mood": [
+      "sen",
+      "eteryczne",
+      "dreamlike"
+    ],
+    "films": [
+      {
+        "title": "A Ghost Story",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/rp5JPIyZi9sMob15l46zNQLe5cO.jpg",
+        "desc": "Recently deceased, a white-sheeted ghost returns to his suburban home to console his bereft wife, only to find that in his spectral state he has become unstuck in time, forced to watch passively as the life he knew and the woman he loves slowly slip away.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Fantasy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 428449,
+        "rating": 7.073
+      },
+      {
+        "title": "Columbus",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/6tk0xmn9k5HjUeXsnhxIa94sFXP.jpg",
+        "desc": "When a renowned architecture scholar falls suddenly ill during a speaking tour, his son Jin finds himself stranded in Columbus, Indiana - a small Midwestern city celebrated for its many significant modernist buildings. Jin strikes up a friendship with Casey, a young architecture enthusiast who works at the local library.",
+        "streaming": [
+          "MovieMe (rent)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Comedy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 414453,
+        "rating": 7.108
+      },
+      {
+        "title": "Loveless",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "",
+        "desc": "About a commitment-phobic New York City bachelor in crisis.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 83725,
+        "rating": 3.3
+      },
+      {
+        "title": "Drive",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/602vevIURmpDfzbnv5Ubi6wIkQm.jpg",
+        "desc": "Driver is a skilled Hollywood stuntman who moonlights as a getaway driver for criminals. Though he projects an icy exterior, lately he's been warming up to a pretty neighbor named Irene and her young son, Benicio. When Irene's husband gets out of jail, he enlists Driver's help in a million-dollar heist. The job goes horribly wrong, and Driver must risk his life to protect Irene and Benicio from the vengeful masterminds behind the robbery.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 64690,
+        "rating": 7.583
+      },
+      {
+        "title": "Solaris",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/drdrB1hEZmzFlK1xtW5HMxK3LUJ.jpg",
+        "desc": "A troubled psychologist is sent to investigate the crew of an isolated research station orbiting a bizarre planet.",
+        "streaming": [
+          "Amazon Video (rent), Amazon Video (buy)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Science Fiction"
+        ],
+        "trailer": "#",
+        "tmdb_id": 2103,
+        "rating": 5.9
+      },
+      {
+        "title": "All the Real Girls",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/sQ6dMkwPIFucYSmFQcr38WBYzs.jpg",
+        "desc": "In a sleepy little mill town in North Carolina, Paul is the town Romeo. But when his best friend's sister returns home from boarding school, he finds himself falling for her innocent charm. In spite of her lack of experience and the violent protests of her brother, the two find themselves in a sweet, dreamy and all-consuming love.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 13132,
+        "rating": 5.9
+      },
+      {
+        "title": "The Tree of Life",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/l8cwuB5WJSoj4uMAsnzuHBOMaSJ.jpg",
+        "desc": "The impressionistic story of a Texas family in the 1950s. The film follows the life journey of the eldest son, Jack, through the innocence of childhood to his disillusioned adult years as he tries to reconcile a complicated relationship with his father. Jack finds himself a lost soul in the modern world, seeking answers to the origins and meaning of life while questioning the existence of faith.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Fantasy"
+        ],
+        "trailer": "#",
+        "tmdb_id": 8967,
+        "rating": 6.723
+      },
+      {
+        "title": "Arrival",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/pEzNVQfdzYDzVK0XqxERIw2x2se.jpg",
+        "desc": "Taking place after alien crafts land around the world, an expert linguist is recruited by the military to determine whether they come in peace or are a threat.",
+        "streaming": [
+          "Player (stream), HBO Max (stream), Polsat Box Go (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Player (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Science Fiction"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=Trqy92oUFWY",
+        "tmdb_id": 329865,
+        "rating": 7.624
+      },
+      {
+        "title": "Stalker",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/trfgUCPgtJ1Ex3IMM0XKSafY07m.jpg",
+        "desc": "A silent film following a man on the verge of the nervous breakdown as he is pursued by an ominous stalker.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Horror",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 1444232,
+        "rating": 0
+      },
+      {
+        "title": "Aftersun",
+        "year": 2022,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/evKz85EKouVbIr51zy5fOtpNRPg.jpg",
+        "desc": "Sophie reflects on the shared joy and private melancholy of a holiday she took with her father twenty years earlier. Memories fill the gaps between camcorder footages as she tries to reconcile the father she knew with the troubled man she didn't.",
+        "streaming": [
+          "Player (stream), Polsat Box Go (stream), Player (rent)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=wOCwr17kDfk",
+        "tmdb_id": 965150,
+        "rating": 7.676
+      },
+      {
+        "title": "Long Day's Journey Into Night",
+        "year": 2018,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/8wUxYW7v2sahnFwipwzjRo8Z3sP.jpg",
+        "desc": "Luo Hongwu returns to Kaili, the hometown from which he fled many years ago. He begins the search for the woman he loved and whom he has never been able to forget.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Mystery"
+        ],
+        "trailer": "#",
+        "tmdb_id": 486898,
+        "rating": 7
+      },
+      {
+        "title": "Personal Shopper",
+        "year": 2016,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/cdm6qZgmbaIwjKBZnUSGWS4eyM2.jpg",
+        "desc": "Maureen, mid-20s, is a personal shopper for a media celebrity. The job pays for her stay in Paris, a city she refuses to leave until she makes contact with her twin brother who previously died there. Her life becomes more complicated when a mysterious person contacts her via text message.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Mystery"
+        ],
+        "trailer": "#",
+        "tmdb_id": 340676,
+        "rating": 5.928
+      },
+      {
+        "title": "The Eternal Daughter",
+        "year": 2022,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/kyv8tPXx3mKchYzVmA3VckKoJDi.jpg",
+        "desc": "An artist and her elderly mother confront long-buried secrets when they return to a former family home, now a hotel haunted by its mysterious past.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama",
+          "Mystery"
+        ],
+        "trailer": "#",
+        "tmdb_id": 790867,
+        "rating": 5.9
+      },
+      {
+        "title": "Millennium Mambo",
+        "year": 2001,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/wSc6tOp1yoAFbZqxG5XVGHcFvRN.jpg",
+        "desc": "Vicky recalls her romances with her exes Hao Hao and Jack in the neon-lit clubs of Taipei.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 11553,
+        "rating": 7
+      },
+      {
+        "title": "Somewhere",
+        "year": 2010,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/zOf1sdfF4eH3CVRCpmRO5ugVGdo.jpg",
+        "desc": "After withdrawing to the Chateau Marmont, a passionless Hollywood actor reexamines his life when his eleven-year-old daughter surprises him with a visit.",
+        "streaming": [
+          "SkyShowtime (stream), CDA Premium (stream)"
+        ],
+        "tags": [
+          "sen",
+          "eteryczne",
+          "dreamlike",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 39210,
+        "rating": 6.1
+      }
+    ]
+  },
+  {
+    "category": "Kino o życiu, które nie traktuje widza jak debila",
+    "mood": [
+      "życie",
+      "realism",
+      "humanizm"
+    ],
+    "films": [
+      {
+        "title": "The Florida Project",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/5QnDxdJg1fi6uMSkSi4x8tHsltm.jpg",
+        "desc": "The story of a precocious six year-old and her ragtag group of friends whose summer break is filled with childhood wonder, possibility and a sense of adventure while the adults around them struggle with hard times.",
+        "streaming": [
+          "Player (stream), CDA Premium (stream), Polsat Box Go (stream), Player (rent)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 394117,
+        "rating": 7.43
+      },
+      {
+        "title": "The Wrestler",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/6OTR8dSoNGjWohJNo3UhIGd3Tj.jpg",
+        "desc": "Aging wrestler Randy \"The Ram\" Robinson is long past his prime but still ready and rarin' to go on the pro-wrestling circuit. After a particularly brutal beating, however, Randy hangs up his tights, pursues a serious relationship with a long-in-the-tooth stripper, and tries to reconnect with his estranged daughter. But he can't resist the lure of the ring and readies himself for a comeback.",
+        "streaming": [
+          "FilmBox+ (stream), CDA Premium (stream), FilmBox Live Amazon Channel (stream)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama",
+          "Romance"
+        ],
+        "trailer": "#",
+        "tmdb_id": 12163,
+        "rating": 7.538
+      },
+      {
+        "title": "Short Term 12",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/qKnsyaJZLXfiL2JhIJEkpA8C3LU.jpg",
+        "desc": "Grace, a compassionate young supervisor at a foster care facility, helps at-risk teens. But when a new charge dredges up memories of her own troubled past, Grace's tough exterior begins eroding.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 169813,
+        "rating": 7.8
+      },
+      {
+        "title": "Nebraska",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/o1t2Mw18EEBnl8v4Nby3PFjxnM1.jpg",
+        "desc": "An aging, booze-addled father takes a trip from Montana to Nebraska with his estranged son in order to claim what he believes to be a million-dollar sweepstakes prize.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), CHILI (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), CHILI (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama",
+          "Adventure"
+        ],
+        "trailer": "#",
+        "tmdb_id": 129670,
+        "rating": 7.453
+      },
+      {
+        "title": "Manchester by the Sea",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/o9VXYOuaJxCEKOxbA86xqtwmqYn.jpg",
+        "desc": "After his older brother passes away, Lee Chandler is forced to return home to care for his 16-year-old nephew. There he is compelled to deal with a tragic past that separated him from his family and the community where he was born and raised.",
+        "streaming": [
+          "Player (stream), CANAL+ (stream), HBO Max (stream), Polsat Box Go (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 334541,
+        "rating": 7.552
+      },
+      {
+        "title": "A Separation",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "",
+        "desc": "A woman reluctantly travels from London to an isolated peninsula in southern Greece to find her estranged husband who has gone missing.",
+        "streaming": [
+          "Sprawdź dostępność"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Thriller"
+        ],
+        "trailer": "#",
+        "tmdb_id": 1649065,
+        "rating": 0
+      },
+      {
+        "title": "The Father",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/pr3bEQ517uMb5loLvjFQi8uLAsp.jpg",
+        "desc": "A man refuses all assistance from his daughter as he ages and, as he tries to make sense of his changing circumstances, he begins to doubt his loved ones, his own mind and even the fabric of his reality.",
+        "streaming": [
+          "Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 600354,
+        "rating": 8.097
+      },
+      {
+        "title": "Lean on Pete",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/7SuPHSo9Uw8GACkP2oPst512Qhl.jpg",
+        "desc": "Charley Thompson, a teenager living with his single father, gets a summer job working for horse trainer Del Montgomery. Bonding with an aging racehorse named Lean on Pete, Charley is horrified to learn he is bound for slaughter, and so he steals the horse, and the duo embark on an odyssey across the new American frontier.",
+        "streaming": [
+          "CDA Premium (stream)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama",
+          "Adventure"
+        ],
+        "trailer": "#",
+        "tmdb_id": 407890,
+        "rating": 7
+      },
+      {
+        "title": "The Straight Story",
+        "year": 2026,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/tT9cMiVDdtlcdZxOoFy3VRmEoKk.jpg",
+        "desc": "Retired farmer and widower Alvin Straight learns one day that his distant brother Lyle has suffered a stroke and may not recover. Alvin is determined to make things right with Lyle while he still can, but his brother lives in Wisconsin, while Alvin is stuck in Iowa with no car and no driver's license. He then has the idea of making the trip on his old lawnmower, thus beginning a picturesque and at times deeply spiritual odyssey.",
+        "streaming": [
+          "Player (stream), Polsat Box Go (stream), Rakuten TV (rent), TVP (rent), Pilot WP (rent), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama",
+          "History"
+        ],
+        "trailer": "#",
+        "tmdb_id": 404,
+        "rating": 7.742
+      },
+      {
+        "title": "Shoplifters",
+        "year": 2018,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/4nfRUOv3LX5zLn98WS1WqVBk9E9.jpg",
+        "desc": "In the outskirts of Tokyo, a poor but close-knit group living on the fringes of society survives through shoplifting and odd jobs. When Osamu and his son take in a neglected young girl, their already fragile existence begins to unravel. As the family grows attached to her, buried secrets surface, forcing them to confront the true meaning of love, belonging, and what makes a family.",
+        "streaming": [
+          "CHILI (rent), CHILI (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama",
+          "Crime"
+        ],
+        "trailer": "#",
+        "tmdb_id": 505192,
+        "rating": 7.84
+      },
+      {
+        "title": "Another Round",
+        "year": 2020,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/aDcIt4NHURLKnAEu7gow51Yd00Q.jpg",
+        "desc": "Four stagnant high school teachers decide to test out a theory that maintaining a constant level of intoxication will improve their overall lives.",
+        "streaming": [
+          "HBO Max (stream), CDA Premium (stream), Polsat Box Go (stream), TVP (stream), Rakuten TV (rent), Pilot WP (rent), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Comedy",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 580175,
+        "rating": 7.631
+      },
+      {
+        "title": "Sound of Metal",
+        "year": 2019,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/3178oOJKKPDeQ2legWQvMPpllv.jpg",
+        "desc": "Metal drummer Ruben begins to lose his hearing. When a doctor tells him his condition will worsen, he thinks his career and life is over. His girlfriend Lou checks the former addict into a rehab for the deaf hoping it will prevent a relapse and help him adapt to his new life. After being welcomed and accepted just as he is, Ruben must choose between his new normal and the life he once knew.",
+        "streaming": [
+          "Amazon Prime Video (stream), HBO Max (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama",
+          "Music"
+        ],
+        "trailer": "#",
+        "tmdb_id": 502033,
+        "rating": 7.7
+      },
+      {
+        "title": "Minari",
+        "year": 2020,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/6mPNdmjdbVKPITv3LLCmQoKs9Zw.jpg",
+        "desc": "A Korean American family moves to an Arkansas farm in search of its own American dream. Amidst the challenges of this new life in the strange and rugged Ozarks, they discover the undeniable resilience of family and what really makes a home.",
+        "streaming": [
+          "CANAL+ (stream), CDA Premium (stream), Polsat Box Go (stream), Rakuten TV (rent), TVP (rent), Pilot WP (rent), Premiery Canal+ (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "https://www.youtube.com/watch?v=HW6W8XRldMA",
+        "tmdb_id": 615643,
+        "rating": 7.331
+      },
+      {
+        "title": "Capernaum",
+        "year": 2018,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/mFnfTVADj8yOxwzprYOmTPselk8.jpg",
+        "desc": "After running away from his negligent parents, committing a violent crime and being sentenced to five years in jail, a hardened, streetwise 12-year-old Lebanese boy sues his parents in protest of the life they have given him.",
+        "streaming": [
+          "Player (stream), CDA Premium (stream), Polsat Box Go (stream), Premiery Canal+ (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 517814,
+        "rating": 8.137
+      },
+      {
+        "title": "Leave No Trace",
+        "year": 2018,
+        "source": "TMDB",
+        "poster": "https://image.tmdb.org/t/p/w500/sygnLx3sZV5P8M2dyaGRegHdEL1.jpg",
+        "desc": "A father and daughter live a perfect but mysterious existence in Forest Park, a beautiful nature reserve near Portland, Oregon, rarely making contact with the world. But when a small mistake tips them off to authorities, they are sent on an increasingly erratic journey in search of a place to call their own.",
+        "streaming": [
+          "Netflix (stream), Apple TV Store (rent), Google Play Movies (rent), YouTube (rent), Amazon Video (rent), Rakuten TV (rent), Pilot WP (rent), Apple TV Store (buy), Google Play Movies (buy), YouTube (buy), Amazon Video (buy), Rakuten TV (buy), Pilot WP (buy)"
+        ],
+        "tags": [
+          "życie",
+          "realism",
+          "humanizm",
+          "Drama"
+        ],
+        "trailer": "#",
+        "tmdb_id": 443463,
+        "rating": 6.809
+      }
+    ]
+  }
+];
+
+    const root = document.getElementById('catalogRoot');
+    const searchInput = document.getElementById('searchInput');
+    const categorySelect = document.getElementById('categorySelect');
+    const filmCount = document.getElementById('filmCount');
+    const activeInfo = document.getElementById('activeInfo');
+
+    // Populate category select
+    const opt = document.createElement('option');
+    data.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.category;
+      option.textContent = cat.category;
+      categorySelect.appendChild(option);
+    });
+
+    function escapeHtml(text) {
+      const map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'};
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function render() {
+      const q = searchInput.value.toLowerCase().trim();
+      const selected = categorySelect.value;
+      let total = 0;
+
+      const chip1 = q ? `<span class="chip">🔍 "${escapeHtml(q)}"</span>` : '';
+      const chip2 = selected !== 'all' ? `<span class="chip">📁 ${escapeHtml(selected)}</span>` : '';
+      activeInfo.innerHTML = chip1 + chip2;
+
+      const sections = data
+        .filter(cat => selected === 'all' || cat.category === selected)
+        .map(cat => {
+          const films = cat.films.filter(f => {
+            if (!q) return true;
+            const hay = `${f.title} ${f.desc} ${f.tags?.join(' ')} ${f.streaming?.join(' ')}`.toLowerCase();
+            return hay.includes(q);
+          });
+          total += films.length;
+
+          if (films.length === 0) return '';
+
+          const cards = films.map(f => {
+            const posterHtml = f.poster
+              ? `<img src="${escapeHtml(f.poster)}" alt="${escapeHtml(f.title)} poster" loading="lazy" />`
+              : `<div class="fallback">📽️<br/>${escapeHtml(f.title)}</div>`;
+
+            const trailerBtn = f.trailer && f.trailer !== '#'
+              ? `<a href="${escapeHtml(f.trailer)}" target="_blank" class="trailer-overlay" aria-label="Obejrzyj trailer ${escapeHtml(f.title)}">
+                   <div class="trailer-btn">▶</div>
+                 </a>`
+              : '';
+
+            const tags = (f.tags || []).slice(0, 3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+            const providers = (f.streaming || []).slice(0, 2).map(s => `<span class="provider">${escapeHtml(s)}</span>`).join('');
+            const ratingHtml = f.rating ? `<div class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${f.rating.toFixed(1)}/10</div>` : '';
+
+            return `
+              <article class="card">
+                <div class="poster">
+                  ${posterHtml}
+                  ${trailerBtn}
+                </div>
+                <div class="card-body">
+                  <h4>${escapeHtml(f.title)} <span class="muted">(${f.year || '—'})</span></h4>
+                  ${ratingHtml}
+                  <div class="meta">${tags}</div>
+                  <p class="desc">${escapeHtml(f.desc)}</p>
+                  <div class="streaming">${providers || '<span class="provider missing">Brak info o streamingu</span>'}</div>
+                </div>
+              </article>
+            `;
+          }).join('');
+
+          return `
+            <div class="category">
+              <div class="section-head">
+                <div>
+                  <h3>${escapeHtml(cat.category)}</h3>
+                  <p class="muted">${films.length} film${films.length === 1 ? '' : films.length < 5 ? 'y' : 'ów'}</p>
+                </div>
+                <div class="chips">
+                  ${cat.mood.map(m => `<span class="chip">${escapeHtml(m)}</span>`).join('')}
+                </div>
+              </div>
+              <div class="category-grid">
+                ${cards}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      root.innerHTML = sections || '<p style="text-align:center;padding:4rem 0;color:var(--color-text-muted)">Brak wyników. Spróbuj zmienić filtry.</p>';
+      filmCount.textContent = total;
+    }
+
+    // Theme toggle
+    const themeBtn = document.querySelector('[data-theme-toggle]');
+    const html = document.documentElement;
+    themeBtn?.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      themeBtn.textContent = next === 'dark' ? '🌙 Motyw' : '☀️ Motyw';
+      localStorage.setItem('theme', next);
+    });
+
+    // Load saved theme
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      html.setAttribute('data-theme', saved);
+      if (themeBtn) themeBtn.textContent = saved === 'dark' ? '🌙 Motyw' : '☀️ Motyw';
+    }
+
+    // Event listeners
+    const t = () => setTimeout(render, 50);
+    searchInput.addEventListener('input', t);
+    categorySelect.addEventListener('change', render);
+
+    // Initial render
+    let d = false;
+    if (!d) { d = true; render(); }
+  </script>
+</body>
+</html>

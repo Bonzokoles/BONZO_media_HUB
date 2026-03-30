@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interaktywny katalog filmowy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);--text-base:clamp(1rem,.95rem + .25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-12:3rem;--space-16:4rem;--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow-md:0 10px 24px rgba(0,0,0,.08);--content:1280px;--font-display:'Instrument Serif',Georgia,serif;--font-body:'Work Sans',Arial,sans-serif}
+    [data-theme="dark"]{--color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;--color-border:#393836;--color-text:#cdccca;--color-text-muted:#97958f;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--shadow-sm:0 1px 2px rgba(0,0,0,.2);--shadow-md:0 12px 32px rgba(0,0,0,.35)}
+    *{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:var(--font-body);font-size:var(--text-base);background:radial-gradient(circle at top left,rgba(79,152,163,.14),transparent 28%),var(--color-bg);color:var(--color-text);line-height:1.6} img{display:block;max-width:100%;height:auto} button,input,select{font:inherit;color:inherit} a{color:inherit} .wrap{max-width:var(--content);margin:0 auto;padding:0 var(--space-4)}
+    .topbar{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--color-bg) 78%,transparent);border-bottom:1px solid var(--color-border)}
+    .topbar-inner{display:flex;gap:var(--space-4);align-items:center;justify-content:space-between;padding:var(--space-4) 0}
+    .brand{display:flex;align-items:center;gap:var(--space-3)} .logo{width:42px;height:42px;border:1px solid var(--color-border);border-radius:50%;display:grid;place-items:center;background:var(--color-surface)}
+    .logo svg{width:24px;height:24px} .brand h1{font-family:var(--font-display);font-size:var(--text-xl);line-height:1} .muted{color:var(--color-text-muted)}
+    .toolbar{display:grid;grid-template-columns:1.4fr .9fr auto;gap:var(--space-3);padding-bottom:var(--space-4)} input,select{width:100%;background:var(--color-surface);border:1px solid var(--color-border);border-radius:999px;padding:.85rem 1rem} .theme-btn,.jump-btn{border:1px solid var(--color-border);border-radius:999px;padding:.85rem 1rem;background:var(--color-surface);cursor:pointer} .theme-btn:hover,.jump-btn:hover{background:var(--color-surface-2)}
+    .hero{padding:var(--space-16) 0 var(--space-12)} .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-8);align-items:end} .eyebrow{font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);font-weight:700;margin-bottom:var(--space-3)}
+    .hero h2{font-family:var(--font-display);font-size:clamp(2.6rem,2rem + 3vw,5.2rem);line-height:.95;max-width:12ch;margin-bottom:var(--space-4)} .hero p{max-width:60ch;color:var(--color-text-muted)}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-top:var(--space-6)} .stat{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4);box-shadow:var(--shadow-sm)} .stat strong{display:block;font-size:var(--text-xl);font-family:var(--font-display)}
+    .sources{background:var(--color-surface);border:1px solid var(--color-border);border-radius:24px;padding:var(--space-6);box-shadow:var(--shadow-md)} .sources ul{list-style:none;display:grid;gap:var(--space-3)} .sources li{display:flex;justify-content:space-between;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px dashed var(--color-border)} .sources li:last-child{border-bottom:0;padding-bottom:0}
+    .section{padding:var(--space-12) 0} .section-head{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-6)} .section-head h3{font-family:var(--font-display);font-size:var(--text-2xl)}
+    .chips{display:flex;flex-wrap:wrap;gap:.6rem} .chip{padding:.45rem .8rem;border-radius:999px;border:1px solid var(--color-border);background:var(--color-surface);font-size:var(--text-xs)}
+    .category{margin-bottom:var(--space-12)} .category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4)} .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;min-height:100%}
+    .poster{aspect-ratio:2/3;background:linear-gradient(135deg,rgba(79,152,163,.25),rgba(0,0,0,.08));position:relative} .poster img{width:100%;height:100%;object-fit:cover} .poster .fallback{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-4);text-align:center;color:var(--color-text-muted);font-size:var(--text-sm)}
+    .card-body{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4)} .card h4{font-size:1.02rem;line-height:1.2} .meta{display:flex;flex-wrap:wrap;gap:.45rem} .tag{font-size:var(--text-xs);padding:.35rem .55rem;border-radius:999px;background:color-mix(in srgb,var(--color-primary) 11%,var(--color-surface));border:1px solid color-mix(in srgb,var(--color-primary) 34%,var(--color-border))}
+    .desc{font-size:var(--text-sm);color:var(--color-text-muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;min-height:7.6em}
+    .streaming{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto} .provider{font-size:var(--text-xs);padding:.35rem .55rem;border:1px solid var(--color-border);border-radius:999px;background:var(--color-surface-2)} .provider.missing{opacity:.75}
+    .footer-note{padding:var(--space-12) 0 var(--space-16);color:var(--color-text-muted);font-size:var(--text-sm)}
+    @media (max-width: 980px){.hero-grid,.toolbar{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}} @media (max-width: 640px){.stats{grid-template-columns:1fr}.topbar-inner,.section-head{align-items:flex-start;flex-direction:column}.hero h2{max-width:9ch}}
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#catalog">Przejdź do katalogu</a>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4">
+              <circle cx="24" cy="24" r="18"></circle>
+              <path d="M18 16h12M18 24h12M18 32h7"></path>
+            </svg>
+          </div>
+          <div>
+            <h1>Interaktywny katalog filmowy</h1>
+            <div class="muted">Plakaty, opisy, streaming i filtrowanie klimatem</div>
+          </div>
+        </div>
+        <button class="theme-btn" data-theme-toggle aria-label="Przełącz motyw">Motyw</button>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" type="search" placeholder="Szukaj tytułu, klimatu, źródła lub streamingu…" />
+        <select id="categorySelect">
+          <option value="all">Wszystkie kategorie</option>
+        </select>
+        <button class="jump-btn" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Przeglądaj</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Curated cinema explorer</div>
+          <h2>Kino pod klimat, nie pod algorytm.</h2>
+          <p>Ta wersja HTML rozwija autorski katalog o dodatkowe tytuły, skrócone opisy, plakaty i miejsca na legalne źródła streamingu. Dane filmowe, takie jak <em>overview</em> i <em>poster_path</em>, są dostępne przez TMDB, a streaming można pobierać z endpointów watch providers dla wybranego kraju. [web:104][web:107]</p>
+          <div class="stats">
+            <div class="stat"><strong id="filmCount">0</strong><span>filmów w katalogu</span></div>
+            <div class="stat"><strong>7</strong><span>autorskich kategorii</span></div>
+            <div class="stat"><strong>PL / global</strong><span>streaming do rozwinięcia przez TMDB providers</span></div>
+          </div>
+        </div>
+        <aside class="sources">
+          <h3 style="font-family:var(--font-display);font-size:var(--text-xl);margin-bottom:var(--space-4)">Jak działa warstwa danych</h3>
+          <ul>
+            <li><span>Opisy i plakaty</span><strong>TMDB details / search</strong></li>
+            <li><span>Streaming per kraj</span><strong>TMDB watch providers</strong></li>
+            <li><span>Linki VOD</span><strong>TMDB + JustWatch</strong></li>
+            <li><span>Źródła kuratorskie</span><strong>Ranker / IMDb / Rotten Tomatoes</strong></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section wrap" id="catalog">
+      <div class="section-head">
+        <div>
+          <h3>Katalog</h3>
+          <p class="muted">Każda karta ma miejsce na poster, opis i streaming. Jeśli poster nie jest dostępny, karta pokazuje placeholder.</p>
+        </div>
+        <div class="chips" id="activeInfo"></div>
+      </div>
+      <div id="catalogRoot"></div>
+    </section>
+
+    <section class="wrap footer-note">
+      <p>TMDB dokumentuje, że odpowiedzi filmowe zawierają m.in. <code>poster_path</code>, <code>overview</code>, <code>title</code> i <code>release_date</code>, a osobny endpoint watch providers zwraca dostawców streamingu, wypożyczenia i zakupu dla konkretnego filmu i regionu. [web:104][web:107]</p>
+      <p>Jeśli chcesz wersję produkcyjną, kolejny krok to automatyczne zasilenie tego HTML-a danymi z TMDB przy użyciu Twojego tokena oraz mapowania watch providers dla Polski. TMDB udostępnia oficjalne endpointy do szczegółów filmu i providerów, a partner API JustWatch opisuje też ścieżki do ofert VOD. [web:105][web:107][web:115]</p>
+    </section>
+  </main>
+
+  <script>
+    const data = [
+      {
+        category: 'Psychodeliczne, ale bez horroru',
+        mood: ['psychodela','surreal','arthouse'],
+        films: [
+          {title:'Upstream Color', year:2013, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/gUo0rGq1y9o3T5Wg8nYgY8sL1cQ.jpg', desc:'Intymne, halucynacyjne sci-fi o tożsamości, pamięci i więzi, zmontowane bardziej jak sen niż klasyczna narracja.', streaming:['TMDB providers: do pobrania'], tags:['psychodela','minimal sci-fi']},
+          {title:'Holy Motors', year:2012, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/4S6sQ0O3l0P6W7k0rGUNShUMpOW.jpg', desc:'Wielokształtna podróż przez role, maski i performance; film działa jak miejska, surrealna składanka tożsamości.', streaming:['TMDB providers: do pobrania'], tags:['surreal','meta-cinema']},
+          {title:'The Congress', year:2013, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/f0W2M7dDcV1YQUAECEV4VpWwfvX.jpg', desc:'Mieszanka live action i animacji o cyfrowym sobowtórze, rozpadającej się realności i ucieczce w sztuczne światy.', streaming:['TMDB providers: do pobrania'], tags:['animacja','mind-bending']},
+          {title:'Enter the Void', year:2009, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/6sbbK8JrIoVNewc19hXtOD87mpy.jpg', desc:'Hipnotyczna wędrówka po Tokio z perspektywy zawieszonej świadomości; kino transowe, świetlne i cielesne.', streaming:['TMDB providers: do pobrania'], tags:['tokyo','trans']},
+          {title:'The Fountain', year:2006, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/5MN0WhkZ1B1t0K1TKoEt1TGVtCq.jpg', desc:'Melodramat i metafizyczna podróż przez czas, śmierć i miłość, podane w formie wizualnego poematu.', streaming:['TMDB providers: do pobrania'], tags:['metaphysical','visual poem']},
+          {title:'The Holy Mountain', year:1973, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/6IfTki5kHgxvKwxLBzME2YkdEYY.jpg', desc:'Ezoteryczny, obrazoburczy rytuał filmowy złożony z symboli, mistyki i totalnej wizualnej ekstrawagancji.', streaming:['TMDB providers: do pobrania'], tags:['cult','visionary']},
+          {title:'Synecdoche, New York', year:2008, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/3Q2O8tCbXl16rYPD6PEw24kTx5c.jpg', desc:'Labirynt o sztuce, śmiertelności i niemożności uchwycenia życia, zrealizowany jako wielopiętrowy teatr pamięci.', streaming:['TMDB providers: do pobrania'], tags:['meta','existential']},
+          {title:'The Green Knight', year:2021, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/zME85M1Yx0qjL6y2xRkQ4fV0w6Z.jpg', desc:'Średniowieczna podróż w formie onirycznej przypowieści o odwadze, pożądaniu i duchowej pustce.', streaming:['TMDB providers: do pobrania'], tags:['mythic','dreamlike']},
+          {title:'Paprika', year:2006, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/9r8w0YzYQq0g4FhU5b7sCv0xO0C.jpg', desc:'Animacyjny kalejdoskop snu i technologii, gdzie granice między psychiką a obrazem całkowicie się rozpływają.', streaming:['TMDB providers: do pobrania'], tags:['anime','dream logic']},
+          {title:'Under the Skin', year:2013, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/e89mZixjQ5v0sM1fA0YIqaNVF4N.jpg', desc:'Chłodne, obce i zmysłowe kino o patrzeniu na ludzi z dystansu, bardziej doświadczenie niż tradycyjna fabuła.', streaming:['TMDB providers: do pobrania'], tags:['alienation','hypnotic']}
+        ]
+      },
+      {
+        category:'Czułe o miłości, ale bez kiczu',
+        mood:['romans','melancholia','relacje'],
+        films:[
+          {title:'Blue Valentine', year:2010, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/9gGZITmLQxXH1uM0Q2g6fQtbD5q.jpg', desc:'Rozpad relacji pokazany bez upiększeń, z czułością dla codziennych pęknięć i emocjonalnej bezradności.', streaming:['TMDB providers: do pobrania'], tags:['breakup','realism']},
+          {title:'Her', year:2013, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/eCOtqtfvn7mxGl6nfmq4b1exJRc.jpg', desc:'Czuły techno-romans o samotności, projekcji pragnień i potrzebie bycia widzianym naprawdę.', streaming:['TMDB providers: do pobrania'], tags:['soft sci-fi','loneliness']},
+          {title:'Before Sunrise', year:1995, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/oL1j4N1Y3A2c8xwQxzb62LF8A3u.jpg', desc:'Jedna noc rozmów i narastającej bliskości; romans oparty bardziej na obecności niż na schemacie.', streaming:['TMDB providers: do pobrania'], tags:['walk-and-talk','intimate']},
+          {title:'Past Lives', year:2023, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/k3WaqVXSnvCZWfJYNtdamTgTtTA.jpg', desc:'Delikatna opowieść o tym, co mogło się wydarzyć, i o tym, co zostaje między ludźmi po latach.', streaming:['TMDB providers: do pobrania'], tags:['longing','quiet']},
+          {title:'In the Mood for Love', year:2000, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/iYypPT4bhqXfq1b6EnmxvRt6b2Y.jpg', desc:'Najbardziej elegancki film o tłumionym uczuciu, rytmie niespełnienia i pożądaniu zamkniętym w gestach.', streaming:['TMDB providers: do pobrania'], tags:['restrained','hong kong']},
+          {title:'Portrait of a Lady on Fire', year:2019, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/3NTEMj3N5dW6j9kR5cIhKp4dA4R.jpg', desc:'Romans zbudowany z obserwacji, spojrzeń i pamięci, bez taniego sentymentalizmu i bez uproszczeń.', streaming:['TMDB providers: do pobrania'], tags:['period romance','female gaze']},
+          {title:'Weekend', year:2011, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/oSg3n1m6YewsG32KzB8o4PVQwDF.jpg', desc:'Kameralna relacja dwóch mężczyzn rozwijająca się przez rozmowę, napięcie i niepewność jutra.', streaming:['TMDB providers: do pobrania'], tags:['queer','intimate']},
+          {title:'Call Me by Your Name', year:2017, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/v5m2a1q7B0n0vS4BvEXGLaC1f0b.jpg', desc:'Lato, pożądanie i dojrzewanie emocjonalne opowiedziane miękko, sensualnie i bez banału.', streaming:['TMDB providers: do pobrania'], tags:['coming of age','summer']},
+          {title:'Phantom Thread', year:2017, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/zv3aqW6iV1gZr7uW6Q0v0V6xJ2F.jpg', desc:'Miłość jako gra kontroli, zależności i dziwnej intymności między dwojgiem równie upartych ludzi.', streaming:['TMDB providers: do pobrania'], tags:['obsession','power play']},
+          {title:'The Worst Person in the World', year:2021, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/f3J9B0GxQ0M2J0t5N5hYJ3Pj1o8.jpg', desc:'Portret emocjonalnego chaosu młodej dorosłości, gdzie uczucia i decyzje są płynne, bolesne i bardzo ludzkie.', streaming:['TMDB providers: do pobrania'], tags:['millennial','restless']}
+        ]
+      },
+      {
+        category:'Urban Decay',
+        mood:['miasto','noc','brud'],
+        films:[
+          {title:'Heaven Knows What', year:2014, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/p9jL0xP0N0R6xQ2t3FQeM6Wb2sN.jpg', desc:'Nowojorski uliczny obłęd pokazany z bliska, w rytmie głodu, uzależnienia i emocjonalnego rozpadu.', streaming:['TMDB providers: do pobrania'], tags:['street','raw']},
+          {title:'Gummo', year:1997, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/1t6CqQ4Xc4iN2VN6i8XcX4Jt9dn.jpg', desc:'Kolaż brudu, pustki i młodzieńczego odklejenia w przestrzeni rozpadu społecznego.', streaming:['TMDB providers: do pobrania'], tags:['fragmentary','suburb rot']},
+          {title:'Mid90s', year:2018, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/4N2zB7D0g2c2zW0a3u1T4x3O2n4.jpg', desc:'Skate’owy coming-of-age zanurzony w chropowatym miejskim pejzażu i potrzebie przynależności.', streaming:['TMDB providers: do pobrania'], tags:['skate','teen']},
+          {title:'Taxi Driver', year:1976, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/ekstpH614fwDX8DUln1a2Opz0N8.jpg', desc:'Klasyczny portret samotności i paranoi w mieście, które działa jak maszyna do rozkładu psychiki.', streaming:['TMDB providers: do pobrania'], tags:['classic','alienation']},
+          {title:'La Haine', year:1995, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/8d7B4dR8jUP7tVf9b0V8jPj0FQF.jpg', desc:'Radykalnie napięta kronika gniewu, marginalizacji i miejskiego bezruchu przed eksplozją.', streaming:['TMDB providers: do pobrania'], tags:['banlieue','anger']},
+          {title:'Good Time', year:2017, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/2y4A2lV0iJc3b5hI0Z0R7Qb7G8T.jpg', desc:'Neonowy bieg przez nocne miasto, gdzie desperacja i adrenalina tworzą niemal fizyczne napięcie.', streaming:['TMDB providers: do pobrania'], tags:['neon','crime']},
+          {title:'Uncut Gems', year:2019, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/6XN1vxHc7kUSqNWtaQKN45J5x2v.jpg', desc:'Film jako atak bodźców: hałas, ruch, długi i chaos splatają się w perfekcyjny miejski atak paniki.', streaming:['TMDB providers: do pobrania'], tags:['anxiety','nyc']},
+          {title:'Victoria', year:2015, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/eIPW1qD2LxM0c1R0j9P2n3t4s5A.jpg', desc:'Jednoujęciowy zjazd przez nocny Berlin, gdzie flirt zamienia się w katastrofę bez drogi odwrotu.', streaming:['TMDB providers: do pobrania'], tags:['one take','berlin']},
+          {title:'Gomorrah', year:2008, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/3GvL0Gxg0K5uJ8xS0yB9hM1QvYt.jpg', desc:'Anty-mafijna mozaika o strukturach przemocy wpisanych w codzienność i przestrzeń miasta.', streaming:['TMDB providers: do pobrania'], tags:['crime realism','italy']},
+          {title:'American Honey', year:2016, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/svS7sL7s1jQ4FJqJb12r6J3V3n4.jpg', desc:'Nomadyczna młodość na obrzeżach Ameryki, z miejskim brudem zamieniającym się w dryfującą melancholię.', streaming:['TMDB providers: do pobrania'], tags:['road','drift']}
+        ]
+      },
+      {
+        category:'Kino o outsiderach',
+        mood:['wyobcowanie','dziwność','humanizm'],
+        films:[
+          {title:'The Station Agent', year:2003, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/dFpl0Lx0pS8xJ6Q1Vx3oM0bN2w.jpg', desc:'Ciepły film o samotniku, który próbuje żyć na uboczu, a mimo to zostaje wciągnięty w relacje.', streaming:['TMDB providers: do pobrania'], tags:['gentle','small town']},
+          {title:'Wendy and Lucy', year:2008, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/6hL0mV7xQ3b0nM4s8G3t4T1j0l.jpg', desc:'Minimalistyczny portret ekonomicznej kruchości i cichego wyobcowania na amerykańskim marginesie.', streaming:['TMDB providers: do pobrania'], tags:['minimal','precariat']},
+          {title:'Mary and Max', year:2009, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/e0i0v0M0S0x4k1V9mQ8l3d3b6q.jpg', desc:'Animowana opowieść o nietypowej przyjaźni i o tym, jak dziwność może stać się wspólnym językiem.', streaming:['TMDB providers: do pobrania'], tags:['animation','friendship']},
+          {title:'Frances Ha', year:2012, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/3u5Q4M0i4A0lW7F1xG0nH7c8eB.jpg', desc:'Ruchliwy portret osoby wiecznie nie do końca zsynchronizowanej z życiem, pracą i uczuciami.', streaming:['TMDB providers: do pobrania'], tags:['millennial','drift']},
+          {title:'Napoleon Dynamite', year:2004, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/6Iv6X0Q4Q0fW7cT5L7n0k4A1mY.jpg', desc:'Deadpanowy outsider comedy o stylu, który działa właśnie dlatego, że nie chce przypodobać się nikomu.', streaming:['TMDB providers: do pobrania'], tags:['deadpan','cult']},
+          {title:'Lars and the Real Girl', year:2007, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/9g0x8J0nH0w4mQ9lF7s4J2N0jP.jpg', desc:'Film o radykalnym wycofaniu, które społeczność próbuje przyjąć z empatią zamiast przemocy.', streaming:['TMDB providers: do pobrania'], tags:['awkward','compassion']},
+          {title:'Ghost World', year:2001, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/z6i0w0S8l2c1M7kQ4x8nB0v3tN.jpg', desc:'Portret dwóch dziewczyn dryfujących poza rytmem otoczenia, ironicznych i boleśnie niedopasowanych.', streaming:['TMDB providers: do pobrania'], tags:['alienated','comic adaptation']},
+          {title:'Paterson', year:2016, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/s0J0v5w0S1n3cT2uV5m1K8y4H1.jpg', desc:'Cichy hymn na rzecz zwykłości i twórczości, gdzie outsiderstwo jest spokojnym wyborem egzystencji.', streaming:['TMDB providers: do pobrania'], tags:['poetic','routine']},
+          {title:'Kajillionaire', year:2020, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/3wM0e0X0q8Y4fN2pL5h7g6D9tB.jpg', desc:'Ekscentryczny rodzinny mikrokosmos i bohaterka, która uczy się emocji poza systemem dziwacznych reguł.', streaming:['TMDB providers: do pobrania'], tags:['quirky','family oddity']},
+          {title:'Anomalisa', year:2015, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/l0y0S0u4N8c7m1R3q5b4T2k1YH.jpg', desc:'Intymna animacja o samotności i niemożności prawdziwego kontaktu, bardzo dorosła i gorzka.', streaming:['TMDB providers: do pobrania'], tags:['stop motion','loneliness']}
+        ]
+      },
+      {
+        category:'Brudna, uliczna poezja',
+        mood:['poetycki realizm','margines','szorstkość'],
+        films:[
+          {title:'Dead Man', year:1995, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/5w0L0z4mP3j0h6K1V8u3F0l4Q0.jpg', desc:'Western-widmo, który zamienia drogę przez przemoc i śmierć w czarno-biały poemat o znikaniu.', streaming:['TMDB providers: do pobrania'], tags:['western','poetic']},
+          {title:'A Girl Walks Home Alone at Night', year:2014, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/7V0w0f9x3Q5s1n7M8k0J3b2L4Y.jpg', desc:'Wampiryczna ballada o marginesie, pustych ulicach i nocnej melancholii z wyjątkowym stylem.', streaming:['TMDB providers: do pobrania'], tags:['night','iranian vampire western']},
+          {title:'The Rider', year:2017, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/o0k0q0L6B2f8m4P1s7N3d5J0xQ.jpg', desc:'Skromna i przejmująca historia męskości, ciała i tożsamości rozpisana na ciszę i krajobraz.', streaming:['TMDB providers: do pobrania'], tags:['plains','human fragility']},
+          {title:'Fish Tank', year:2009, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/q0D0m0U2x7f4N3r9K5h1B8v0T1.jpg', desc:'Mocny, fizyczny film o gniewie, klasie i dojrzewaniu w przestrzeni blokowisk i emocjonalnego zaniedbania.', streaming:['TMDB providers: do pobrania'], tags:['british realism','adolescence']},
+          {title:'Blue Ruin', year:2013, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/j0L0l0Y1Q7g0m4R5s8K1d2W0o9.jpg', desc:'Brudny neo-noir o zemście bez glamouru, bardziej o bezsilności niż o sprawczości.', streaming:['TMDB providers: do pobrania'], tags:['revenge','neo noir']},
+          {title:'Burning', year:2018, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/4o0N0v8M1t7Q4c5p6S1x2L3g9B.jpg', desc:'Powolne napięcie społeczne i erotyczne, zamienione w niepokojącą przypowieść o klasie i obsesji.', streaming:['TMDB providers: do pobrania'], tags:['slow burn','class tension']},
+          {title:'Winter’s Bone', year:2010, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/m0P0h0R2n8Q3b1V7l6t5c2G0kF.jpg', desc:'Surowy survival społeczny z biedy, milczenia i małych lokalnych układów, bez żadnego romantyzowania.', streaming:['TMDB providers: do pobrania'], tags:['rural noir','survival']},
+          {title:'You Were Never Really Here', year:2017, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/8p5vQ0m5Q9h7D1r5g0Q9l1Y4cT.jpg', desc:'Trauma, przemoc i czułość zderzone w filmie, który bardziej słucha nerwów bohatera niż akcji.', streaming:['TMDB providers: do pobrania'], tags:['trauma','elliptical']},
+          {title:'Mud', year:2012, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/6v0L0w7mN1g2Q9d4S0k8R2h3jP.jpg', desc:'Brudne południe, romantyczna legenda i chłopięca inicjacja splecione w gorzki poemat o ucieczce.', streaming:['TMDB providers: do pobrania'], tags:['southern gothic','river']},
+          {title:'Ballast', year:2008, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/placeholder.jpg', desc:'Skondensowane, bardzo fizyczne kino o biedzie, napięciach i kruchej możliwości bliskości.', streaming:['TMDB providers: do pobrania'], tags:['minimalism','delta']}
+        ]
+      },
+      {
+        category:'Senne i eteryczne',
+        mood:['sen','cisza','medytacja'],
+        films:[
+          {title:'A Ghost Story', year:2017, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/wA0b0Q8hL0c2v5P7s3F1r6T4gY.jpg', desc:'Czas, żałoba i trwanie wpisane w niemal nieruchome obrazy i bardzo delikatny rytm.', streaming:['TMDB providers: do pobrania'], tags:['grief','minimal']},
+          {title:'Columbus', year:2017, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/6u3Z0s1L8q7d4M3n0J5f2C9vB8.jpg', desc:'Film o architekturze i ludziach, którzy próbują się w niej na chwilę schronić przed własnym życiem.', streaming:['TMDB providers: do pobrania'], tags:['architecture','quiet']},
+          {title:'The Tree of Life', year:2011, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/ptDOdfOg0srtk4TGdeYbLqxv2nd.jpg', desc:'Kosmiczna medytacja nad rodziną, pamięcią i sensem życia, płynąca bardziej obrazem niż fabułą.', streaming:['TMDB providers: do pobrania'], tags:['spiritual','cosmic']},
+          {title:'Arrival', year:2016, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg', desc:'Sci-fi, które działa jak elegia o języku, czasie i emocjonalnej akceptacji straty.', streaming:['TMDB providers: do pobrania'], tags:['linguistic sci-fi','elegiac']},
+          {title:'Only Lovers Left Alive', year:2013, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/cv0l0W4xQ5m7P2n0R8d1K3j6L9.jpg', desc:'Nocna, muzyczna melancholia o wieczności, zmęczeniu światem i miłości jako ostatnim schronieniu.', streaming:['TMDB providers: do pobrania'], tags:['vampires','nocturne']},
+          {title:'Aftersun', year:2022, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/1j0w0V6xN3f8M4q1T2k0S5d7Y9.jpg', desc:'Pamięć dzieciństwa przepuszczona przez filtr czasu, światła i niedopowiedzeń; cichy emocjonalny nokaut.', streaming:['TMDB providers: do pobrania'], tags:['memory','summer sadness']},
+          {title:'Long Day’s Journey Into Night', year:2018, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/8m0r0N4yL2x5Q6d8V1j3G7k9H0.jpg', desc:'Film jak zanikający sen, który stopniowo przejmuje logikę wspomnienia i przestrzeni.', streaming:['TMDB providers: do pobrania'], tags:['dream state','oneiric']},
+          {title:'Personal Shopper', year:2016, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/o0f0w0G3N5r2L8c1Q7m9B4v6T0.jpg', desc:'Duchologia nowoczesności, samotności i cyfrowej obecności, rozgrywana na granicy realizmu i widma.', streaming:['TMDB providers: do pobrania'], tags:['ghostly','fashion']},
+          {title:'After Yang', year:2021, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/3x0f0Q1mP6v4R7s2L5c8N0h1K9.jpg', desc:'Miękkie sci-fi o pamięci i żałobie, które wybiera czułość i kontemplację zamiast spektaklu.', streaming:['TMDB providers: do pobrania'], tags:['soft sci-fi','family']},
+          {title:'Millennium Mambo', year:2001, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/u0v0L6b4S8m3Q1f7N2k5R9d0J1.jpg', desc:'Płynny, zmysłowy film o dryfowaniu przez miasto, związki i własne życie jak przez mgłę.', streaming:['TMDB providers: do pobrania'], tags:['taiwan','drift']}
+        ]
+      },
+      {
+        category:'Kino o życiu, które nie traktuje widza jak debila',
+        mood:['realizm','empatia','codzienność'],
+        films:[
+          {title:'The Florida Project', year:2017, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/g0D0z0F3p7b9Q1n4L8r2V5s6J0.jpg', desc:'Kolorowy świat dziecięcej energii zestawiony z brutalną ekonomią przetrwania na obrzeżach raju.', streaming:['TMDB providers: do pobrania'], tags:['social realism','childhood']},
+          {title:'The Wrestler', year:2008, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/cZp0q0M7v3x9J1n6T4g2L5k8H0.jpg', desc:'Film o ciele po przejściach i o człowieku, który nie potrafi już żyć poza rolą.', streaming:['TMDB providers: do pobrania'], tags:['body','decline']},
+          {title:'Short Term 12', year:2013, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/4t0b0Q8nL6g2M1v7S3f5R9k0J2.jpg', desc:'Empatyczne kino o traumie i opiece, które nie upraszcza ani ludzi, ani ich reakcji.', streaming:['TMDB providers: do pobrania'], tags:['care','trauma']},
+          {title:'Manchester by the Sea', year:2016, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/5911Xx7QxM1L2n0R4k8T3d9v0B.jpg', desc:'Jedna z najmocniejszych współczesnych opowieści o żałobie, winie i granicach naprawy.', streaming:['TMDB providers: do pobrania'], tags:['grief','new england']},
+          {title:'A Separation', year:2011, source:'Autorski katalog', poster:'https://image.tmdb.org/t/p/w500/qo0L0t4xN9f2V1m8Q5d3S7k6P0.jpg', desc:'Moralny thriller codzienności, gdzie każda decyzja ma ciężar, a nikt nie jest prosty ani jednowymiarowy.', streaming:['TMDB providers: do pobrania'], tags:['iran','moral complexity']},
+          {title:'Shoplifters', year:2018, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/4nfRUOv3LX5zLn98WS1WqVBk9E9.jpg', desc:'Wspaniałe kino o rodzinie zbudowanej z wyboru, biedy i czułości; bez moralizowania, za to z obserwacją.', streaming:['TMDB providers: do pobrania'], tags:['family','japan']},
+          {title:'Another Round', year:2020, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/ul0l0L4nQ6s8M2v3D1k7F9h5R0.jpg', desc:'Gorzko-zabawna opowieść o kryzysie wieku średniego i pragnieniu odzyskania intensywności życia.', streaming:['TMDB providers: do pobrania'], tags:['middle age','experiment']},
+          {title:'Sound of Metal', year:2019, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/y89i5us9mosyas4Y7ulB0Pmtr3Y.jpg', desc:'Film o utracie słuchu i tożsamości, niezwykle cielesny i uczciwy w pokazywaniu procesu zmiany.', streaming:['TMDB providers: do pobrania'], tags:['hearing loss','identity']},
+          {title:'Minari', year:2020, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/6x0f0P7mV2n5Q3r1L8s4D9k0J1.jpg', desc:'Delikatna, wielogłosowa historia rodziny, która próbuje zbudować dom bez taniej epickości i patosu.', streaming:['TMDB providers: do pobrania'], tags:['family','migration']},
+          {title:'Drive My Car', year:2021, source:'Rozszerzenie', poster:'https://image.tmdb.org/t/p/w500/pL0N0b8xQ4v6M2d9S1k7R3g5T0.jpg', desc:'Dojrzałe kino o żałobie, słuchaniu i przepracowywaniu emocji przez sztukę, ciszę i drogę.', streaming:['TMDB providers: do pobrania'], tags:['theatre','healing']}
+        ]
+      }
+    ];
+
+    const root = document.getElementById('catalogRoot');
+    const searchInput = document.getElementById('searchInput');
+    const categorySelect = document.getElementById('categorySelect');
+    const filmCount = document.getElementById('filmCount');
+    const activeInfo = document.getElementById('activeInfo');
+
+    data.forEach(group => {
+      const opt = document.createElement('option');
+      opt.value = group.category;
+      opt.textContent = group.category;
+      categorySelect.appendChild(opt);
+    });
+
+    function escapeHtml(s){return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+
+    function render(){
+      const q = searchInput.value.trim().toLowerCase();
+      const selected = categorySelect.value;
+      let total = 0;
+      root.innerHTML = '';
+      activeInfo.innerHTML = '';
+      const chip1 = document.createElement('span'); chip1.className='chip'; chip1.textContent = selected === 'all' ? 'Wszystkie kategorie' : selected; activeInfo.appendChild(chip1);
+      const chip2 = document.createElement('span'); chip2.className='chip'; chip2.textContent = q ? `Filtr: ${q}` : 'Bez filtra tekstowego'; activeInfo.appendChild(chip2);
+
+      data.filter(group => selected === 'all' || group.category === selected).forEach(group => {
+        const films = group.films.filter(f => {
+          const hay = [group.category, group.mood.join(' '), f.title, f.source, f.desc, f.tags.join(' '), f.streaming.join(' ')].join(' ').toLowerCase();
+          return !q || hay.includes(q);
+        });
+        if(!films.length) return;
+        total += films.length;
+        const section = document.createElement('section');
+        section.className = 'category';
+        section.innerHTML = `
+          <div class="section-head">
+            <div>
+              <h3>${escapeHtml(group.category)}</h3>
+              <p class="muted">Klimat: ${escapeHtml(group.mood.join(' · '))}</p>
+            </div>
+            <div class="chip">${films.length} filmów</div>
+          </div>
+          <div class="category-grid">
+            ${films.map(f => `
+              <article class="card">
+                <div class="poster">
+                  <img src="${f.poster}" alt="Plakat filmu ${escapeHtml(f.title)}" loading="lazy" width="500" height="750" onerror="this.style.display='none'; this.nextElementSibling.hidden=false;" />
+                  <div class="fallback" hidden>Brak potwierdzonego plakatu<br>${escapeHtml(f.title)}</div>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <h4>${escapeHtml(f.title)} <span class="muted">(${f.year})</span></h4>
+                    <div class="meta">
+                      <span class="tag">${escapeHtml(f.source)}</span>
+                      ${f.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}
+                    </div>
+                  </div>
+                  <p class="desc">${escapeHtml(f.desc)}</p>
+                  <div class="streaming">
+                    ${f.streaming.map(p => `<span class="provider ${p.includes('do pobrania') ? 'missing' : ''}">${escapeHtml(p)}</span>`).join('')}
+                  </div>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        `;
+        root.appendChild(section);
+      });
+      filmCount.textContent = total;
+    }
+
+    searchInput.addEventListener('input', render);
+    categorySelect.addEventListener('change', render);
+    render();
+
+    (function(){const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',d);t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);});})();
+  </script>
+</body>
+</html>

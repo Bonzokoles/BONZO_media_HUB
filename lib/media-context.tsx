@@ -44,13 +44,13 @@ export interface WebLink {
   createdAt: Date
 }
 
-type ActiveView = "music" | "video" | "films" | "vault" | "links" | "streams"
+type ActiveView = "music" | "video" | "films" | "links" | "streams"
 
 const VIEW_QUERY_PARAM = "view"
 const LAST_VIEW_STORAGE_KEY = "bonzo-last-view"
 
 const isActiveView = (value: string | null): value is ActiveView => {
-  return value === "music" || value === "video" || value === "films" || value === "vault" || value === "links" || value === "streams"
+  return value === "music" || value === "video" || value === "films" || value === "links" || value === "streams"
 }
 
 const getViewFromLocation = (): ActiveView => {

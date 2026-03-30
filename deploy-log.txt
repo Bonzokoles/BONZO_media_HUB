@@ -1,0 +1,16 @@
+
+X [ERROR] You are logged in with an API Token. Unset the CLOUDFLARE_API_TOKEN in the environment to log in via OAuth.
+  success: true,
+  errors: [],
+Successfully populated cache with 4 entries
+If you think this is a bug then please create an issue at https://github.com/cloudflare/workers-sdk/issues/new/choose
+Note that there is a newer version of Wrangler available (4.78.0). Consider checking whether upgrading resolves this error.
+? Would you like to report this error to Cloudflare? Wrangler's output and the error details will be shared with the Wrangler team to help us diagnose and fix the issue.
+X [ERROR] EINVAL
+ERROR Wrangler deploy command failed:
+X [ERROR] EINVAL
+X [ERROR] 
+If you think this is a bug then please create an issue at https://github.com/cloudflare/workers-sdk/issues/new/choose
+Note that there is a newer version of Wrangler available (4.78.0). Consider checking whether upgrading resolves this error.
+? Would you like to report this error to Cloudflare? Wrangler's output and the error details will be shared with the Wrangler team to help us diagnose and fix the issue.
+

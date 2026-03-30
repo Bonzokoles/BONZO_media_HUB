@@ -1,0 +1,4148 @@
+{
+  "version": "1.0",
+  "generated": "2026-03-30T04:38:32.307Z",
+  "totalCategories": 7,
+  "totalFilms": 105,
+  "categories": [
+    {
+      "category": "Psychodeliczne, ale bez horroru",
+      "mood": [
+        "psychodela",
+        "surreal",
+        "arthouse"
+      ],
+      "films": [
+        {
+          "title": "Upstream Color",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/tQ4IWxSYIgZVWnQwLCG8r6sUraU.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/s1DqTGJ96V0Q8YxL9GZVkJi48jZ.jpg",
+          "overview": "A man and woman are drawn together, entangled in the lifecycle of an ageless organism. Identity becomes an illusion as they struggle to assemble the loose fragments of wrecked lives.",
+          "tmdb_id": 145197,
+          "rating": 6.336,
+          "genres": [
+            "Drama",
+            "Science Fiction"
+          ],
+          "director": "Shane Carruth",
+          "runtime": 96,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Holy Motors",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/4ZuTrrDQhCS9f6KzIX6HfsjjyMd.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/dCuwNZp2DLOWr8qV0GDBHINhVZM.jpg",
+          "overview": "We follow 24 hours in the life of a being moving from life to life like a cold and solitary assassin moving from hit to hit. In each of these interwoven lives, the being possesses an entirely distinct identity: sometimes a man, sometimes a woman, sometimes youthful, sometimes old. By turns murderer, beggar, company chairman, monstrous creature, worker, family man.",
+          "tmdb_id": 103328,
+          "rating": 6.987,
+          "genres": [
+            "Drama",
+            "Fantasy"
+          ],
+          "director": "Leos Carax",
+          "runtime": 116,
+          "streaming": []
+        },
+        {
+          "title": "The Congress",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/oeT9rwfCBayxgVoUn1yZGmkZlUq.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/c1nCz7PEip3YeqT7R4I8Toc3FOw.jpg",
+          "overview": "An aging, out-of-work actress accepts one last job, though the consequences of her decision affect her in ways she didn't consider.",
+          "tmdb_id": 152795,
+          "rating": 6.4,
+          "genres": [
+            "Drama",
+            "Science Fiction",
+            "Animation"
+          ],
+          "director": "Ari Folman",
+          "runtime": 123,
+          "streaming": []
+        },
+        {
+          "title": "Enter the Void",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/krKnsfvSJM1PL40tLicRhVQ6kuG.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/2Mlw0JRNZHXLYxbeJ0LmiCCTiok.jpg",
+          "overview": "This psychedelic tour of life after death is seen entirely from the point of view of Oscar, a young American drug dealer and addict living in Tokyo with his prostitute sister, Linda. When Oscar is killed by police during a bust gone bad, his spirit journeys from the past -- where he sees his parents before their deaths -- to the present -- where he witnesses his own autopsy -- and then to the future, where he looks out for his sister from beyond the grave.",
+          "tmdb_id": 34647,
+          "rating": 7.291,
+          "genres": [
+            "Fantasy",
+            "Drama"
+          ],
+          "director": "Gaspar Noé",
+          "runtime": 161,
+          "streaming": [
+            {
+              "name": "FilmBox+",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "The Fountain",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/4XTf8GuCVLWolubANaKkpk62YPq.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/9RNJ0pKYA8EQiMa0lFZ68gzeElH.jpg",
+          "overview": "Spanning over one thousand years, and three parallel stories, The Fountain is a story of love, death, spirituality, and the fragility of our existence in this world.",
+          "tmdb_id": 1381,
+          "rating": 6.909,
+          "genres": [
+            "Drama",
+            "Adventure",
+            "Science Fiction",
+            "Romance"
+          ],
+          "director": "Darren Aronofsky",
+          "runtime": 96,
+          "streaming": [
+            {
+              "name": "Amazon Prime Video",
+              "type": "stream"
+            },
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "A Field in England",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/dKhMJr8yoHVyvxyUiAeIn2hKVdL.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/euBvKWkvYD38O7dMMvw3GvrkZoa.jpg",
+          "overview": "During the Civil War in 17th-Century England, a small group of deserters flee from a raging battle through an overgrown field. They are captured by an alchemist, who forces the group to aid him in his search to find a hidden treasure that he believes is buried in the field. Crossing a vast mushroom circle, which provides their first meal, the group quickly descend into a chaos of arguments, fighting and paranoia, and, as it becomes clear that the treasure might be something other than gold, they slowly become victim to the terrifying energies trapped inside the field.",
+          "tmdb_id": 179111,
+          "rating": 6.2,
+          "genres": [
+            "Horror",
+            "Thriller",
+            "Fantasy"
+          ],
+          "director": "Ben Wheatley",
+          "runtime": 90,
+          "streaming": []
+        },
+        {
+          "title": "The Holy Mountain",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/mP5FGQbNjFkrjcZ6AVHrvokPRe5.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/oUceCsSe255ZKXCMsHhqXM1xuUp.jpg",
+          "overview": "The Alchemist assembles together a group of people from all walks of life to represent the planets in the solar system. The occult adept's intention is to put his recruits through strange mystical rites and divest them of their worldly baggage before embarking on a trip to Lotus Island. There they ascend the Holy Mountain to displace the immortal gods who secretly rule the universe.",
+          "tmdb_id": 8327,
+          "rating": 7.529,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Alejandro Jodorowsky",
+          "runtime": 113,
+          "streaming": [
+            {
+              "name": "Cultpix",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Mandy",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/m0yf7J7HsKeK6E81SMRcX8vx6mH.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/vv1l1WzwED9r6ZVUw1xTfvaSiPW.jpg",
+          "overview": "The Shadow Mountains, 1983. Red and Mandy lead a loving and peaceful existence; but when their pine-scented haven is savagely destroyed, Red is catapulted into a phantasmagoric journey filled with bloody vengeance and laced with fire.",
+          "tmdb_id": 460885,
+          "rating": 6.203,
+          "genres": [
+            "Fantasy",
+            "Action",
+            "Horror"
+          ],
+          "director": "Panos Cosmatos",
+          "runtime": 122,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Synecdoche, New York",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/5UwdhrjXhUgsiDhe1dpS9z4yj7q.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/insPcjOIWFf6Uc9DR0ORgXATqSM.jpg",
+          "overview": "A theater director struggles with his work, and the women in his life, as he attempts to create a life-size replica of New York inside a warehouse as part of his new play.",
+          "tmdb_id": 4960,
+          "rating": 7.545,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Charlie Kaufman",
+          "runtime": 124,
+          "streaming": []
+        },
+        {
+          "title": "Under the Skin",
+          "year": 2013,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/55wmcXJIDYITr7JDijJTdvwSaAv.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/eS5OdKN3kRZXQbWRSSCJ4Gh0z26.jpg",
+          "overview": "A seductive stranger prowls the streets of Glasgow in search of prey: unsuspecting men who fall under her spell.",
+          "tmdb_id": 97370,
+          "rating": 6.146,
+          "genres": [
+            "Thriller",
+            "Science Fiction",
+            "Drama"
+          ],
+          "director": "Jonathan Glazer",
+          "runtime": 108,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Paprika",
+          "year": 2006,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/bLUUr474Go1DfeN1HLjE3rnZXBq.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/zfbuY4A9X5sTJ2bzTt84rtiDK9t.jpg",
+          "overview": "When a machine that allows therapists to enter their patient's dreams is stolen, all hell breaks loose. Only a young female therapist can stop it and recover it before damage is done: Paprika.",
+          "tmdb_id": 4977,
+          "rating": 7.815,
+          "genres": [
+            "Science Fiction",
+            "Thriller",
+            "Animation"
+          ],
+          "director": "Satoshi Kon",
+          "runtime": 90,
+          "streaming": [
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Waking Life",
+          "year": 2001,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/2MRM4PL6H7yraAkwyUEe2EqoQH3.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/56MLZww2dMVAaTt5LDKCBu1do2X.jpg",
+          "overview": "Waking Life is about a young man in a persistent lucid dream-like state. The film follows its protagonist as he initially observes and later participates in philosophical discussions that weave together issues like reality, free will, our relationships with others, and the meaning of life.",
+          "tmdb_id": 9081,
+          "rating": 7.477,
+          "genres": [
+            "Animation",
+            "Drama",
+            "Fantasy"
+          ],
+          "director": "Richard Linklater",
+          "runtime": 101,
+          "streaming": [
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Enemy",
+          "year": 2013,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/vf40tyDRKZsBmaLsYeopzfFLzLx.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/deYWtXTc56YdXyIuuMuA8dvBY16.jpg",
+          "overview": "A mild-mannered college professor discovers a look-alike actor and delves into the other man's private affairs.",
+          "tmdb_id": 181886,
+          "rating": 6.8,
+          "genres": [
+            "Thriller",
+            "Mystery"
+          ],
+          "director": "Denis Villeneuve",
+          "runtime": 91,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Mulholland Drive",
+          "year": 2001,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/x7A59t6ySylr1L7aubOQEA480vM.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/g9ClaS5EqU0Hk8WIbMNhld0Bk6f.jpg",
+          "overview": "Blonde Betty Elms has only just arrived in Hollywood to become a movie star when she meets an enigmatic brunette with amnesia. Meanwhile, as the two set off to solve the second woman's identity, filmmaker Adam Kesher runs into ominous trouble while casting his latest project.",
+          "tmdb_id": 1018,
+          "rating": 7.802,
+          "genres": [
+            "Thriller",
+            "Drama",
+            "Mystery"
+          ],
+          "director": "David Lynch",
+          "runtime": 147,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Beyond the Black Rainbow",
+          "year": 2010,
+          "source": "TMDB",
+          "mood": [
+            "psychodela",
+            "surreal",
+            "arthouse"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/uhomcCTQ3lO8L6mLhkCMypsnroO.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/ax9TM12FIYiEPOto4vDw5gLdGCU.jpg",
+          "overview": "Deep within the mysterious Arboria Institute, a disturbed and beautiful girl is held captive by a doctor in search of inner peace. Her mind controlled by a sinister technology. Silently, she waits for her next session with deranged therapist Dr. Barry Nyle. If she hopes to escape, she must journey through the darkest reaches of The Institute, but Nyle wonʼt easily part with his most gifted and dangerous creation.",
+          "tmdb_id": 50037,
+          "rating": 5.7,
+          "genres": [
+            "Science Fiction",
+            "Horror",
+            "Mystery"
+          ],
+          "director": "Panos Cosmatos",
+          "runtime": 110,
+          "streaming": []
+        }
+      ]
+    },
+    {
+      "category": "Czułe o miłości, ale bez kiczu",
+      "mood": [
+        "romans",
+        "melancholia",
+        "relacje"
+      ],
+      "films": [
+        {
+          "title": "Blue Valentine",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/dc8BdKnDY5Iy28KzUGtHIXuqqFK.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/fAqpfILTPsaKpAzoAvkXf5glgSo.jpg",
+          "overview": "Dean and Cindy live a quiet life in a modest neighborhood. They appear to have the world at their feet at the outset of the relationship. However, his lack of ambition and her retreat into self-absorption cause potentially irreversible cracks in their marriage.",
+          "tmdb_id": 46705,
+          "rating": 6.961,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Derek Cianfrance",
+          "runtime": 112,
+          "streaming": [
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Her",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/eCOtqtfvn7mxGl6nfmq4b1exJRc.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/nG5zmbVeYlcDhckrPAe06fArywn.jpg",
+          "overview": "In the not so distant future, Theodore, a lonely writer, purchases a newly developed operating system designed to meet the user's every need. To Theodore's surprise, a romantic relationship develops between him and his operating system. This unconventional love story blends science fiction and romance in a sweet tale that explores the nature of love and the ways that technology isolates and connects us all.",
+          "tmdb_id": 152601,
+          "rating": 7.841,
+          "genres": [
+            "Romance",
+            "Science Fiction",
+            "Drama"
+          ],
+          "director": "Spike Jonze",
+          "runtime": 126,
+          "streaming": [
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Before Sunrise",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/kf1Jb1c2JAOqjuzA3H4oDM263uB.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/qA2TyqPldTtoTVY3LKrNIG5g6bH.jpg",
+          "overview": "An unexpected meeting on a train leads two travelers to spend an evening wandering through Vienna. As the night unfolds, they share stories and conversations about life and love, exploring new ideas while a quiet intimacy grows between them, knowing it may be their only night together.",
+          "tmdb_id": 76,
+          "rating": 7.974,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Richard Linklater",
+          "runtime": 101,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Past Lives",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/k3waqVXSnvCZWfJYNtdamTgTtTA.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/7HR38hMBl23lf38MAN63y4pKsHz.jpg",
+          "overview": "After decades apart, childhood friends Nora and Hae Sung are reunited in New York for one fateful weekend as they confront notions of destiny, love, and the choices that make a life.",
+          "tmdb_id": 666277,
+          "rating": 7.714,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Celine Song",
+          "runtime": 106,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Player",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "In the Mood for Love",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/iYypPT4bhqXfq1b6EnmxvRt6b2Y.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/ffQFnAUm2Uu4RU0nijpjPRf9TBT.jpg",
+          "overview": "Two neighbors form a strong bond after both suspect extramarital activities of their spouses. However, they agree to keep their bond platonic so as not to commit similar wrongs.",
+          "tmdb_id": 843,
+          "rating": 8.089,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Wong Kar-Wai",
+          "runtime": 99,
+          "streaming": []
+        },
+        {
+          "title": "Eternal Sunshine of the Spotless Mind",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/W1ffLQGHoxfAOq0ZYdPtJlvAdb.jpg",
+          "overview": "Joel Barish, heartbroken that his girlfriend underwent a procedure to erase him from her memory, decides to do the same. However, as he watches his memories of her fade away, he realises that he still loves her, and may be too late to correct his mistake.",
+          "tmdb_id": 38,
+          "rating": 8.09,
+          "genres": [
+            "Science Fiction",
+            "Drama",
+            "Romance"
+          ],
+          "director": "Michel Gondry",
+          "runtime": 108,
+          "streaming": [
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Once",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/7nW363kSYRCkr4VGOMvuSGwtzKs.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/p1XSyBriqz7oBWoVcRqYlB6Kve3.jpg",
+          "overview": "A vacuum repairman moonlights as a street musician and hopes for his big break. One day a Czech immigrant, who earns a living selling flowers, approaches him with the news that she is also an aspiring singer-songwriter. The pair decide to collaborate, and the songs that they compose reflect the story of their blossoming love.",
+          "tmdb_id": 5723,
+          "rating": 7.417,
+          "genres": [
+            "Drama",
+            "Music",
+            "Romance"
+          ],
+          "director": "John Carney",
+          "runtime": 85,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Punch-Drunk Love",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/htYp4yqFu4rzBEIa6j9jP8miDm3.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/q8GwhIAttJwqmjDtbLW8JvEMMdw.jpg",
+          "overview": "A socially awkward and volatile small business owner meets the love of his life after being threatened by a gang of scammers.",
+          "tmdb_id": 8051,
+          "rating": 7.102,
+          "genres": [
+            "Romance",
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Paul Thomas Anderson",
+          "runtime": 96,
+          "streaming": [
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Lost in Translation",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/3jCLmYDIIiSMPujbwygNpqdpM8N.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/6ITVHoipvxAS8luzKtHTbPaHLtT.jpg",
+          "overview": "Two lost souls visiting Tokyo -- the young, neglected wife of a photographer and a washed-up movie star shooting a TV commercial -- find an odd solace and pensive freedom to be real in each other's company, away from their lives in America.",
+          "tmdb_id": 153,
+          "rating": 7.382,
+          "genres": [
+            "Drama",
+            "Comedy",
+            "Romance"
+          ],
+          "director": "Sofia Coppola",
+          "runtime": 102,
+          "streaming": [
+            {
+              "name": "Netflix",
+              "type": "stream"
+            },
+            {
+              "name": "SkyShowtime",
+              "type": "stream"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Portrait of a Lady on Fire",
+          "year": 2019,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/2LquGwEhbg3soxSCs9VNyh5VJd9.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/foFq1RZWQIgFuCQ0nyYccywjFyX.jpg",
+          "overview": "On an isolated island in Brittany at the end of the eighteenth century, a female painter is obliged to paint a wedding portrait of a young woman.",
+          "tmdb_id": 531428,
+          "rating": 8.1,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Céline Sciamma",
+          "runtime": 121,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "FilmBox+",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "TVP",
+              "type": "stream"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Weekend",
+          "year": 2011,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/iRvh1XPo0RhdhNDYMQYaxldJqlt.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/puFJP4T20S6ZRiHfqHqDhVndOB2.jpg",
+          "overview": "Two gangsters, fighting for influence in the city, decide to get suitcases filled with money and drugs. Meanwhile, another criminal group has the same purpose.",
+          "tmdb_id": 62881,
+          "rating": 3.9,
+          "genres": [
+            "Comedy",
+            "Action",
+            "Crime"
+          ],
+          "director": "Cezary Pazura",
+          "runtime": 121,
+          "streaming": [
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Normal People",
+          "year": 2020,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": null,
+          "backdrop": null,
+          "overview": "What the future holds for Marianne and Connell's relationship.",
+          "tmdb_id": 1286673,
+          "rating": 0,
+          "genres": [],
+          "director": "Lenny Abrahamson",
+          "runtime": 2,
+          "streaming": []
+        },
+        {
+          "title": "Chungking Express",
+          "year": 1994,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/vuglA60RqvpHK9rIcG8sXaiWw1L.jpg",
+          "overview": "Two melancholic Hong Kong policemen fall in love: one with a mysterious underworld figure, the other with a beautiful and ethereal server at a late-night restaurant.",
+          "tmdb_id": 11104,
+          "rating": 7.965,
+          "genres": [
+            "Drama",
+            "Comedy",
+            "Romance"
+          ],
+          "director": "Wong Kar-Wai",
+          "runtime": 103,
+          "streaming": []
+        },
+        {
+          "title": "Decision to Leave",
+          "year": 2022,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/N0rskx91Eh6aWjvBybeY6epNic.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/qMQzyEGpDDzk68FdYfwcz4Nk2qX.jpg",
+          "overview": "From a mountain peak in South Korea, a man plummets to his death. Did he jump, or was he pushed? When detective Hae-joon arrives on the scene, he begins to suspect the dead man’s wife Seo-rae. But as he digs deeper into the investigation, he finds himself trapped in a web of deception and desire.",
+          "tmdb_id": 705996,
+          "rating": 7.313,
+          "genres": [
+            "Thriller",
+            "Mystery",
+            "Romance"
+          ],
+          "director": "Park Chan-wook",
+          "runtime": 139,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "TVP",
+              "type": "stream"
+            },
+            {
+              "name": "Player",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Phantom Thread",
+          "year": 2017,
+          "source": "TMDB",
+          "mood": [
+            "romans",
+            "melancholia",
+            "relacje"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/hgoWjp9Sh0MI97eAMZCnIoVfgvq.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/sJZd1H4cl2Nxhj0nutVCK5pMczL.jpg",
+          "overview": "In 1950s London, a renowned dressmaker's meticulous lifestyle begins drastically changing as his relationship with his young muse intensifies.",
+          "tmdb_id": 400617,
+          "rating": 7.314,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Paul Thomas Anderson",
+          "runtime": 130,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Urban Decay",
+      "mood": [
+        "miasto",
+        "noc",
+        "brud"
+      ],
+      "films": [
+        {
+          "title": "Heaven Knows What",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/4oyWMOWJ6trsRuyzn5cHPv50zVH.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/5Da8RNj3e98iYWKL8GplmPFZNTQ.jpg",
+          "overview": "A young heroin addict roams the streets of New York to panhandle and get her next fix, while her unstable boyfriend drifts in and out of her life at random.",
+          "tmdb_id": 285024,
+          "rating": 6.5,
+          "genres": [
+            "Drama",
+            "Crime"
+          ],
+          "director": "Benny Safdie",
+          "runtime": 97,
+          "streaming": []
+        },
+        {
+          "title": "Gummo",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/tMdoCRx0XIPR5uYBwxbxR7WCNBb.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/mLdMnoIE4SjMkTkgxayaHH9DS4.jpg",
+          "overview": "Teenagers Solomon and Tummler kill time in Xenia, Ohio, a small town that has never recovered from the tornado that ravaged the community in the 1970s.",
+          "tmdb_id": 18415,
+          "rating": 6.6,
+          "genres": [
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Harmony Korine",
+          "runtime": 89,
+          "streaming": []
+        },
+        {
+          "title": "Mid90s",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/9Tw0Y3DK5kGIU9X1yw3Q9gCkOlb.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/BOeORWljjIPGuCwUgLls24ctF3.jpg",
+          "overview": "In 1990s Los Angeles, a 13-year-old spends his summer navigating between a troubled home life and a crew of new friends he meets at a skate shop.",
+          "tmdb_id": 437586,
+          "rating": 7.476,
+          "genres": [
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Jonah Hill",
+          "runtime": 86,
+          "streaming": [
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Last Days",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/kg0FHevBu2SiSa3i9DtOxSa1vNr.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/9Wk2Uq8tpRad5peHws93L2wo60V.jpg",
+          "overview": "Determined to fulfill his life’s mission, 26-year-old John Allen Chau embarks on a dangerous adventure across the globe to convert the uncontacted tribe of North Sentinel Island to Christianity, while a detective from the Andaman Islands races to stop him before he does harm to himself or the tribe.",
+          "tmdb_id": 1093402,
+          "rating": 8,
+          "genres": [
+            "Drama",
+            "Action",
+            "Adventure"
+          ],
+          "director": "Justin Lin",
+          "runtime": 120,
+          "streaming": []
+        },
+        {
+          "title": "Pixote",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/zaBtclnYKv2JkgRDQ7OiFtWHm4e.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/88SnnUEY4CmUJTjzhqYfY3zffEC.jpg",
+          "overview": "10-year-old Pixote endures torture, degradation, and corruption at a local youth detention center where two of its members are murdered by policemen who frame Lilica, a 17-year-old trans hustler. Pixote helps Lilica and three other boys escape and they start to make their living by a life of crime which only escalates to more violence and death.",
+          "tmdb_id": 42148,
+          "rating": 7.9,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "director": "Héctor Babenco",
+          "runtime": 127,
+          "streaming": [
+            {
+              "name": "MUBI",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Naked",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/xMYP4uaNeyPmX4FQ2xxWk2eIN6K.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/uIh3mW3AuSM7ww7NYtvSWDQ1zc7.jpg",
+          "overview": "An unemployed Brit vents his rage on unsuspecting strangers as he embarks on a nocturnal London odyssey.",
+          "tmdb_id": 21450,
+          "rating": 7.258,
+          "genres": [
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Mike Leigh",
+          "runtime": 131,
+          "streaming": []
+        },
+        {
+          "title": "Taxi Driver",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/ekstpH614fwDX8DUln1a2Opz0N8.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/9uddYYTNcLWpzUkl5iw1RUYhLhY.jpg",
+          "overview": "Suffering from insomnia, disturbed loner Travis Bickle takes a job as a New York City cabbie, haunting the streets nightly, growing increasingly detached from reality as he dreams of cleaning up the filthy city.",
+          "tmdb_id": 103,
+          "rating": 8.127,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "director": "Martin Scorsese",
+          "runtime": 114,
+          "streaming": [
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Chungking Express",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/vuglA60RqvpHK9rIcG8sXaiWw1L.jpg",
+          "overview": "Two melancholic Hong Kong policemen fall in love: one with a mysterious underworld figure, the other with a beautiful and ethereal server at a late-night restaurant.",
+          "tmdb_id": 11104,
+          "rating": 7.965,
+          "genres": [
+            "Drama",
+            "Comedy",
+            "Romance"
+          ],
+          "director": "Wong Kar-Wai",
+          "runtime": 103,
+          "streaming": []
+        },
+        {
+          "title": "La Haine",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/8rgPyWjYZhsphSSxbXguMnhN7H0.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/k61xLJgPo7ScxHLLiBzTM9IDaB7.jpg",
+          "overview": "After a chaotic night of rioting in a marginal suburb of Paris, three young friends, Vinz, Hubert and Saïd, wander around unoccupied waiting for news about the state of health of a mutual friend who has been seriously injured when confronting the police.",
+          "tmdb_id": 406,
+          "rating": 8.084,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Mathieu Kassovitz",
+          "runtime": 98,
+          "streaming": []
+        },
+        {
+          "title": "Good Time",
+          "year": 2017,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/yE1c9hj5Hf8a9KplAdRdhADqUro.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/5AhkjcqqRxBdpYZ0TeOuTCuOUYq.jpg",
+          "overview": "After a botched bank robbery lands his younger brother in prison, Connie Nikas embarks on a twisted odyssey through New York City's underworld to get his brother Nick out of jail.",
+          "tmdb_id": 429200,
+          "rating": 7.2,
+          "genres": [
+            "Crime",
+            "Thriller",
+            "Drama"
+          ],
+          "director": "Benny Safdie",
+          "runtime": 102,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Uncut Gems",
+          "year": 2019,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/6XN1vxHc7kUSqNWtaQKN45J5x2v.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/eGljNfNCrPhFYG2RXXmmE0OKu5.jpg",
+          "overview": "A charismatic New York City jeweler always on the lookout for the next big score makes a series of high-stakes bets that could lead to the windfall of a lifetime. Howard must perform a precarious high-wire act, balancing business, family, and encroaching adversaries on all sides in his relentless pursuit of the ultimate win.",
+          "tmdb_id": 473033,
+          "rating": 7.159,
+          "genres": [
+            "Drama",
+            "Thriller",
+            "Crime"
+          ],
+          "director": "Josh Safdie",
+          "runtime": 136,
+          "streaming": [
+            {
+              "name": "Netflix",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Victoria",
+          "year": 2015,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/9P8QgfoMcFX7vp2Gj2cYFecHVRZ.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/dGEBDMw3FaUmVGLn4vpjdgoTunk.jpg",
+          "overview": "A young Spanish woman who has newly moved to Berlin finds her flirtation with a local guy turn potentially deadly as their night out with his friends reveals a dangerous secret.",
+          "tmdb_id": 320007,
+          "rating": 7.59,
+          "genres": [
+            "Crime",
+            "Thriller",
+            "Romance"
+          ],
+          "director": "Sebastian Schipper",
+          "runtime": 138,
+          "streaming": []
+        },
+        {
+          "title": "Fish Tank",
+          "year": 2009,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/rI3MKBDsWzQHi9PWDAMKkgmYcff.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/4VgiVdd2I3AktHkOpCeSjtP4t8b.jpg",
+          "overview": "Fifteen-year-old Mia is in a constant state of war with her family and the world around her. When she meets her party-girl mother’s charming new boyfriend Connor, she is amazed to find he returns her attention, and believes he might help her start to make sense of her life.",
+          "tmdb_id": 24469,
+          "rating": 6.941,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Andrea Arnold",
+          "runtime": 123,
+          "streaming": []
+        },
+        {
+          "title": "Gomorrah",
+          "year": 2008,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/3XcCTqSovFZE5GRebJmh1kHwziw.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/dmxAEDURAwfz6iTXTWu1GCYcOR3.jpg",
+          "overview": "An inside look at Italy's modern-day crime families, the Camorra in Naples and Caserta. Based on a book by Roberto Saviano. Power, money and blood: these are the \"values\" that the residents of the Province of Naples and Caserta have to face every day. They hardly ever have a choice and are forced to obey the rules of the Camorra. Only a lucky few can even think of leading a normal life.",
+          "tmdb_id": 8882,
+          "rating": 6.881,
+          "genres": [
+            "Drama",
+            "Crime"
+          ],
+          "director": "Matteo Garrone",
+          "runtime": 137,
+          "streaming": []
+        },
+        {
+          "title": "Spring Breakers",
+          "year": 2012,
+          "source": "TMDB",
+          "mood": [
+            "miasto",
+            "noc",
+            "brud"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/9tyPnyEkL44qbAliM9jMRWc6bjg.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/3eMxTkvHM6G1lHugBvFGVpcJFUa.jpg",
+          "overview": "After four college girls rob a restaurant to fund their spring break in Florida, they get entangled with a weird dude with his own criminal agenda.",
+          "tmdb_id": 122081,
+          "rating": 5.252,
+          "genres": [
+            "Drama",
+            "Crime"
+          ],
+          "director": "Harmony Korine",
+          "runtime": 94,
+          "streaming": []
+        }
+      ]
+    },
+    {
+      "category": "Kino o outsiderach",
+      "mood": [
+        "outsider",
+        "loner",
+        "misfit"
+      ],
+      "films": [
+        {
+          "title": "The Station Agent",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/kjJg6eJa9I9flfHaJG67ecEv8YX.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/bX5UVSVDOcuFMJh2zWN6gXbKswM.jpg",
+          "overview": "When his only friend dies, a man born with dwarfism moves to rural New Jersey to live a life of solitude, only to meet a chatty hot dog vendor and a woman dealing with her own personal loss.",
+          "tmdb_id": 2056,
+          "rating": 7.351,
+          "genres": [
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Tom McCarthy",
+          "runtime": 88,
+          "streaming": []
+        },
+        {
+          "title": "Wendy and Lucy",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/cVtF8SW4zMbculTXD52RDvmQAAR.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/wUScRcpPtfFPZpWZmUIIbHLEsBJ.jpg",
+          "overview": "A near-penniless drifter's journey to Alaska in search of work is interrupted when she loses her dog while attempting to shoplift food for it.",
+          "tmdb_id": 8942,
+          "rating": 6.8,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Kelly Reichardt",
+          "runtime": 80,
+          "streaming": []
+        },
+        {
+          "title": "Mary and Max",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/ebmsM382m9IClLUzKYY2U5biFwM.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/8UxYHvKBNFnoyfHjgjMwzj4zOuy.jpg",
+          "overview": "A tale of friendship between two unlikely pen pals: Mary, a lonely, eight-year-old girl living in the suburbs of Melbourne, and Max, a forty-four-year old, severely obese man living in New York.",
+          "tmdb_id": 24238,
+          "rating": 7.872,
+          "genres": [
+            "Animation",
+            "Comedy",
+            "Drama"
+          ],
+          "director": "Adam Elliot",
+          "runtime": 92,
+          "streaming": []
+        },
+        {
+          "title": "Submarine",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/nbzXX3CYtKUBrPeMcG7PVoLQHXB.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/zaa2noUk2Dm6IgdTWWEe4WpL08o.jpg",
+          "overview": "15-year-old deep-thinking Welsh schoolboy Oliver Tate struggles to initiate and maintain a relationship with Jordana, his devilish, dark-haired classmate at their Swansea high school. As his parents' marriage begins to fall apart, similar problems arise in his relationship with Jordana.",
+          "tmdb_id": 49020,
+          "rating": 7.361,
+          "genres": [
+            "Drama",
+            "Comedy",
+            "Romance"
+          ],
+          "director": "Richard Ayoade",
+          "runtime": 98,
+          "streaming": []
+        },
+        {
+          "title": "Frances Ha",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/jrq1NoKvsxWCcffVOjegiYwloFN.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/oUVd42KgJWW6YnZLfzI7SDTdcPL.jpg",
+          "overview": "An aspiring dancer moves to New York City and becomes caught up in a whirlwind of flighty fair-weather friends, diminishing fortunes and career setbacks.",
+          "tmdb_id": 121986,
+          "rating": 7.334,
+          "genres": [
+            "Comedy",
+            "Drama"
+          ],
+          "director": "Noah Baumbach",
+          "runtime": 86,
+          "streaming": []
+        },
+        {
+          "title": "Napoleon Dynamite",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/6Iv6Uwa2SBLN0dSGM00rdrwN4MJ.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/vVMMgWiQkXNB6YpE1ecs8FsXDh2.jpg",
+          "overview": "A listless and alienated teenager decides to help his new friend win the class presidency in their small western high school, while he must deal with his bizarre family life back home.",
+          "tmdb_id": 8193,
+          "rating": 6.781,
+          "genres": [
+            "Comedy"
+          ],
+          "director": "Jared Hess",
+          "runtime": 95,
+          "streaming": [
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "The Peanut Butter Falcon",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/qyQcRGvdW3VtxHR4fSDgPOePEip.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/lewYqqt8epnjFhEOIIIINX9Z8EE.jpg",
+          "overview": "A down-on-his-luck crab fisherman embarks on a journey to get a young man with Down syndrome to a professional wrestling school in rural North Carolina and away from the retirement home where he’s lived for the past two and a half years.",
+          "tmdb_id": 463257,
+          "rating": 7.397,
+          "genres": [
+            "Adventure",
+            "Comedy",
+            "Drama"
+          ],
+          "director": "Tyler Nilson",
+          "runtime": 97,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Player",
+              "type": "rent"
+            }
+          ]
+        },
+        {
+          "title": "Girl, Interrupted",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/dOBdatHIVppvmRFw2z7bf9VKJr9.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/qPwwAUeO0b2RU1wHPyx8vf5RgF5.jpg",
+          "overview": "Set in the changing world of the late 1960s, Susanna Kaysen's prescribed \"short rest\" from a psychiatrist she had met only once becomes a strange, unknown journey into Alice's Wonderland, where she struggles with the thin line between normal and crazy. Susanna soon realizes how hard it is to get out once she has been committed, and she ultimately has to choose between the world of people who belong inside or the difficult world of reality outside.",
+          "tmdb_id": 3558,
+          "rating": 7.564,
+          "genres": [
+            "Drama"
+          ],
+          "director": "James Mangold",
+          "runtime": 127,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "The Double",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/7kNcpmP1Pe9fWLKEbEOX5GEWueC.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/19B3vwsPwLzHvSAo9uxC70QEkqW.jpg",
+          "overview": "An awkward office drone becomes increasingly unhinged after a charismatic and confident look-alike takes a job at his workplace and seduces the woman he desires.",
+          "tmdb_id": 146015,
+          "rating": 6.511,
+          "genres": [
+            "Thriller",
+            "Drama"
+          ],
+          "director": "Richard Ayoade",
+          "runtime": 93,
+          "streaming": []
+        },
+        {
+          "title": "Lars and the Real Girl",
+          "year": 2007,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/nkAt4a7KIPc7Fi1BhxNHhYYbe2b.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/8w0HCnJDTC5509hm26xMVlLiybE.jpg",
+          "overview": "Extremely shy Lars finds it impossible to make friends or socialize. His brother and sister-in-law worry about him, so when he announces that he has a girlfriend he met on the Internet, they are overjoyed. But Lars' new lady is a life-size plastic woman. On the advice of a doctor, his family and the rest of the community go along with his delusion.",
+          "tmdb_id": 6615,
+          "rating": 7.196,
+          "genres": [
+            "Comedy",
+            "Drama",
+            "Romance"
+          ],
+          "director": "Craig Gillespie",
+          "runtime": 107,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Ghost World",
+          "year": 2001,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/uwKqnUPE4dSM0kKuMW0vXpURh2T.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/6zIOO1NrTehQkDaNfvga4luSRQc.jpg",
+          "overview": "Two quirky, cynical teenaged girls try to figure out what to do with their lives after high school graduation. After they play a prank on an eccentric, middle aged record collector, one of them befriends him, which causes a rift in the girls’ friendship.",
+          "tmdb_id": 1548,
+          "rating": 7.095,
+          "genres": [
+            "Comedy",
+            "Drama"
+          ],
+          "director": "Terry Zwigoff",
+          "runtime": 111,
+          "streaming": []
+        },
+        {
+          "title": "Paterson",
+          "year": 2016,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/AuJ1ZlfqwuAr9H5Qr1U9KILylse.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/5Bk7kYSKAuNrxI5BXpDqlsln2P0.jpg",
+          "overview": "A week in the life of Paterson, a poet bus driver, and his wife Laura, a very creative artist, who live in Paterson, New Jersey, hometown of many famous poets and artists.",
+          "tmdb_id": 370755,
+          "rating": 7.114,
+          "genres": [
+            "Drama",
+            "Comedy",
+            "Romance"
+          ],
+          "director": "Jim Jarmusch",
+          "runtime": 118,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "TVP",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Harold and Maude",
+          "year": 1971,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/t7qEuGwDjcYu8ajaKZ68DeDnOxw.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/jKgfnnCATAg4fxMfS0LZThmqOZB.jpg",
+          "overview": "A deadpan young man obsessed with death meets an eccentric septuagenarian who teaches him to live life to the fullest.",
+          "tmdb_id": 343,
+          "rating": 7.606,
+          "genres": [
+            "Comedy",
+            "Drama",
+            "Romance"
+          ],
+          "director": "Hal Ashby",
+          "runtime": 92,
+          "streaming": []
+        },
+        {
+          "title": "Kajillionaire",
+          "year": 2020,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/fkqJJDb4u9rEyJu8Jm8H1P2mux4.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/llMc0bO5G8jpkMqqcLNy7Y8LYBf.jpg",
+          "overview": "Two con artists have spent 26 years training their only daughter to swindle, scam and steal at every turn. During a desperate and hastily conceived heist, they charm a stranger into joining them, only to have their entire world turned upside down.",
+          "tmdb_id": 541305,
+          "rating": 6.285,
+          "genres": [
+            "Crime",
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Miranda July",
+          "runtime": 105,
+          "streaming": [
+            {
+              "name": "SkyShowtime",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "The Lobster",
+          "year": 2015,
+          "source": "TMDB",
+          "mood": [
+            "outsider",
+            "loner",
+            "misfit"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/7Y9ILV1unpW9mLpGcqyGQU72LUy.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/s48CvFbWoWHhSPgz2wW9Rffw04q.jpg",
+          "overview": "In a dystopian near future, single people, according to the laws of The City, are taken to The Hotel, where they are obliged to find a romantic partner in forty-five days or are transformed into animals and sent off into The Woods.",
+          "tmdb_id": 254320,
+          "rating": 7.026,
+          "genres": [
+            "Comedy",
+            "Drama",
+            "Romance"
+          ],
+          "director": "Yorgos Lanthimos",
+          "runtime": 119,
+          "streaming": [
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Brudna, uliczna poezja",
+      "mood": [
+        "ulica",
+        "raw",
+        "gritty"
+      ],
+      "films": [
+        {
+          "title": "Dead Man",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/jX3wGBVoYoAY3IixBpwYk1fjT4z.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/a7DtgKB187dUm9n81IlvNzVXsK1.jpg",
+          "overview": "On the run after committing murder, an accountant encounters a strange Native American man who prepares him for his journey into the spiritual world.",
+          "tmdb_id": 922,
+          "rating": 7.308,
+          "genres": [
+            "Drama",
+            "Fantasy",
+            "Western"
+          ],
+          "director": "Jim Jarmusch",
+          "runtime": 122,
+          "streaming": []
+        },
+        {
+          "title": "A Girl Walks Home Alone at Night",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/cd2rCE1nun7CESjBI8PGNEof1tb.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/5mUTmmBFbsXlJE66XOumJSzYK7M.jpg",
+          "overview": "In the Iranian ghost-town Bad City, a place that reeks of death and loneliness, the townspeople are unaware they are being stalked by a lonesome vampire.",
+          "tmdb_id": 252171,
+          "rating": 6.818,
+          "genres": [
+            "Horror",
+            "Romance"
+          ],
+          "director": "Ana Lily Amirpour",
+          "runtime": 101,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "The Rider",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/cFsrA0Is5xode2INrPj1VJcQ18n.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/oaAyNmnqbB8Ad3O2t9iymZ2gEJa.jpg",
+          "overview": "Once a rising star of the rodeo circuit, and a gifted horse trainer, young cowboy Brady is warned that his riding days are over after a horse crushed his skull at a rodeo. In an attempt to regain control of his own fate, Brady undertakes a search for a new identity and what it means to be a man in the heartland of the United States.",
+          "tmdb_id": 453278,
+          "rating": 7.265,
+          "genres": [
+            "Drama",
+            "Western"
+          ],
+          "director": "Chloé Zhao",
+          "runtime": 103,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Fish Tank",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/rI3MKBDsWzQHi9PWDAMKkgmYcff.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/4VgiVdd2I3AktHkOpCeSjtP4t8b.jpg",
+          "overview": "Fifteen-year-old Mia is in a constant state of war with her family and the world around her. When she meets her party-girl mother’s charming new boyfriend Connor, she is amazed to find he returns her attention, and believes he might help her start to make sense of her life.",
+          "tmdb_id": 24469,
+          "rating": 6.941,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Andrea Arnold",
+          "runtime": 123,
+          "streaming": []
+        },
+        {
+          "title": "Red Rocket",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/345gLhiNpItU1ICx8OxJQwjgPmH.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/nRfJFQQ6OUVW4NV7wFzNDu57J3E.jpg",
+          "overview": "After hitting rock bottom in Los Angeles, former porn star Mikey Saber returns to his hometown in Texas to stay with his estranged wife and mother-in-law. Just as tensions begin to ease, he becomes infatuated with a young doughnut shop worker named Strawberry.",
+          "tmdb_id": 763329,
+          "rating": 6.796,
+          "genres": [
+            "Drama",
+            "Comedy"
+          ],
+          "director": "Sean Baker",
+          "runtime": 130,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Frozen River",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/qZRcN4JLwYQWTxKlycZPLQb37mO.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/gOhtvGwrVkEM5hCFdyyWKJEOBk8.jpg",
+          "overview": "After her husband deserts her, working-class mother Ray Eddy is in great need of money to find a home. Lured by the possibility of easy cash, she joins Lila, a widowed Mohawk who earns a living by smuggling immigrants from Canada to the U.S. across the St. Lawrence.",
+          "tmdb_id": 10183,
+          "rating": 6.6,
+          "genres": [
+            "Drama",
+            "Crime"
+          ],
+          "director": "Courtney Hunt",
+          "runtime": 97,
+          "streaming": []
+        },
+        {
+          "title": "Blue Ruin",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/q0itEsso2drJXqH9kfdidxIT5dF.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/epIcUGDXIZVs1jNNFI5lWgWNUIM.jpg",
+          "overview": "When the quiet life of a beach bum is upended by dreadful news, he sets off for his childhood home to carry out an act of vengeance. However, he proves an inept assassin and finds himself in a brutal fight to protect his estranged family.",
+          "tmdb_id": 188166,
+          "rating": 6.79,
+          "genres": [
+            "Crime",
+            "Thriller"
+          ],
+          "director": "Jeremy Saulnier",
+          "runtime": 90,
+          "streaming": []
+        },
+        {
+          "title": "The Place Beyond the Pines",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/vY5j2xQzMGWmxBuhQo0HfA4Lxqb.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/qCsaZ2GoaCn5vmOUD9kCsyabr9o.jpg",
+          "overview": "A motorcycle stunt rider considers committing a crime in order to provide for his wife and child, an act that puts him on a collision course with a cop-turned-politician.",
+          "tmdb_id": 97367,
+          "rating": 6.984,
+          "genres": [
+            "Drama",
+            "Crime"
+          ],
+          "director": "Derek Cianfrance",
+          "runtime": 140,
+          "streaming": [
+            {
+              "name": "Amazon Prime Video",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Monster",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/b45yfHtLk4TSSDxOLgMLBpShner.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/nUJk4UjWS9YvBJUepCWziQ1QYSf.jpg",
+          "overview": "In 1989, prostitute Aileen Wuornos befriends and enters a relationship with a young woman named Selby. Determined to straighten out her life, Aileen's limited education lands her back on the corner. She's raped by a trick, who she kills. A string of murder and robbery follows that ultimately leads Aileen to becoming America's first female serial killer.",
+          "tmdb_id": 504,
+          "rating": 7.208,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "director": "Patty Jenkins",
+          "runtime": 109,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "TVP",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Burning",
+          "year": 2018,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/hxGv1O2W5SOJTmiBc45CL842mrx.jpg",
+          "backdrop": null,
+          "overview": "'Burning' is a conversation between two young mothers brought together by strange and cruel social realities, at a funeral ghat in Varanasi",
+          "tmdb_id": 813106,
+          "rating": 6.4,
+          "genres": [],
+          "director": "VS Sanoj",
+          "runtime": 18,
+          "streaming": []
+        },
+        {
+          "title": "Cold in July",
+          "year": 2014,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/1rXkxhubAtKVTZl29Xbnwpfen3H.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/erszaeysMaU83F5XKBa1oUGHF5R.jpg",
+          "overview": "While investigating noises in his house one balmy Texas night in 1989, Richard Dane puts a bullet in the brain of a low-life burglar. Although he’s hailed as a small-town hero, Dane soon finds himself fearing for his family’s safety when Freddy’s ex-con father rolls into town, hell-bent on revenge.",
+          "tmdb_id": 244509,
+          "rating": 6.541,
+          "genres": [
+            "Drama",
+            "Thriller"
+          ],
+          "director": "Jim Mickle",
+          "runtime": 109,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Shotgun Stories",
+          "year": 2007,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/aeIlHt28Z8KmHcKEgl4oLHpwZ8M.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/u5hVdYR4l7Mv8ruYEGVL1mbIoKC.jpg",
+          "overview": "Shotgun Stories tracks a feud that erupts between two sets of half brothers following the death of their father. Set against the cotton fields and back roads of Southeast Arkansas, these brothers discover the lengths to which each will go to protect their family.",
+          "tmdb_id": 12247,
+          "rating": 6.9,
+          "genres": [
+            "Drama",
+            "Thriller"
+          ],
+          "director": "Jeff Nichols",
+          "runtime": 92,
+          "streaming": []
+        },
+        {
+          "title": "Leave No Trace",
+          "year": 2018,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/sygnLx3sZV5P8M2dyaGRegHdEL1.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/ax6LwhsAXesGCsBagE21DgwUYZf.jpg",
+          "overview": "A father and daughter live a perfect but mysterious existence in Forest Park, a beautiful nature reserve near Portland, Oregon, rarely making contact with the world. But when a small mistake tips them off to authorities, they are sent on an increasingly erratic journey in search of a place to call their own.",
+          "tmdb_id": 443463,
+          "rating": 6.809,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Debra Granik",
+          "runtime": 109,
+          "streaming": [
+            {
+              "name": "Netflix",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Winter's Bone",
+          "year": 2010,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/a0qhPkNlxLfsf5B2jFyI1Pp04XV.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/wW4dZWEfUIXWVKhKsPFBokndJbI.jpg",
+          "overview": "After discovering her father put their house up for his bail bond and then disappeared, 17-year-old Ree Dolly must confront the local criminal underworld and the harsh Ozark wilderness in order to to track down her father and save her family.",
+          "tmdb_id": 39013,
+          "rating": 6.787,
+          "genres": [
+            "Drama",
+            "Mystery"
+          ],
+          "director": "Debra Granik",
+          "runtime": 101,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "You Were Never Really Here",
+          "year": 2017,
+          "source": "TMDB",
+          "mood": [
+            "ulica",
+            "raw",
+            "gritty"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/nx4lUyQNEzJowcF55VAP0TQEaX0.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/g2yZ1kiGwLO5AUSmtsEJeFEWghJ.jpg",
+          "overview": "A traumatized veteran, unafraid of violence, tracks down missing girls for a living. When a job spins out of control, his nightmares begin to overtake him, and a conspiracy is uncovered—leading to what may be his death trip or his awakening.",
+          "tmdb_id": 398181,
+          "rating": 6.548,
+          "genres": [
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "director": "Lynne Ramsay",
+          "runtime": 89,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Senne i eteryczne",
+      "mood": [
+        "sen",
+        "eteryczne",
+        "dreamlike"
+      ],
+      "films": [
+        {
+          "title": "A Ghost Story",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/rp5JPIyZi9sMob15l46zNQLe5cO.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/2y2aqaScd7jsUee0ddI1iRNgwGq.jpg",
+          "overview": "Recently deceased, a white-sheeted ghost returns to his suburban home to console his bereft wife, only to find that in his spectral state he has become unstuck in time, forced to watch passively as the life he knew and the woman he loves slowly slip away.",
+          "tmdb_id": 428449,
+          "rating": 7.073,
+          "genres": [
+            "Drama",
+            "Fantasy",
+            "Mystery",
+            "Romance"
+          ],
+          "director": "David Lowery",
+          "runtime": 93,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Columbus",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/6tk0xmn9k5HjUeXsnhxIa94sFXP.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/xN88RKXxjPAcQsdBz6XavZ00PFh.jpg",
+          "overview": "When a renowned architecture scholar falls suddenly ill during a speaking tour, his son Jin finds himself stranded in Columbus, Indiana - a small Midwestern city celebrated for its many significant modernist buildings. Jin strikes up a friendship with Casey, a young architecture enthusiast who works at the local library.",
+          "tmdb_id": 414453,
+          "rating": 7.108,
+          "genres": [
+            "Drama",
+            "Comedy",
+            "Romance"
+          ],
+          "director": "Kogonada",
+          "runtime": 104,
+          "streaming": [
+            {
+              "name": "MovieMe",
+              "type": "rent"
+            }
+          ]
+        },
+        {
+          "title": "Loveless",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": null,
+          "backdrop": null,
+          "overview": "About a commitment-phobic New York City bachelor in crisis.",
+          "tmdb_id": 83725,
+          "rating": 3.3,
+          "genres": [
+            "Comedy",
+            "Drama"
+          ],
+          "director": "Ramin Serry",
+          "runtime": 91,
+          "streaming": []
+        },
+        {
+          "title": "Drive",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/602vevIURmpDfzbnv5Ubi6wIkQm.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/iymDDg4upZWgpbSeiE1JCjsSPBs.jpg",
+          "overview": "Driver is a skilled Hollywood stuntman who moonlights as a getaway driver for criminals. Though he projects an icy exterior, lately he's been warming up to a pretty neighbor named Irene and her young son, Benicio. When Irene's husband gets out of jail, he enlists Driver's help in a million-dollar heist. The job goes horribly wrong, and Driver must risk his life to protect Irene and Benicio from the vengeful masterminds behind the robbery.",
+          "tmdb_id": 64690,
+          "rating": 7.583,
+          "genres": [
+            "Drama",
+            "Thriller",
+            "Crime"
+          ],
+          "director": "Nicolas Winding Refn",
+          "runtime": 100,
+          "streaming": []
+        },
+        {
+          "title": "Solaris",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/drdrB1hEZmzFlK1xtW5HMxK3LUJ.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/avjG5EPgWXyLvsUId6hEn0iqT4A.jpg",
+          "overview": "A troubled psychologist is sent to investigate the crew of an isolated research station orbiting a bizarre planet.",
+          "tmdb_id": 2103,
+          "rating": 5.9,
+          "genres": [
+            "Drama",
+            "Science Fiction",
+            "Mystery"
+          ],
+          "director": "Steven Soderbergh",
+          "runtime": 99,
+          "streaming": [
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "All the Real Girls",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/sQ6dMkwPIFucYSmFQcr38WBYzs.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/dRtyK88tpvxWyBPVRLx4b64W036.jpg",
+          "overview": "In a sleepy little mill town in North Carolina, Paul is the town Romeo. But when his best friend's sister returns home from boarding school, he finds himself falling for her innocent charm. In spite of her lack of experience and the violent protests of her brother, the two find themselves in a sweet, dreamy and all-consuming love.",
+          "tmdb_id": 13132,
+          "rating": 5.9,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "David Gordon Green",
+          "runtime": 108,
+          "streaming": []
+        },
+        {
+          "title": "The Tree of Life",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/l8cwuB5WJSoj4uMAsnzuHBOMaSJ.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/xq1HIwZq9VbuvMQELAua1nqEkH.jpg",
+          "overview": "The impressionistic story of a Texas family in the 1950s. The film follows the life journey of the eldest son, Jack, through the innocence of childhood to his disillusioned adult years as he tries to reconcile a complicated relationship with his father. Jack finds himself a lost soul in the modern world, seeking answers to the origins and meaning of life while questioning the existence of faith.",
+          "tmdb_id": 8967,
+          "rating": 6.723,
+          "genres": [
+            "Drama",
+            "Fantasy"
+          ],
+          "director": "Terrence Malick",
+          "runtime": 139,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Arrival",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/pEzNVQfdzYDzVK0XqxERIw2x2se.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/r8FD6CC3GgjWaGVkZh00AcedfpA.jpg",
+          "overview": "Taking place after alien crafts land around the world, an expert linguist is recruited by the military to determine whether they come in peace or are a threat.",
+          "tmdb_id": 329865,
+          "rating": 7.624,
+          "genres": [
+            "Drama",
+            "Science Fiction",
+            "Mystery"
+          ],
+          "director": "Denis Villeneuve",
+          "runtime": 116,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Player",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Stalker",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/trfgUCPgtJ1Ex3IMM0XKSafY07m.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/4ABJqv3GmOhKreYG89LFHQrtq5h.jpg",
+          "overview": "A silent film following a man on the verge of the nervous breakdown as he is pursued by an ominous stalker.",
+          "tmdb_id": 1444232,
+          "rating": 0,
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "director": "Chris R. Notarile",
+          "runtime": 3,
+          "streaming": []
+        },
+        {
+          "title": "Aftersun",
+          "year": 2022,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/evKz85EKouVbIr51zy5fOtpNRPg.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/4jdduww9j5RyzO4ITRcuBFhqNN1.jpg",
+          "overview": "Sophie reflects on the shared joy and private melancholy of a holiday she took with her father twenty years earlier. Memories fill the gaps between camcorder footages as she tries to reconcile the father she knew with the troubled man she didn't.",
+          "tmdb_id": 965150,
+          "rating": 7.676,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Charlotte Wells",
+          "runtime": 101,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Player",
+              "type": "rent"
+            }
+          ]
+        },
+        {
+          "title": "Long Day's Journey Into Night",
+          "year": 2018,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/8wUxYW7v2sahnFwipwzjRo8Z3sP.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/zJDaoc3HIHIgIOiY60NxqZUdXcp.jpg",
+          "overview": "Luo Hongwu returns to Kaili, the hometown from which he fled many years ago. He begins the search for the woman he loved and whom he has never been able to forget.",
+          "tmdb_id": 486898,
+          "rating": 7,
+          "genres": [
+            "Drama",
+            "Mystery"
+          ],
+          "director": "Bi Gan",
+          "runtime": 138,
+          "streaming": []
+        },
+        {
+          "title": "Personal Shopper",
+          "year": 2016,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/cdm6qZgmbaIwjKBZnUSGWS4eyM2.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/2I4Pe9EN5NlVC90X1JDrbYObZY5.jpg",
+          "overview": "Maureen, mid-20s, is a personal shopper for a media celebrity. The job pays for her stay in Paris, a city she refuses to leave until she makes contact with her twin brother who previously died there. Her life becomes more complicated when a mysterious person contacts her via text message.",
+          "tmdb_id": 340676,
+          "rating": 5.928,
+          "genres": [
+            "Drama",
+            "Mystery",
+            "Thriller"
+          ],
+          "director": "Olivier Assayas",
+          "runtime": 106,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "The Eternal Daughter",
+          "year": 2022,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/kyv8tPXx3mKchYzVmA3VckKoJDi.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/eEPR1HjWQEPzvrqGtSCxmzlsmin.jpg",
+          "overview": "An artist and her elderly mother confront long-buried secrets when they return to a former family home, now a hotel haunted by its mysterious past.",
+          "tmdb_id": 790867,
+          "rating": 5.9,
+          "genres": [
+            "Drama",
+            "Mystery"
+          ],
+          "director": "Joanna Hogg",
+          "runtime": 96,
+          "streaming": []
+        },
+        {
+          "title": "Millennium Mambo",
+          "year": 2001,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/wSc6tOp1yoAFbZqxG5XVGHcFvRN.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/k603HQRxzlSnYAtyz9wNZndaAzg.jpg",
+          "overview": "Vicky recalls her romances with her exes Hao Hao and Jack in the neon-lit clubs of Taipei.",
+          "tmdb_id": 11553,
+          "rating": 7,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Hou Hsiao-hsien",
+          "runtime": 106,
+          "streaming": []
+        },
+        {
+          "title": "Somewhere",
+          "year": 2010,
+          "source": "TMDB",
+          "mood": [
+            "sen",
+            "eteryczne",
+            "dreamlike"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/zOf1sdfF4eH3CVRCpmRO5ugVGdo.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/bzCuOfoZ9ZC9AGLs8ZVZ5yo1X16.jpg",
+          "overview": "After withdrawing to the Chateau Marmont, a passionless Hollywood actor reexamines his life when his eleven-year-old daughter surprises him with a visit.",
+          "tmdb_id": 39210,
+          "rating": 6.1,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Sofia Coppola",
+          "runtime": 97,
+          "streaming": [
+            {
+              "name": "SkyShowtime",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Kino o życiu, które nie traktuje widza jak debila",
+      "mood": [
+        "życie",
+        "realism",
+        "humanizm"
+      ],
+      "films": [
+        {
+          "title": "The Florida Project",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/5QnDxdJg1fi6uMSkSi4x8tHsltm.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/lO5c0zG8s1dBPHcRparpNlNGWU9.jpg",
+          "overview": "The story of a precocious six year-old and her ragtag group of friends whose summer break is filled with childhood wonder, possibility and a sense of adventure while the adults around them struggle with hard times.",
+          "tmdb_id": 394117,
+          "rating": 7.43,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Sean Baker",
+          "runtime": 112,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Player",
+              "type": "rent"
+            }
+          ]
+        },
+        {
+          "title": "The Wrestler",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/6OTR8dSoNGjWohJNo3UhIGd3Tj.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/wcJmFsz8RqIhozMwvU81hreTX4i.jpg",
+          "overview": "Aging wrestler Randy \"The Ram\" Robinson is long past his prime but still ready and rarin' to go on the pro-wrestling circuit. After a particularly brutal beating, however, Randy hangs up his tights, pursues a serious relationship with a long-in-the-tooth stripper, and tries to reconnect with his estranged daughter. But he can't resist the lure of the ring and readies himself for a comeback.",
+          "tmdb_id": 12163,
+          "rating": 7.538,
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "director": "Darren Aronofsky",
+          "runtime": 109,
+          "streaming": [
+            {
+              "name": "FilmBox+",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "FilmBox Live Amazon Channel",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Short Term 12",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/qKnsyaJZLXfiL2JhIJEkpA8C3LU.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/jcMwL3hE5mXl9o2nMJrTzyw7iXl.jpg",
+          "overview": "Grace, a compassionate young supervisor at a foster care facility, helps at-risk teens. But when a new charge dredges up memories of her own troubled past, Grace's tough exterior begins eroding.",
+          "tmdb_id": 169813,
+          "rating": 7.8,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Destin Daniel Cretton",
+          "runtime": 96,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "Nebraska",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/o1t2Mw18EEBnl8v4Nby3PFjxnM1.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/yePsFcldyZ6VnxaBr8ZbVEaOt4W.jpg",
+          "overview": "An aging, booze-addled father takes a trip from Montana to Nebraska with his estranged son in order to claim what he believes to be a million-dollar sweepstakes prize.",
+          "tmdb_id": 129670,
+          "rating": 7.453,
+          "genres": [
+            "Drama",
+            "Adventure"
+          ],
+          "director": "Alexander Payne",
+          "runtime": 115,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/o9VXYOuaJxCEKOxbA86xqtwmqYn.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/fjk4eE8Ypke4YLv5A3ArDH4GzYH.jpg",
+          "overview": "After his older brother passes away, Lee Chandler is forced to return home to care for his 16-year-old nephew. There he is compelled to deal with a tragic past that separated him from his family and the community where he was born and raised.",
+          "tmdb_id": 334541,
+          "rating": 7.552,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Kenneth Lonergan",
+          "runtime": 138,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "A Separation",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": null,
+          "backdrop": null,
+          "overview": "A woman reluctantly travels from London to an isolated peninsula in southern Greece to find her estranged husband who has gone missing.",
+          "tmdb_id": 1649065,
+          "rating": 0,
+          "genres": [
+            "Thriller"
+          ],
+          "director": "Jonas Carpignano",
+          "runtime": null,
+          "streaming": []
+        },
+        {
+          "title": "The Father",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/pr3bEQ517uMb5loLvjFQi8uLAsp.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/h3weAFgg06GqchI2xDfufBgSFTj.jpg",
+          "overview": "A man refuses all assistance from his daughter as he ages and, as he tries to make sense of his changing circumstances, he begins to doubt his loved ones, his own mind and even the fabric of his reality.",
+          "tmdb_id": 600354,
+          "rating": 8.097,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Florian Zeller",
+          "runtime": 97,
+          "streaming": [
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Lean on Pete",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/7SuPHSo9Uw8GACkP2oPst512Qhl.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/a26Gj4TqFKEdku1XLIWLFpzUgv4.jpg",
+          "overview": "Charley Thompson, a teenager living with his single father, gets a summer job working for horse trainer Del Montgomery. Bonding with an aging racehorse named Lean on Pete, Charley is horrified to learn he is bound for slaughter, and so he steals the horse, and the duo embark on an odyssey across the new American frontier.",
+          "tmdb_id": 407890,
+          "rating": 7,
+          "genres": [
+            "Drama",
+            "Adventure"
+          ],
+          "director": "Andrew Haigh",
+          "runtime": 121,
+          "streaming": [
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            }
+          ]
+        },
+        {
+          "title": "The Straight Story",
+          "year": null,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/tT9cMiVDdtlcdZxOoFy3VRmEoKk.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/1S81PpyGwS8eVx4W75uSKzMw4B0.jpg",
+          "overview": "Retired farmer and widower Alvin Straight learns one day that his distant brother Lyle has suffered a stroke and may not recover. Alvin is determined to make things right with Lyle while he still can, but his brother lives in Wisconsin, while Alvin is stuck in Iowa with no car and no driver's license. He then has the idea of making the trip on his old lawnmower, thus beginning a picturesque and at times deeply spiritual odyssey.",
+          "tmdb_id": 404,
+          "rating": 7.742,
+          "genres": [
+            "Drama",
+            "History"
+          ],
+          "director": "David Lynch",
+          "runtime": 112,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "TVP",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Shoplifters",
+          "year": 2018,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/4nfRUOv3LX5zLn98WS1WqVBk9E9.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/k49RhOmaKfoybjR3vBSaOJrIGmc.jpg",
+          "overview": "In the outskirts of Tokyo, a poor but close-knit group living on the fringes of society survives through shoplifting and odd jobs. When Osamu and his son take in a neglected young girl, their already fragile existence begins to unravel. As the family grows attached to her, buried secrets surface, forcing them to confront the true meaning of love, belonging, and what makes a family.",
+          "tmdb_id": 505192,
+          "rating": 7.84,
+          "genres": [
+            "Drama",
+            "Crime",
+            "Thriller"
+          ],
+          "director": "Hirokazu Kore-eda",
+          "runtime": 120,
+          "streaming": [
+            {
+              "name": "CHILI",
+              "type": "rent"
+            },
+            {
+              "name": "CHILI",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Another Round",
+          "year": 2020,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/aDcIt4NHURLKnAEu7gow51Yd00Q.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/a2pPepVPtKY7E4XEkT7W3ZxUOY5.jpg",
+          "overview": "Four stagnant high school teachers decide to test out a theory that maintaining a constant level of intoxication will improve their overall lives.",
+          "tmdb_id": 580175,
+          "rating": 7.631,
+          "genres": [
+            "Comedy",
+            "Drama"
+          ],
+          "director": "Thomas Vinterberg",
+          "runtime": 117,
+          "streaming": [
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "TVP",
+              "type": "stream"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Sound of Metal",
+          "year": 2019,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/3178oOJKKPDeQ2legWQvMPpllv.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/7b5R8FfGUzlxfhOkPpL3xyIeuyF.jpg",
+          "overview": "Metal drummer Ruben begins to lose his hearing. When a doctor tells him his condition will worsen, he thinks his career and life is over. His girlfriend Lou checks the former addict into a rehab for the deaf hoping it will prevent a relapse and help him adapt to his new life. After being welcomed and accepted just as he is, Ruben must choose between his new normal and the life he once knew.",
+          "tmdb_id": 502033,
+          "rating": 7.7,
+          "genres": [
+            "Drama",
+            "Music"
+          ],
+          "director": "Darius Marder",
+          "runtime": 121,
+          "streaming": [
+            {
+              "name": "Amazon Prime Video",
+              "type": "stream"
+            },
+            {
+              "name": "HBO Max",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Minari",
+          "year": 2020,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/6mPNdmjdbVKPITv3LLCmQoKs9Zw.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/bKCpRjjTKcr3KAITmwjVMobbBYg.jpg",
+          "overview": "A Korean American family moves to an Arkansas farm in search of its own American dream. Amidst the challenges of this new life in the strange and rugged Ozarks, they discover the undeniable resilience of family and what really makes a home.",
+          "tmdb_id": 615643,
+          "rating": 7.331,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Lee Isaac Chung",
+          "runtime": 115,
+          "streaming": [
+            {
+              "name": "CANAL+",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "TVP",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Capernaum",
+          "year": 2018,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/mFnfTVADj8yOxwzprYOmTPselk8.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/sEW8q9al73rtow257dXAusD9yS7.jpg",
+          "overview": "After running away from his negligent parents, committing a violent crime and being sentenced to five years in jail, a hardened, streetwise 12-year-old Lebanese boy sues his parents in protest of the life they have given him.",
+          "tmdb_id": 517814,
+          "rating": 8.137,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Nadine Labaki",
+          "runtime": 126,
+          "streaming": [
+            {
+              "name": "Player",
+              "type": "stream"
+            },
+            {
+              "name": "CDA Premium",
+              "type": "stream"
+            },
+            {
+              "name": "Polsat Box Go",
+              "type": "stream"
+            },
+            {
+              "name": "Premiery Canal+",
+              "type": "buy"
+            }
+          ]
+        },
+        {
+          "title": "Leave No Trace",
+          "year": 2018,
+          "source": "TMDB",
+          "mood": [
+            "życie",
+            "realism",
+            "humanizm"
+          ],
+          "poster": "https://image.tmdb.org/t/p/w500/sygnLx3sZV5P8M2dyaGRegHdEL1.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/ax6LwhsAXesGCsBagE21DgwUYZf.jpg",
+          "overview": "A father and daughter live a perfect but mysterious existence in Forest Park, a beautiful nature reserve near Portland, Oregon, rarely making contact with the world. But when a small mistake tips them off to authorities, they are sent on an increasingly erratic journey in search of a place to call their own.",
+          "tmdb_id": 443463,
+          "rating": 6.809,
+          "genres": [
+            "Drama"
+          ],
+          "director": "Debra Granik",
+          "runtime": 109,
+          "streaming": [
+            {
+              "name": "Netflix",
+              "type": "stream"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "rent"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "rent"
+            },
+            {
+              "name": "YouTube",
+              "type": "rent"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "rent"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "rent"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "rent"
+            },
+            {
+              "name": "Apple TV Store",
+              "type": "buy"
+            },
+            {
+              "name": "Google Play Movies",
+              "type": "buy"
+            },
+            {
+              "name": "YouTube",
+              "type": "buy"
+            },
+            {
+              "name": "Amazon Video",
+              "type": "buy"
+            },
+            {
+              "name": "Rakuten TV",
+              "type": "buy"
+            },
+            {
+              "name": "Pilot WP",
+              "type": "buy"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

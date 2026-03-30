@@ -23,7 +23,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { VideoEngineSettings } from "@/components/video-engine-settings"
+import { VideoEngineSettings } from "@/components/features/video/video-engine-settings"
 
 export function VideoPlayer() {
   const [currentVideo, setCurrentVideo] = useState<Video>(sampleVideos[0])

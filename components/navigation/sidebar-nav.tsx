@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { useMedia } from "@/lib/media-context"
 import { Music, Film, Link2, Video, Heart, Library, Terminal, Radio } from "lucide-react"
 import { ThemeSettings } from "@/components/theme-settings"
-import { AIToolsPanel } from "@/components/ai-tools-panel"
+import { AIToolsPanel } from "@/components/features/ai-tools/ai-tools-panel"
 import { PWAInstaller } from "@/components/shared/pwa"
 
 export function SidebarNav() {

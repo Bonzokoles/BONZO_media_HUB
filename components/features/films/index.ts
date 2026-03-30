@@ -1,2 +1,2 @@
 export { FilmLibrary } from "./film-library"
-export { MovieVault } from "./movie-vault"
+export { MovieVault } from "./my-collection"

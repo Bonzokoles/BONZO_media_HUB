@@ -1,0 +1,183 @@
+
+> my-project@0.1.0 deploy
+> opennextjs-cloudflare build && opennextjs-cloudflare deploy
+
+
+┌─────────────────────────────┐
+│ OpenNext — Cloudflare build │
+└─────────────────────────────┘
+
+WARN OpenNext is not fully compatible with Windows.
+WARN For optimal performance, it is recommended to use Windows Subsystem for Linux (WSL).
+WARN While OpenNext may function on Windows, it could encounter unpredictable failures during runtime.
+App directory: U:\www_BONZO_media_HUB_inc
+Next.js version : 16.2.0
+@opennextjs/cloudflare version: 1.18.0
+@opennextjs/aws version: 3.9.16
+
+┌─────────────────────────────────┐
+│ OpenNext — Building Next.js app │
+└─────────────────────────────────┘
+
+
+> my-project@0.1.0 build
+> node scripts/run-next-build.mjs
+
+▲ Next.js 16.2.0 (webpack)
+- Environments: .env
+
+  Creating an optimized production build ...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for client (static)...
+ ○ (pwa) Service worker: U:\www_BONZO_media_HUB_inc\public\sw.js
+ ○ (pwa)   URL: /sw.js
+ ○ (pwa)   Scope: /
+ ○ (pwa) Custom runtimeCaching array found, using it instead of the default one.
+✓ Compiled successfully in 3.4s
+  Skipping validation of types
+  Finished TypeScript config validation in 6ms ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/4) ...
+  Generating static pages using 11 workers (1/4) 
+  Generating static pages using 11 workers (2/4) 
+  Generating static pages using 11 workers (3/4) 
+✓ Generating static pages using 11 workers (4/4) in 622ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/ai
+├ ƒ /api/ai-music
+├ ƒ /api/cover-art
+├ ƒ /api/fetch-url-metadata
+├ ƒ /api/lyrics
+├ ƒ /api/tmdb
+└ ○ /offline
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+┌──────────────────────────────┐
+│ OpenNext — Generating bundle │
+└──────────────────────────────┘
+
+Bundling middleware function...
+Bundling static assets...
+Bundling cache assets...
+Building server function: default...
+Applying code patches: 4.915s
+# copyPackageTemplateFiles
+[35m⚙️ Bundling the OpenNext server...
+[0m
+[35mWorker saved in `.open-next\worker.js` 🚀
+[0m
+OpenNext build complete.
+
+┌──────────────────────────────┐
+│ OpenNext — Cloudflare deploy │
+└──────────────────────────────┘
+
+WARN OpenNext is not fully compatible with Windows.
+WARN For optimal performance, it is recommended to use Windows Subsystem for Linux (WSL).
+WARN While OpenNext may function on Windows, it could encounter unpredictable failures during runtime.
+Using secrets defined in .dev.vars
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+
+Populating remote R2 incremental cache...
+Cloudflare:DEBUG:request https://api.cloudflare.com/client/v4/accounts/7f490d58a478c6baccb0ae01ea1d87c3/r2/buckets/my-project-opennext-cache {
+  method: 'get',
+  path: '/accounts/7f490d58a478c6baccb0ae01ea1d87c3/r2/buckets/my-project-opennext-cache',
+  headers: {},
+  body: undefined
+} {
+  accept: 'application/json',
+  'user-agent': 'Cloudflare/JS 4.5.0',
+  'api-version': '2026-03-30',
+  'x-stainless-lang': 'js',
+  'x-stainless-package-version': '4.5.0',
+  'x-stainless-os': 'Windows',
+  'x-stainless-arch': 'x64',
+  'x-stainless-runtime': 'node',
+  'x-stainless-runtime-version': 'v24.14.1',
+  authorization: 'Bearer Ug-sSO_mtWhc95MfAtE35fGW4tAbuhXp3GHX1Xru',
+  'x-stainless-retry-count': '0',
+  'x-stainless-timeout': '60000'
+}
+(node:24460) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Cloudflare:DEBUG:response 200 https://api.cloudflare.com/client/v4/accounts/7f490d58a478c6baccb0ae01ea1d87c3/r2/buckets/my-project-opennext-cache Headers {
+  Symbol(map): [Object: null prototype] {
+    date: [ 'Mon, 30 Mar 2026 02:40:21 GMT' ],
+    'content-type': [ 'application/json; charset=UTF-8' ],
+    'transfer-encoding': [ 'chunked' ],
+    connection: [ 'keep-alive' ],
+    'set-cookie': [
+      '__cflb=04dTob1Z8hkaUxg6DoHNs8KRCyeFshefXaTSatNG4d; SameSite=Lax; path=/; expires=Mon, 30-Mar-26 05:10:22 GMT; HttpOnly',
+      '__cf_bm=xmC_OESd8uawJVIwNFDgikWKtdMlRFWUk5nbuDtT618-1774838421.047669-1.0.1.1-ipKZbNAtxhU5nkG7W20QMVD7DaE0uOxT9Ga42iOu.mTf3WAM.3nwh33xydRV2I4hV5t8Lf4_5iQPcdRG3Rnmdj95cxndyUaTuSblE8VTlzN_x8jgs7b8DeA46eFhozW2; HttpOnly; Secure; Path=/; Domain=api.cloudflare.com; Expires=Mon, 30 Mar 2026 03:10:21 GMT',
+      '_cfuvid=Gxfd3ZrIIG0nOK6l.TVukeoe6rLpFHPWCmb8.A_5UdM-1774838421.047669-1.0.1.1-pvObr2ScKBKCBCU8b7m35mKgZN1L_42DBRdo1NJDnhE; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.cloudflare.com'
+    ],
+    'cf-ray': [ '9e43bfc38c390d39-FRA' ],
+    'cf-cache-status': [ 'DYNAMIC' ],
+    'content-encoding': [ 'gzip' ],
+    server: [ 'cloudflare' ],
+    'cf-auditlog-id': [ '019d3c9d-163e-7311-8c10-9f2d4865b731' ],
+    vary: [ 'Accept-Encoding' ],
+    ratelimit: [ '"default";r=1199;t=1' ],
+    'ratelimit-policy': [ '"default";q=1200;w=300' ],
+    'api-version': [ '2026-03-30' ]
+  }
+} {
+  success: true,
+  errors: [],
+  messages: [],
+  result: {
+    name: 'my-project-opennext-cache',
+    creation_date: '2026-03-27T07:53:38.313Z',
+    location: 'EEUR',
+    storage_class: 'Standard',
+    jurisdiction: 'default'
+  }
+}
+[0G 25%|███████████                                  | 1/4 [00:00:<00:00:, 0.00it/s][0G 50%|██████████████████████                       | 2/4 [00:04:<00:04:, 0.48it/s][0G 75%|█████████████████████████████████            | 3/4 [00:04:<00:01:, 0.72it/s][0G100%|█████████████████████████████████████████████| 4/4 [00:04:<00:00:, 0.87it/s]
+Successfully populated cache with 4 entries
+Tag cache does not need populating
+
+ ⛅️ wrangler 4.77.0 (update available 4.78.0)
+─────────────────────────────────────────────
+🌀 Building list of assets...
+✨ Read 136 files from the assets directory U:\www_BONZO_media_HUB_inc\.open-next\assets
+🌀 Starting asset upload...
+🌀 Found 4 new or modified static assets to upload. Proceeding with upload...
++ /BUILD_ID
++ /_next/static/chunks/app/page-a7c46b409339e8c3.js
++ /sw.js
++ /_next/static/css/ea8ced2232b66e42.css
+Uploaded 1 of 4 assets
+Uploaded 2 of 4 assets
+Uploaded 4 of 4 assets
+✨ Success! Uploaded 4 files (104 already uploaded) (3.29 sec)
+
+Total Upload: 9156.00 KiB / gzip: 2207.48 KiB
+Worker Startup Time: 32 ms
+Your Worker has access to the following bindings:
+Binding                                                       Resource                  
+env.DB (bonzo-media-hub-db)                                   D1 Database               
+env.NEXT_INC_CACHE_R2_BUCKET (my-project-opennext-cache)      R2 Bucket                 
+env.MEDIA (bonzo-media-hub)                                   R2 Bucket                 
+env.WORKER_SELF_REFERENCE (bonzo-media-hub)                   Worker                    
+env.IMAGES                                                    Images                    
+env.AI                                                        AI                        
+env.ASSETS                                                    Assets                    
+env.NEXT_PUBLIC_BASE_PATH ("/ai-hub")                         Environment Variable      
+
+Uploaded bonzo-media-hub (19.60 sec)
+Deployed bonzo-media-hub triggers (1.85 sec)
+  https://bonzo-media-hub.stolarnia-ams.workers.dev
+Current Version ID: 19c87c2c-ffcc-4413-8b54-8a348bb8bdf3

@@ -4,12 +4,11 @@ import dynamic from "next/dynamic"
 import { MediaProvider, useMedia } from "@/lib/media-context"
 import { SidebarNav } from "@/components/sidebar-nav"
 import { MobileNav } from "@/components/mobile-nav"
-import { MusicPlayer } from "@/components/music-player"
-import { VideoPlayer } from "@/components/video-player"
+import { MusicPlayer } from "@/components/features/music/music-player"
+import { VideoPlayer } from "@/components/features/video/video-player"
 import { FilmLibrary } from "@/components/film-library"
-import { LinksManager } from "@/components/links-manager"
-import { StreamsPanel } from "@/components/streams-panel"
-import { MovieVault } from "@/components/features/films/movie-vault"
+import { LinksManager } from "@/components/features/links/links-manager"
+import { StreamsPanel } from "@/components/features/streams/streams-panel"
 import { MobileHeader } from "@/components/mobile-header"
 import { OpenStandaloneButton } from "@/components/open-standalone-button"
 
@@ -25,7 +24,6 @@ function MainContent() {
           {activeView === "music" && <MusicPlayer />}
           {activeView === "video" && <VideoPlayer />}
           {activeView === "films" && <FilmLibrary />}
-          {activeView === "vault" && <MovieVault />}
           {activeView === "links" && <LinksManager />}
           {activeView === "streams" && <StreamsPanel />}
         </div>

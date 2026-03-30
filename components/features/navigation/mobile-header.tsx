@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeSettings } from "@/components/theme-settings"
-import { AIToolsPanel } from "@/components/ai-tools-panel"
+import { AIToolsPanel } from "@/components/features/ai-tools/ai-tools-panel"
 import { PWAInstaller } from "@/components/pwa-installer"
 
 export function MobileHeader() {
