@@ -3,6 +3,20 @@ import { getRequestContext } from "@cloudflare/next-on-pages"
 
 export const dynamic = 'force-dynamic'
 
+interface AiMessage {
+  role: string
+  content: string
+}
+
+interface AiRequestBody {
+  action?: string
+  prompt?: string
+  messages?: AiMessage[]
+  model?: string
+  title?: string
+  style?: string
+}
+
 // Dostępne modele Workers AI
 const MODELS = {
   chat: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
@@ -10,18 +24,89 @@ const MODELS = {
   embedding: "@cf/baai/bge-base-en-v1.5",
 } as const
 
+const extractLatestPrompt = (prompt?: string, messages?: AiMessage[]) => {
+  return prompt?.trim() || messages?.at(-1)?.content?.trim() || ""
+}
+
+const buildChatMessages = (prompt?: string, messages?: AiMessage[]) => {
+  const history = messages ?? []
+  const latestPrompt = prompt?.trim()
+
+  if (!latestPrompt) {
+    return history.length > 0 ? history : [{ role: "user", content: "" }]
+  }
+
+  return [...history, { role: "user", content: latestPrompt }]
+}
+
+const parseContextValue = (input: string, key: string) => {
+  const match = input.match(new RegExp(`${key}=([\\w-]+)`, "i"))
+  return match?.[1] ?? ""
+}
+
+const parseContextNumber = (input: string, key: string) => {
+  const match = input.match(new RegExp(`${key}=(\\d+)`, "i"))
+  return match ? Number(match[1]) : 0
+}
+
+const pluralize = (count: number, one: string, few: string, many: string) => {
+  const tens = count % 100
+  const ones = count % 10
+
+  if (count === 1) return one
+  if (tens >= 12 && tens <= 14) return many
+  if (ones >= 2 && ones <= 4) return few
+  return many
+}
+
+const extractUserQuestion = (input: string) => {
+  const match = input.match(/Użytkownik:\s*([\s\S]*?)(?:\n\nOdpowiedz|$)/i)
+  return match?.[1]?.trim() || input.trim()
+}
+
+const buildLocalChatFallback = (input: string) => {
+  const question = extractUserQuestion(input)
+  const normalizedQuestion = question.toLowerCase()
+  const activeView = parseContextValue(input, "widok") || "music"
+  const localTracks = parseContextNumber(input, "localTracks")
+  const playlists = parseContextNumber(input, "playlisty")
+  const favoriteTracks = parseContextNumber(input, "ulubione_tracks")
+  const favoriteFilms = parseContextNumber(input, "ulubione_filmy")
+  const favoriteLinks = parseContextNumber(input, "ulubione_linki")
+
+  if (normalizedQuestion.includes("ile mam playlist")) {
+    return `W BONZO_media_HUB masz ${playlists} ${pluralize(playlists, "playlistę", "playlisty", "playlist")}.`
+  }
+
+  if (normalizedQuestion.includes("ile mam utwor") || normalizedQuestion.includes("ile mam track")) {
+    return `W BONZO_media_HUB masz ${localTracks} ${pluralize(localTracks, "utwór", "utwory", "utworów")} w bibliotece muzycznej.`
+  }
+
+  if (normalizedQuestion.includes("ile mam ulubionych") || normalizedQuestion.includes("co mam w ulubionych")) {
+    return `Ulubione w BONZO_media_HUB: ${favoriteTracks} ${pluralize(favoriteTracks, "track", "tracki", "tracków")}, ${favoriteFilms} ${pluralize(favoriteFilms, "film", "filmy", "filmów")}, ${favoriteLinks} ${pluralize(favoriteLinks, "link", "linki", "linków")}.`
+  }
+
+  if (normalizedQuestion.includes("jaki mam widok") || normalizedQuestion.includes("na jakim widoku")) {
+    return `Aktualnie jesteś w widoku ${activeView} w BONZO_media_HUB.`
+  }
+
+  return `Tryb lokalny BONZO AI: widok=${activeView}, utwory=${localTracks}, playlisty=${playlists}, ulubione filmy=${favoriteFilms}. Mogę odpowiadać na podstawie bieżącego stanu aplikacji.`
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json() as { action?: string; prompt?: string; messages?: { role: string; content: string }[]; model?: string; title?: string; style?: string }
+    const body = await req.json() as AiRequestBody
     const { action, prompt, messages, model } = body
 
     let env: CloudflareEnv
     try {
       env = getRequestContext().env as CloudflareEnv
     } catch {
-      // Lokalnie (bez CF) — zwróć mock
+      const latestPrompt = extractLatestPrompt(prompt, messages)
       return NextResponse.json({
-        result: `[LOCAL] AI Workers niedostępne lokalnie. Odpowiedź na: "${prompt || messages?.at(-1)?.content}"`,
+        result: action === "chat"
+          ? buildLocalChatFallback(latestPrompt)
+          : `[LOCAL] AI Workers niedostępne lokalnie. Odpowiedź na: "${latestPrompt}"`,
       })
     }
 
@@ -30,7 +115,7 @@ export async function POST(req: NextRequest) {
     switch (action) {
       // ── Chat / asystent filmowy / muzyczny ──────────────────────────────
       case "chat": {
-        const msgs = messages ?? [{ role: "user", content: prompt ?? "" }]
+        const msgs = buildChatMessages(prompt, messages)
         const result = await ai.run((model ?? MODELS.chat) as typeof MODELS.chat, {
           messages: [
             {

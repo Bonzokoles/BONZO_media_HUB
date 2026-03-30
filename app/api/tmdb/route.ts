@@ -5,6 +5,8 @@ export const dynamic = "force-dynamic";
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_READ_TOKEN = process.env.TMDB_READ_TOKEN;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const DEFAULT_WORKER_BASE =
+  "https://bonzo-media-hub-proxy.stolarnia-ams.workers.dev";
 
 const hasReadToken = Boolean(TMDB_READ_TOKEN);
 const hasApiKey = Boolean(TMDB_API_KEY);
@@ -13,6 +15,16 @@ function appendApiKey(url: string): string {
   if (!TMDB_API_KEY) return url;
   const separator = url.includes("?") ? "&" : "?";
   return `${url}${separator}api_key=${encodeURIComponent(TMDB_API_KEY)}`;
+}
+
+function trimSlash(value: string): string {
+  return value.replace(/\/+$/, "");
+}
+
+function getWorkerBase(): string {
+  const configured = process.env.NEXT_PUBLIC_BONZO_WORKER_URL;
+  if (!configured || !configured.trim()) return DEFAULT_WORKER_BASE;
+  return trimSlash(configured.trim());
 }
 
 function buildHeaders(): HeadersInit {
@@ -43,6 +55,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get("action");
   const query = searchParams.get("query");
+  const title = searchParams.get("title");
   const id = searchParams.get("id");
   const page = searchParams.get("page") || "1";
   const mediaType = searchParams.get("mediaType") || "movie";
@@ -51,7 +64,7 @@ export async function GET(request: NextRequest) {
   const sortBy = searchParams.get("sortBy") || "popularity.desc";
   const listId = searchParams.get("listId");
 
-  if (!hasReadToken && !hasApiKey) {
+  if (action !== "reviews" && !hasReadToken && !hasApiKey) {
     return NextResponse.json(
       { error: "TMDB API keys not configured" },
       { status: 500 },
@@ -213,6 +226,25 @@ export async function GET(request: NextRequest) {
         response = await fetch(hasReadToken ? url : appendApiKey(url), {
           headers,
         });
+        break;
+
+      case "reviews":
+        if (!title) {
+          return NextResponse.json(
+            { error: "Title required" },
+            { status: 400 },
+          );
+        }
+
+        url = `${getWorkerBase()}/api/reviews?title=${encodeURIComponent(title)}${year ? `&year=${encodeURIComponent(year)}` : ""}`;
+        response = await fetch(url, {
+          headers: { accept: "application/json" },
+          cache: "no-store",
+        });
+
+        if (response.status === 404) {
+          return NextResponse.json({ reviews: {} }, { status: 200 });
+        }
         break;
 
       case "watch_providers":

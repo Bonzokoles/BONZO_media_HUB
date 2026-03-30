@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { Loader2, ExternalLink, AlertCircle, X } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import ReactPlayer from "react-player";
 
 /**
@@ -18,6 +23,9 @@ const R2_CATALOG_URLS = {
     json: process.env.NEXT_PUBLIC_R2_MUSIC_CATALOG_JSON || "",
   },
 };
+
+const canEmbedTrailer = (url: string) =>
+  /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(url);
 
 interface CatalogFromR2Props {
   type: "film" | "music";
@@ -171,6 +179,12 @@ export default function CatalogFromR2({
         {trailerModal && (
           <Dialog open onOpenChange={() => setTrailerModal(null)}>
             <DialogContent className="max-w-4xl w-full bg-gray-950 border-gray-800 p-0 overflow-hidden">
+              <DialogTitle className="sr-only">
+                Trailer: {trailerModal.title}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Modal odtwarzania trailera dla pozycji {trailerModal.title}.
+              </DialogDescription>
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
                 <span className="text-sm font-medium text-gray-200 truncate pr-4">{trailerModal.title}</span>
                 <button
@@ -181,9 +195,9 @@ export default function CatalogFromR2({
                 </button>
               </div>
               <div className="aspect-video w-full bg-black">
-                {ReactPlayer.canPlay(trailerModal.url) ? (
+                {canEmbedTrailer(trailerModal.url) ? (
                   <ReactPlayer
-                    url={trailerModal.url}
+                    src={trailerModal.url}
                     playing
                     controls
                     width="100%"

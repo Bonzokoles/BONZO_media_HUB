@@ -7,7 +7,12 @@ import { buildTmdbUrl, fetchJsonWithFallback } from "@/lib/remote-media";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { moviesCollectionComplete, movieStats } from "@/lib/movies-data-synced";
 import {
   Search,
@@ -464,6 +469,16 @@ function MovieModal({
         className="max-h-[94vh] w-[96vw]! max-w-[96vw]! sm:max-w-[96vw]! xl:max-w-[1400px]! overflow-hidden p-0 font-mono"
         style={{ width: "min(96vw, 1400px)", maxWidth: "min(96vw, 1400px)" }}
       >
+        <DialogTitle className="sr-only">
+          {showTrailer
+            ? `Trailer filmu ${movie.title}`
+            : `Szczegóły filmu ${movie.title}`}
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          {showTrailer
+            ? `Modal odtwarzacza trailera dla filmu ${movie.title}.`
+            : `Modal biblioteki filmowej ze szczegółami i recenzjami filmu ${movie.title}.`}
+        </DialogDescription>
         {showTrailer && resolvedTmdbId ? (
           <div className="relative h-[86vh] w-full overflow-hidden bg-black">
             <TrailerPlayer

@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { useMedia } from "@/lib/media-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -20,6 +20,20 @@ const WELCOME_MESSAGE: ChatMessage = {
     "Cześć! Jestem BONZO AI 🤖 Mogę pomóc z aplikacją, polecić film, ogarnąć playlistę albo doradzić co obejrzeć i czego posłuchać.",
 }
 
+const getPlaylistCount = () => {
+  if (typeof window === "undefined") return 0
+
+  try {
+    const saved = localStorage.getItem("bonzo-playlists")
+    if (!saved) return 0
+
+    const parsed = JSON.parse(saved)
+    return Array.isArray(parsed) ? parsed.length : 0
+  } catch {
+    return 0
+  }
+}
+
 export function GlobalAiChatbox() {
   const { activeView, localTracks, favorites } = useMedia()
   const [open, setOpen] = useState(false)
@@ -28,9 +42,10 @@ export function GlobalAiChatbox() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const contextLine = useMemo(() => {
-    return `Kontekst: widok=${activeView}, localTracks=${localTracks.length}, ulubione_tracks=${favorites.tracks.length}, ulubione_filmy=${favorites.films.length}, ulubione_linki=${favorites.links.length}`
-  }, [activeView, localTracks.length, favorites.tracks.length, favorites.films.length, favorites.links.length])
+  const buildContextLine = () => {
+    const playlistCount = getPlaylistCount()
+    return `Kontekst: widok=${activeView}, localTracks=${localTracks.length}, playlisty=${playlistCount}, ulubione_tracks=${favorites.tracks.length}, ulubione_filmy=${favorites.films.length}, ulubione_linki=${favorites.links.length}`
+  }
 
   const sendMessage = async () => {
     const text = input.trim()
@@ -43,12 +58,12 @@ export function GlobalAiChatbox() {
     setLoading(true)
 
     try {
-      const apiMessages = nextMessages.map((m) => ({
+      const apiMessages = messages.map((m) => ({
         role: m.role,
         content: m.content,
       }))
 
-      const contextualUserPrompt = `${contextLine}\n\nUżytkownik: ${text}\n\nOdpowiedz po polsku, krótko i konkretnie, z naciskiem na BONZO_media_HUB, muzykę i film.`
+      const contextualUserPrompt = `${buildContextLine()}\n\nUżytkownik: ${text}\n\nOdpowiedz po polsku, krótko i konkretnie, z naciskiem na BONZO_media_HUB, muzykę i film.`
 
       const response = await fetch("/api/ai", {
         method: "POST",

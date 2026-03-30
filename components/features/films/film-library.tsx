@@ -11,7 +11,6 @@ import {
 } from "@/lib/movies-data";
 import {
   buildR2AssetUrl,
-  buildReviewUrl,
   buildTmdbUrl,
   fetchJsonWithFallback,
 } from "@/lib/remote-media";
@@ -39,14 +38,19 @@ import {
   ChevronLeft,
   SlidersHorizontal,
   Eye,
+  Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { MovieVault } from "./my-collection";
-import CatalogFromR2, { isR2Configured } from "./catalog-from-r2";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -72,11 +76,52 @@ interface TrailerVideo {
   name: string;
   site: string;
   type: string;
+  official?: boolean;
+  iso_639_1?: string;
 }
 
 interface ReviewPayload {
   reviews?: Record<string, string>;
 }
+
+interface TrailerAssistantData {
+  translatedTitle: string;
+  polishSummary: string;
+  subtitleStatus: string;
+  languageNote: string;
+}
+
+const YOUTUBE_PLAYER_CONFIG = {
+  youtube: {
+    hl: "pl",
+    cc_lang_pref: "pl",
+    cc_load_policy: 1 as const,
+    rel: 0 as const,
+    modestbranding: 1 as const,
+    playsinline: 1 as const,
+  },
+};
+
+const scoreTrailer = (video: TrailerVideo) => {
+  const label = video.name.toLowerCase();
+  let score = 0;
+
+  if (video.site === "YouTube") score += 100;
+  if (video.type === "Trailer") score += 60;
+  if (video.official) score += 30;
+  if (video.iso_639_1 === "pl") score += 80;
+  if (label.includes("polish") || label.includes("napisy") || label.includes("pl")) {
+    score += 20;
+  }
+
+  return score;
+};
+
+const selectPreferredTrailer = (videos: TrailerVideo[]) => {
+  return [...videos]
+    .filter((video) => video.site === "YouTube")
+    .sort((a, b) => scoreTrailer(b) - scoreTrailer(a))[0] ?? null;
+};
 
 // ─── Poster component with TMDB fallback ─────────────────────────────────────
 
@@ -150,33 +195,39 @@ function FilmPoster({
 
 function TrailerPlayer({
   tmdbId,
+  title,
+  overview,
   mediaType = "movie",
   onClose,
   theaterMode = false,
 }: {
   tmdbId: number;
+  title: string;
+  overview?: string;
   mediaType?: string;
   onClose: () => void;
   theaterMode?: boolean;
 }) {
-  const [trailerKey, setTrailerKey] = useState<string | null>(null);
+  const [trailer, setTrailer] = useState<TrailerVideo | null>(null);
+  const [trailerAssistant, setTrailerAssistant] =
+    useState<TrailerAssistantData | null>(null);
+  const [assistantLoading, setAssistantLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     setLoading(true);
     setError("");
+    setTrailer(null);
     fetchJsonWithFallback<{ results?: TrailerVideo[] }>(
       buildTmdbUrl({ action: "videos", id: tmdbId, mediaType }),
       `/api/tmdb?action=videos&id=${tmdbId}&mediaType=${mediaType}`,
     )
       .then((data) => {
         const videos: TrailerVideo[] = data.results ?? [];
-        const trailer =
-          videos.find((v) => v.type === "Trailer" && v.site === "YouTube") ||
-          videos.find((v) => v.site === "YouTube");
-        if (trailer) {
-          setTrailerKey(trailer.key);
+        const preferredTrailer = selectPreferredTrailer(videos);
+        if (preferredTrailer) {
+          setTrailer(preferredTrailer);
         } else {
           setError("Brak dostępnego trailera dla tego tytułu.");
         }
@@ -185,10 +236,49 @@ function TrailerPlayer({
       .finally(() => setLoading(false));
   }, [tmdbId, mediaType]);
 
+  useEffect(() => {
+    if (!trailer) {
+      setTrailerAssistant(null);
+      return;
+    }
+
+    let cancelled = false;
+    setAssistantLoading(true);
+
+    fetch("/api/trailer-assistant", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        movieTitle: title,
+        overview,
+        trailerName: trailer.name,
+        trailerLanguage: trailer.iso_639_1,
+      }),
+    })
+      .then(async (response) => {
+        const payload = (await response.json()) as TrailerAssistantData;
+        if (!cancelled) {
+          setTrailerAssistant(payload);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setTrailerAssistant(null);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setAssistantLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [overview, title, trailer]);
+
   return (
-    <div
-      className={cn("relative w-full bg-black", theaterMode ? "h-full" : "")}
-    >
+    <div className={cn("relative flex w-full flex-col bg-black", theaterMode ? "h-full" : "")}>
       <Button
         variant="ghost"
         size="icon"
@@ -225,19 +315,20 @@ function TrailerPlayer({
           {error}
         </div>
       )}
-      {trailerKey && !loading && (
+      {trailer && !loading && (
         <div
           className={cn(
             "w-full bg-black",
-            theaterMode ? "h-full" : "aspect-video",
+            theaterMode ? "flex-1" : "aspect-video",
           )}
         >
           <ReactPlayer
-            src={`https://www.youtube.com/watch?v=${trailerKey}`}
+            src={`https://www.youtube.com/watch?v=${trailer.key}`}
             playing
             controls
             width="100%"
             height="100%"
+            config={YOUTUBE_PLAYER_CONFIG}
           />
 
           {theaterMode && (
@@ -246,6 +337,61 @@ function TrailerPlayer({
               <div className="pointer-events-none absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-black/90 via-black/65 to-transparent" />
             </>
           )}
+        </div>
+      )}
+
+      {!loading && trailer && (
+        <div className="border-t border-white/10 bg-zinc-950/95 px-4 py-3 text-xs text-zinc-200 sm:px-5 sm:text-sm">
+          <div className="mb-2 flex items-center gap-2 font-bold uppercase tracking-widest text-primary">
+            <Languages className="h-4 w-4" />
+            BONZO_TRAILER_AGENT
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="space-y-2">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:text-xs">
+                  Trailer PL
+                </p>
+                <p className="font-semibold text-zinc-100">
+                  {trailerAssistant?.translatedTitle || trailer.name || title}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:text-xs">
+                  Język / lokalizacja
+                </p>
+                <p className="text-zinc-300">
+                  {assistantLoading
+                    ? "Analizuję język trailera..."
+                    : trailerAssistant?.languageNote ||
+                      "BONZO preferuje polski trailer, a gdy go brak — ustawia polski interfejs i napisy YouTube, jeśli są dostępne."}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:text-xs">
+                  Napisy
+                </p>
+                <p className="text-zinc-300">
+                  {assistantLoading
+                    ? "Sprawdzam możliwość napisów..."
+                    : trailerAssistant?.subtitleStatus ||
+                      "Napisy YouTube są wymuszane preferencją PL i pokażą się, jeśli materiał je udostępnia."}
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="mb-1 text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:text-xs">
+                Opis po polsku
+              </p>
+              <p className="leading-relaxed text-zinc-200">
+                {assistantLoading
+                  ? "BONZO tłumaczy i przygotowuje polski opis trailera..."
+                  : trailerAssistant?.polishSummary ||
+                    overview ||
+                    "Brak rozszerzonego opisu. Osadzony player działa w aplikacji, bez wyrzucania do YouTube."}
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -309,7 +455,9 @@ function FilmModal({
     if (!enriched) return;
     setRemoteReviews({});
 
-    fetch(buildReviewUrl(enriched.title, enriched.year))
+    const localReviewApi = `/api/tmdb?action=reviews&title=${encodeURIComponent(enriched.title)}${enriched.year ? `&year=${encodeURIComponent(String(enriched.year))}` : ""}`;
+
+    fetch(localReviewApi)
       .then(
         async (r): Promise<ReviewPayload | null> =>
           r.ok ? ((await r.json()) as ReviewPayload) : null,
@@ -480,10 +628,22 @@ function FilmModal({
         className="max-h-[94vh] w-[96vw]! max-w-[96vw]! sm:max-w-[96vw]! xl:max-w-[2400px]! overflow-hidden p-0 font-mono"
         style={{ width: "min(96vw, 2400px)", maxWidth: "min(96vw, 2400px)" }}
       >
+        <DialogTitle className="sr-only">
+          {showTrailer
+            ? `Trailer filmu ${enriched.title}`
+            : `Szczegóły filmu ${enriched.title}`}
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          {showTrailer
+            ? `Modal odtwarzacza trailera dla filmu ${enriched.title}.`
+            : `Modal ze szczegółami, recenzjami i metadanymi filmu ${enriched.title}.`}
+        </DialogDescription>
         {showTrailer && resolvedTmdbId ? (
           <div className="relative h-[90vh] w-full overflow-hidden bg-black">
             <TrailerPlayer
               tmdbId={resolvedTmdbId}
+              title={enriched.title}
+              overview={displayOverview}
               onClose={() => setShowTrailer(false)}
               theaterMode
             />
@@ -1746,11 +1906,7 @@ export function FilmLibrary() {
         {/* KATALOG */}
         {activeSection === "katalog" && (
           <div className="h-full overflow-y-auto p-4 lg:p-5">
-            {isR2Configured("film") ? (
-              <CatalogFromR2 type="film" mode="iframe" className="h-full" />
-            ) : (
-              <KatalogView onFilmSelect={handleCatalogFilmClick} />
-            )}
+            <KatalogView onFilmSelect={handleCatalogFilmClick} />
           </div>
         )}
 
