@@ -9,6 +9,7 @@ import { VideoPlayer } from "@/components/video-player"
 import { FilmLibrary } from "@/components/film-library"
 import { LinksManager } from "@/components/links-manager"
 import { StreamsPanel } from "@/components/streams-panel"
+import { MovieVault } from "@/components/features/films/movie-vault"
 import { MobileHeader } from "@/components/mobile-header"
 import { OpenStandaloneButton } from "@/components/open-standalone-button"
 
@@ -24,6 +25,7 @@ function MainContent() {
           {activeView === "music" && <MusicPlayer />}
           {activeView === "video" && <VideoPlayer />}
           {activeView === "films" && <FilmLibrary />}
+          {activeView === "vault" && <MovieVault />}
           {activeView === "links" && <LinksManager />}
           {activeView === "streams" && <StreamsPanel />}
         </div>
