@@ -11,6 +11,7 @@ import {
   buildTmdbUrl,
   fetchJsonWithFallback,
 } from "@/lib/remote-media"
+import ReactPlayer from "react-player"
 import { cn } from "@/lib/utils"
 import {
   Search, Star, Heart, X, Calendar, User, Film as FilmIcon,
@@ -28,6 +29,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 type Section = "collection" | "katalog" | "top-movies" | "top-tv" | "browse"
 type ReviewTab = string
+type CollectionCatalog = "films" | "reviews" | "trailers"
 
 interface TmdbResult {
   id: number
@@ -118,9 +120,9 @@ function FilmPoster({
 // ─── Trailer Player ───────────────────────────────────────────────────────────
 
 function TrailerPlayer({
-  tmdbId, mediaType = "movie", onClose
+  tmdbId, mediaType = "movie", onClose, theaterMode = false
 }: {
-  tmdbId: number; mediaType?: string; onClose: () => void
+  tmdbId: number; mediaType?: string; onClose: () => void; theaterMode?: boolean
 }) {
   const [trailerKey, setTrailerKey] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -149,17 +151,20 @@ function TrailerPlayer({
   }, [tmdbId, mediaType])
 
   return (
-    <div className="relative w-full bg-black">
+    <div className={cn("relative w-full bg-black", theaterMode ? "h-full" : "") }>
       <Button
         variant="ghost"
         size="icon"
-        className="absolute right-2 top-2 z-10 h-8 w-8 border border-border bg-background/80 text-foreground"
+        className={cn(
+          "absolute right-2 top-2 z-20 h-8 w-8 border border-border bg-background/80 text-foreground",
+          theaterMode && "right-4 top-4 border-white/30 bg-black/60 text-white hover:bg-black/80",
+        )}
         onClick={onClose}
       >
         <X className="h-4 w-4" />
       </Button>
       {loading && (
-        <div className="flex h-48 items-center justify-center">
+        <div className={cn("flex items-center justify-center", theaterMode ? "h-full" : "h-48")}>
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <span className="ml-3 text-sm text-muted-foreground uppercase tracking-wider">
             LOADING_TRAILER...
@@ -167,20 +172,27 @@ function TrailerPlayer({
         </div>
       )}
       {error && !loading && (
-        <div className="flex h-48 items-center justify-center text-sm text-muted-foreground">
+        <div className={cn("flex items-center justify-center text-sm text-muted-foreground", theaterMode ? "h-full" : "h-48")}>
           <Video className="mr-2 h-5 w-5" />
           {error}
         </div>
       )}
       {trailerKey && !loading && (
-        <div className="aspect-video w-full">
-          <iframe
-            src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0`}
-            className="h-full w-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Film trailer"
+        <div className={cn("w-full bg-black", theaterMode ? "h-full" : "aspect-video")}>
+          <ReactPlayer
+            src={`https://www.youtube.com/watch?v=${trailerKey}`}
+            playing
+            controls
+            width="100%"
+            height="100%"
           />
+
+          {theaterMode && (
+            <>
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-black/90 via-black/65 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-black/90 via-black/65 to-transparent" />
+            </>
+          )}
         </div>
       )}
     </div>
@@ -190,6 +202,7 @@ function TrailerPlayer({
 // ─── Film Detail Modal ────────────────────────────────────────────────────────
 
 interface TmdbFullDetails {
+  id?: number
   tagline?: string
   budget?: number
   revenue?: number
@@ -231,8 +244,8 @@ function FilmModal({
     setRemoteReviews({})
 
     fetch(buildReviewUrl(enriched.title, enriched.year))
-      .then((r) => (r.ok ? r.json() : null))
-      .then((payload: ReviewPayload | null) => {
+      .then(async (r): Promise<ReviewPayload | null> => (r.ok ? ((await r.json()) as ReviewPayload) : null))
+      .then((payload) => {
         if (payload?.reviews) {
           setRemoteReviews(payload.reviews)
         }
@@ -259,6 +272,7 @@ function FilmModal({
           `/api/tmdb?action=details&id=${tmdbId}&mediaType=${mediaType}`,
         )
         setTmdb({
+          id: tmdbId,
           tagline: (d.tagline as string) || "",
           budget: d.budget as number,
           revenue: d.revenue as number,
@@ -288,7 +302,7 @@ function FilmModal({
         `/api/tmdb?action=search&query=${q}&mediaType=movie`,
       )
         .then(d => {
-          const hit = d.results?.[0]
+          const hit = Array.isArray(d.results) ? d.results[0] : undefined
           if (hit) fetchDetails(hit.id)
         })
         .catch(() => {})
@@ -308,6 +322,7 @@ function FilmModal({
   const displayOverview = tmdb?.overview || enriched.overview
   const displayRuntime = tmdb?.runtime || enriched.runtime
   const displayDirector = tmdb?.director || enriched.director
+  const resolvedTmdbId = enriched.tmdbId ?? tmdb?.id
 
   const tabs = [
     { id: "overview", label: "OVERVIEW" },
@@ -319,16 +334,24 @@ function FilmModal({
 
   return (
     <Dialog open={!!enriched} onOpenChange={onClose}>
-      <DialogContent className="max-h-[92vh] max-w-4xl overflow-hidden p-0 font-mono">
+      <DialogContent
+        className="max-h-[94vh] w-[96vw]! max-w-[96vw]! sm:max-w-[96vw]! xl:max-w-[1400px]! overflow-hidden p-0 font-mono"
+        style={{ width: "min(96vw, 1400px)", maxWidth: "min(96vw, 1400px)" }}
+      >
 
-        {/* Hero / Trailer */}
-        {showTrailer && (enriched.tmdbId || tmdb) ? (
-          <TrailerPlayer
-            tmdbId={enriched.tmdbId!}
-            onClose={() => setShowTrailer(false)}
-          />
+        {showTrailer && resolvedTmdbId ? (
+          <div className="relative h-[86vh] w-full overflow-hidden bg-black">
+            <TrailerPlayer
+              tmdbId={resolvedTmdbId}
+              onClose={() => setShowTrailer(false)}
+              theaterMode
+            />
+          </div>
         ) : (
-          <div className="relative h-52 w-full overflow-hidden sm:h-60">
+          <>
+
+            {/* Hero / Trailer */}
+            <div className="relative h-52 w-full overflow-hidden sm:h-60">
             {(enriched.backdropUrl || enriched.posterUrl) && (
               <img
                 src={enriched.backdropUrl || enriched.posterUrl}
@@ -350,11 +373,12 @@ function FilmModal({
             {/* Trailer button */}
             <Button
               size="sm"
+              disabled={!resolvedTmdbId}
               className="absolute right-4 top-3 gap-2 border border-red-500/50 bg-red-950/80 text-red-400 hover:bg-red-900/80 uppercase tracking-wider"
               onClick={() => setShowTrailer(true)}
             >
               <Video className="h-4 w-4" />
-              TRAILER
+              {resolvedTmdbId ? "TRAILER" : "TRAILER N/A"}
             </Button>
 
             {/* Title */}
@@ -380,10 +404,10 @@ function FilmModal({
               </div>
             </div>
           </div>
-        )}
+            
 
-        {/* Tabs */}
-        <div className="flex overflow-x-auto border-b border-border scrollbar-none">
+            {/* Tabs */}
+            <div className="flex overflow-x-auto border-b border-border scrollbar-none">
           {tabs.map(tab => (
             <button
               key={tab.id}
@@ -398,10 +422,10 @@ function FilmModal({
               {tab.label}
             </button>
           ))}
-        </div>
+            </div>
 
-        {/* Content */}
-        <div className="max-h-[40vh] overflow-y-auto p-5">
+            {/* Content */}
+            <div className="max-h-[52vh] overflow-y-auto p-5">
 
           {/* OVERVIEW */}
           {activeTab === "overview" && (
@@ -598,10 +622,10 @@ function FilmModal({
               )}
             </div>
           )}
-        </div>
+            </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between border-t border-border px-5 py-3">
+            {/* Footer */}
+            <div className="flex items-center justify-between border-t border-border px-5 py-3">
           <Button
             variant="outline" size="sm"
             onClick={() => onToggleFavorite(enriched.id)}
@@ -613,14 +637,17 @@ function FilmModal({
           {!showTrailer && (
             <Button
               size="sm"
+              disabled={!resolvedTmdbId}
               className="gap-2 border border-red-500/50 bg-red-950/60 text-red-400 hover:bg-red-900 uppercase"
               onClick={() => setShowTrailer(true)}
             >
               <Video className="h-4 w-4" />
-              PLAY_TRAILER
+              {resolvedTmdbId ? "PLAY_TRAILER" : "TRAILER N/A"}
             </Button>
           )}
-        </div>
+            </div>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   )
@@ -959,8 +986,10 @@ export function FilmLibrary() {
   const [selectedFilm, setSelectedFilm] = useState<Movie | null>(null)
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [activeSection, setActiveSection] = useState<Section>("collection")
+  const [collectionCatalog, setCollectionCatalog] = useState<CollectionCatalog>("films")
   const [filter, setFilter] = useState<"all" | "has-reviews" | "favorites">("all")
   const [showFilters, setShowFilters] = useState(false)
+  const [tmdbKeyStatus, setTmdbKeyStatus] = useState<"checking" | "ok" | "missing" | "error">("checking")
 
   const [personalReviews, setPersonalReviews] = useState<Record<string, string>>(() => {
     if (typeof window === "undefined") return {}
@@ -969,6 +998,34 @@ export function FilmLibrary() {
       return saved ? JSON.parse(saved) : {}
     } catch { return {} }
   })
+
+  useEffect(() => {
+    let cancelled = false
+
+    fetch("/api/tmdb?action=trending&mediaType=movie&page=1", { cache: "no-store" })
+      .then(async (res) => {
+        if (cancelled) return
+        if (res.ok) {
+          setTmdbKeyStatus("ok")
+          return
+        }
+
+        const payload = (await res.json().catch(() => ({}))) as { error?: string }
+        if ((payload.error || "").toLowerCase().includes("keys not configured")) {
+          setTmdbKeyStatus("missing")
+          return
+        }
+
+        setTmdbKeyStatus("error")
+      })
+      .catch(() => {
+        if (!cancelled) setTmdbKeyStatus("error")
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const saveReview = (filmId: string, review: string) => {
     const updated = { ...personalReviews, [filmId]: review }
@@ -986,12 +1043,25 @@ export function FilmLibrary() {
         film.genres.some(g => g.toLowerCase().includes(q)) ||
         film.keywords.some(k => k.toLowerCase().includes(q))
       const matchesGenre = selectedGenre === "All" || film.genres.includes(selectedGenre)
+
+      // RECENZJE_GIGACHAD w vault zawierają recenzje dla całej kolekcji,
+      // więc traktujemy każdy film jako posiadający recenzję.
+      const vaultReviewsAvailable = true
+      const hasEmbeddedReviews = Object.keys(film.reviews).length > 0
+      const hasPersonalReview = Boolean((personalReviews[film.id] || film.personalReview || "").trim())
+      const hasAnyReview = hasEmbeddedReviews || hasPersonalReview || vaultReviewsAvailable
+      const hasTrailer = Boolean(film.tmdbId)
+
+      let matchesCatalog = true
+      if (collectionCatalog === "reviews") matchesCatalog = hasAnyReview
+      if (collectionCatalog === "trailers") matchesCatalog = hasTrailer
+
       let matchesFilter = true
-      if (filter === "has-reviews") matchesFilter = Object.keys(film.reviews).length > 0
+      if (filter === "has-reviews") matchesFilter = hasAnyReview
       else if (filter === "favorites") matchesFilter = favorites.films.includes(film.id)
-      return matchesSearch && matchesGenre && matchesFilter
+      return matchesSearch && matchesGenre && matchesFilter && matchesCatalog
     })
-  }, [searchQuery, selectedGenre, filter, favorites.films])
+  }, [searchQuery, selectedGenre, filter, favorites.films, collectionCatalog, personalReviews])
 
   // Handle catalog film click — look up in collection or search TMDB
   const handleCatalogFilmClick = async (titleWithYear: string) => {
@@ -1011,7 +1081,7 @@ export function FilmLibrary() {
         buildTmdbUrl({ action: "search", query: q, mediaType: "movie" }),
         `/api/tmdb?action=search&query=${encodeURIComponent(q)}&mediaType=movie`,
       )
-      const hit: TmdbResult = data.results?.[0]
+      const hit = Array.isArray(data.results) ? data.results[0] : undefined
       if (hit) {
         // Fetch full details
         const det = await fetchJsonWithFallback<Record<string, unknown>>(
@@ -1039,7 +1109,7 @@ export function FilmLibrary() {
   }
 
   const SECTIONS = [
-    { id: "collection" as Section, icon: Library, label: "MY_COLLECTION" },
+    { id: "collection" as Section, icon: Library, label: "MY_COLLECTIONS" },
     { id: "katalog" as Section, icon: Folder, label: "KATALOG" },
     { id: "top-movies" as Section, icon: TrendingUp, label: "TOP_MOVIES" },
     { id: "top-tv" as Section, icon: Tv, label: "TV_SERIES" },
@@ -1056,7 +1126,7 @@ export function FilmLibrary() {
               {">"} BONZO_FILM_VAULT
             </h2>
             <p className="text-xs text-muted-foreground">
-              [{moviesCollection.length} local] [TMDB connected] [katalog: {katalogCategories.length} kategorie]
+              [{moviesCollection.length} local] [TMDB: {tmdbKeyStatus === "ok" ? "KEY_OK" : tmdbKeyStatus === "missing" ? "KEY_MISSING" : tmdbKeyStatus === "checking" ? "CHECKING" : "ERROR"}] [katalog: {katalogCategories.length} kategorie]
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -1145,6 +1215,33 @@ export function FilmLibrary() {
               placeholder="> szukaj..."
               className="h-8 pl-9 text-xs"
             />
+          </div>
+        </div>
+      )}
+
+      {/* MY_COLLECTIONS catalog */}
+      {activeSection === "collection" && (
+        <div className="border-b border-border bg-muted/10 px-4 py-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-primary">{">"} my_collections</span>
+            {([
+              { id: "films", label: "FILMY" },
+              { id: "reviews", label: "RECENZJE" },
+              { id: "trailers", label: "TRAILERY" },
+            ] as const).map(item => (
+              <button
+                key={item.id}
+                onClick={() => setCollectionCatalog(item.id)}
+                className={cn(
+                  "border px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider transition-all",
+                  collectionCatalog === item.id
+                    ? "border-primary bg-primary/20 text-primary"
+                    : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground",
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         </div>
       )}
@@ -1243,7 +1340,7 @@ export function FilmLibrary() {
               </div>
             )}
             <p className="mt-4 text-xs text-muted-foreground">
-              [RESULTS] {filteredFilms.length}/{moviesCollection.length} · [FILTER] {selectedGenre} · [MODE] {viewMode.toUpperCase()}
+              [RESULTS] {filteredFilms.length}/{moviesCollection.length} · [CATALOG] {collectionCatalog.toUpperCase()} · [FILTER] {selectedGenre} · [MODE] {viewMode.toUpperCase()}
             </p>
           </div>
         )}

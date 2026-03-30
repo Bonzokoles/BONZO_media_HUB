@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const dynamic = 'error'
+export const dynamic = 'force-dynamic'
 
 // Proxy dla DeepSeek API — klucz zostaje po stronie serwera
 export async function POST(request: NextRequest) {

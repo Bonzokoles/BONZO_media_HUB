@@ -1,14 +1,42 @@
 import { NextRequest, NextResponse } from "next/server"
 
-export const dynamic = 'error'
+export const dynamic = 'force-dynamic'
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY
 const TMDB_READ_TOKEN = process.env.TMDB_READ_TOKEN
 const TMDB_BASE_URL = "https://api.themoviedb.org/3"
 
-const headers = {
-  accept: "application/json",
-  Authorization: `Bearer ${TMDB_READ_TOKEN}`,
+const hasReadToken = Boolean(TMDB_READ_TOKEN)
+const hasApiKey = Boolean(TMDB_API_KEY)
+
+function appendApiKey(url: string): string {
+  if (!TMDB_API_KEY) return url
+  const separator = url.includes("?") ? "&" : "?"
+  return `${url}${separator}api_key=${encodeURIComponent(TMDB_API_KEY)}`
+}
+
+function buildHeaders(): HeadersInit {
+  if (TMDB_READ_TOKEN) {
+    return {
+      accept: "application/json",
+      Authorization: `Bearer ${TMDB_READ_TOKEN}`,
+    }
+  }
+
+  return {
+    accept: "application/json",
+  }
+}
+
+type TmdbPostBody = {
+  action?: string
+  mediaType?: string
+  mediaId?: number
+  rating?: number
+  listId?: string
+  sessionId?: string
+  name?: string
+  description?: string
 }
 
 export async function GET(request: NextRequest) {
@@ -23,13 +51,14 @@ export async function GET(request: NextRequest) {
   const sortBy = searchParams.get("sortBy") || "popularity.desc"
   const listId = searchParams.get("listId")
 
-  if (!TMDB_API_KEY || !TMDB_READ_TOKEN) {
+  if (!hasReadToken && !hasApiKey) {
     return NextResponse.json({ error: "TMDB API keys not configured" }, { status: 500 })
   }
 
   try {
     let url: string
     let response: Response
+    const headers = buildHeaders()
 
     switch (action) {
       case "search":
@@ -37,7 +66,7 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "Query required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/search/${mediaType}?query=${encodeURIComponent(query)}&page=${page}&language=pl-PL`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "details":
@@ -45,37 +74,37 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "ID required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/${mediaType}/${id}?language=pl-PL&append_to_response=credits,videos,recommendations,reviews,keywords`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "trending":
         url = `${TMDB_BASE_URL}/trending/${mediaType}/week?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "popular":
         url = `${TMDB_BASE_URL}/${mediaType}/popular?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "top_rated":
         url = `${TMDB_BASE_URL}/${mediaType}/top_rated?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "upcoming":
         url = `${TMDB_BASE_URL}/movie/upcoming?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "now_playing":
         url = `${TMDB_BASE_URL}/movie/now_playing?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "genres":
         url = `${TMDB_BASE_URL}/genre/${mediaType}/list?language=pl-PL`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "discover":
@@ -89,7 +118,7 @@ export async function GET(request: NextRequest) {
           }
         }
         url = discoverUrl
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "recommendations":
@@ -97,7 +126,7 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "ID required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/${mediaType}/${id}/recommendations?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "similar":
@@ -105,13 +134,13 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "ID required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/${mediaType}/${id}/similar?language=pl-PL&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "lists":
         // Get user's lists (requires session)
         url = `${TMDB_BASE_URL}/account/{account_id}/lists?api_key=${TMDB_API_KEY}&page=${page}`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "list_details":
@@ -119,7 +148,7 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "List ID required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/list/${listId}?language=pl-PL`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "person":
@@ -127,7 +156,7 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: "ID required" }, { status: 400 })
         }
         url = `${TMDB_BASE_URL}/person/${id}?language=pl-PL&append_to_response=movie_credits,tv_credits`
-        response = await fetch(url, { headers })
+        response = await fetch(hasReadToken ? url : appendApiKey(url), { headers })
         break
 
       case "collection":
@@ -159,7 +188,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (!response.ok) {
-      const errorData = await response.json()
+      const errorData = (await response.json().catch(() => ({}))) as { status_message?: string }
       return NextResponse.json({ error: errorData.status_message || "TMDB API error" }, { status: response.status })
     }
 
@@ -172,12 +201,14 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json()
+  const body = (await request.json()) as TmdbPostBody
   const { action, mediaType, mediaId, rating, listId, sessionId } = body
 
-  if (!TMDB_API_KEY || !TMDB_READ_TOKEN) {
+  if (!TMDB_API_KEY) {
     return NextResponse.json({ error: "TMDB API keys not configured" }, { status: 500 })
   }
+
+  const headers = buildHeaders()
 
   try {
     let url: string
@@ -283,7 +314,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!response.ok) {
-      const errorData = await response.json()
+      const errorData = (await response.json().catch(() => ({}))) as { status_message?: string }
       return NextResponse.json({ error: errorData.status_message || "TMDB API error" }, { status: response.status })
     }
 

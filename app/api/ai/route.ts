@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getRequestContext } from "@cloudflare/next-on-pages"
 
-export const dynamic = 'error'
+export const dynamic = 'force-dynamic'
 
 // Dostępne modele Workers AI
 const MODELS = {

@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, useRef, type ReactNode } from "react"
 
 export interface Track {
   id: string
@@ -46,6 +46,39 @@ export interface WebLink {
 
 type ActiveView = "music" | "video" | "films" | "links" | "streams"
 
+const VIEW_QUERY_PARAM = "view"
+const LAST_VIEW_STORAGE_KEY = "bonzo-last-view"
+
+const isActiveView = (value: string | null): value is ActiveView => {
+  return value === "music" || value === "video" || value === "films" || value === "links" || value === "streams"
+}
+
+const getViewFromLocation = (): ActiveView => {
+  if (typeof window === "undefined") return "music"
+
+  const url = new URL(window.location.href)
+  const viewParam = url.searchParams.get(VIEW_QUERY_PARAM)
+
+  if (isActiveView(viewParam)) return viewParam
+
+  const savedView = localStorage.getItem(LAST_VIEW_STORAGE_KEY)
+  if (isActiveView(savedView)) return savedView
+
+  return "music"
+}
+
+const buildUrlForView = (view: ActiveView): string => {
+  const url = new URL(window.location.href)
+
+  if (view === "music") {
+    url.searchParams.delete(VIEW_QUERY_PARAM)
+  } else {
+    url.searchParams.set(VIEW_QUERY_PARAM, view)
+  }
+
+  return `${url.pathname}${url.search}${url.hash}`
+}
+
 interface MediaContextType {
   activeView: ActiveView
   setActiveView: (view: ActiveView) => void
@@ -64,7 +97,8 @@ interface MediaContextType {
 const MediaContext = createContext<MediaContextType | undefined>(undefined)
 
 export function MediaProvider({ children }: { children: ReactNode }) {
-  const [activeView, setActiveView] = useState<ActiveView>("music")
+  const [activeView, setActiveViewState] = useState<ActiveView>("music")
+  const skipPushStateRef = useRef(false)
   const [favorites, setFavorites] = useState<{
     tracks: string[]
     films: string[]
@@ -77,6 +111,61 @@ export function MediaProvider({ children }: { children: ReactNode }) {
     } catch { return { tracks: [], films: [], links: [] } }
   })
   const [localTracks, setLocalTracks] = useState<Track[]>([])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const initialView = getViewFromLocation()
+    setActiveViewState(initialView)
+
+    const stateWithView = {
+      ...(window.history.state ?? {}),
+      __bonzoView: initialView,
+    }
+
+    window.history.replaceState(stateWithView, "", buildUrlForView(initialView))
+
+    const handlePopState = (event: PopStateEvent) => {
+      const stateView = event.state && typeof event.state === "object" ? (event.state as { __bonzoView?: string }).__bonzoView : null
+      const normalizedStateView = stateView ?? null
+      let nextView: ActiveView = getViewFromLocation()
+      if (isActiveView(normalizedStateView)) {
+        nextView = normalizedStateView
+      }
+
+      skipPushStateRef.current = true
+      setActiveViewState(nextView)
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    if (skipPushStateRef.current) {
+      skipPushStateRef.current = false
+      return
+    }
+
+    const currentView = getViewFromLocation()
+    if (currentView === activeView) return
+
+    const nextState = {
+      ...(window.history.state ?? {}),
+      __bonzoView: activeView,
+    }
+
+    window.history.pushState(nextState, "", buildUrlForView(activeView))
+  }, [activeView])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    localStorage.setItem(LAST_VIEW_STORAGE_KEY, activeView)
+  }, [activeView])
 
   useEffect(() => {
     try { localStorage.setItem("bonzo-favorites", JSON.stringify(favorites)) } catch {}
@@ -108,6 +197,10 @@ export function MediaProvider({ children }: { children: ReactNode }) {
 
   const removeLocalTrack = useCallback((id: string) => {
     setLocalTracks((prev) => prev.filter((t) => t.id !== id))
+  }, [])
+
+  const setActiveView = useCallback((view: ActiveView) => {
+    setActiveViewState(view)
   }, [])
 
   return (

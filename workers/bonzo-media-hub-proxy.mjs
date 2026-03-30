@@ -31,8 +31,9 @@ async function proxyTmdb(url, env) {
   const page = url.searchParams.get("page") || "1"
   const mediaType = url.searchParams.get("mediaType") || "movie"
 
-  const token = env.TMDB_READ_TOKEN || env.TMDB_API_KEY
-  if (!token) return json({ error: "TMDB credentials missing" }, 500)
+  const readToken = env.TMDB_READ_TOKEN
+  const apiKey = env.TMDB_API_KEY
+  if (!readToken && !apiKey) return json({ error: "TMDB credentials missing" }, 500)
 
   let tmdbUrl = ""
   switch (action) {
@@ -61,12 +62,20 @@ async function proxyTmdb(url, env) {
       return json({ error: "Invalid action" }, 400)
   }
 
-  const res = await fetch(tmdbUrl, {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const resolvedTmdbUrl = readToken
+    ? tmdbUrl
+    : `${tmdbUrl}${tmdbUrl.includes("?") ? "&" : "?"}api_key=${encodeURIComponent(apiKey)}`
+
+  const headers = readToken
+    ? {
+        accept: "application/json",
+        Authorization: `Bearer ${readToken}`,
+      }
+    : {
+        accept: "application/json",
+      }
+
+  const res = await fetch(resolvedTmdbUrl, { headers })
 
   const bodyText = await res.text()
   return new Response(bodyText, {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import ReactPlayer from "react-player"
 import { sampleVideos } from "@/lib/sample-data"
 import type { Video } from "@/lib/media-context"
 import { cn } from "@/lib/utils"
@@ -37,7 +38,8 @@ export function VideoPlayer() {
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const playerRef = useRef<HTMLVideoElement>(null)
+  const playerWrapperRef = useRef<HTMLDivElement>(null)
 
   const allVideos = [...sampleVideos, ...localVideos]
 
@@ -65,7 +67,7 @@ export function VideoPlayer() {
   }
 
   const playPrevious = () => {
-    const video = videoRef.current
+    const video = playerRef.current
     if (video && video.currentTime > 3) {
       video.currentTime = 0
       setProgress(0)
@@ -162,102 +164,37 @@ export function VideoPlayer() {
     }
   }
 
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video || !currentVideo.videoUrl) return
-
-    video.src = currentVideo.videoUrl
-    video.volume = isMuted ? 0 : volume / 100
-    video.load()
-
-    if (isPlaying) {
-      video.play().catch(() => {
-        setIsPlaying(false)
-      })
-    }
-  }, [currentVideo])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    if (isPlaying) {
-      video.play().catch(() => {
-        setIsPlaying(false)
-      })
-    } else {
-      video.pause()
-    }
-  }, [isPlaying])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    video.volume = isMuted ? 0 : volume / 100
-  }, [volume, isMuted])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    const updateTime = () => {
-      setProgress(video.currentTime)
-      setDuration(Number.isFinite(video.duration) ? Math.round(video.duration) : currentVideo.duration)
-    }
-
-    const handleLoadedMetadata = () => {
-      setDuration(Number.isFinite(video.duration) ? Math.round(video.duration) : currentVideo.duration)
-      setProgress(video.currentTime || 0)
-    }
-
-    const handleWaiting = () => setIsBuffering(true)
-    const handlePlaying = () => setIsBuffering(false)
-    const handleEnded = () => playNext()
-
-    video.addEventListener("timeupdate", updateTime)
-    video.addEventListener("loadedmetadata", handleLoadedMetadata)
-    video.addEventListener("waiting", handleWaiting)
-    video.addEventListener("playing", handlePlaying)
-    video.addEventListener("ended", handleEnded)
-
-    return () => {
-      video.removeEventListener("timeupdate", updateTime)
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata)
-      video.removeEventListener("waiting", handleWaiting)
-      video.removeEventListener("playing", handlePlaying)
-      video.removeEventListener("ended", handleEnded)
-    }
-  }, [currentVideo, currentIndex, allVideos])
+  // ─── ReactPlayer obsługuje play/pause, volume, time tracking przez props/callbacks ───
 
   const handleSeek = (value: number[]) => {
-    const video = videoRef.current
-    if (!video) return
-    video.currentTime = value[0]
+    if (playerRef.current) {
+      playerRef.current.currentTime = value[0]
+    }
     setProgress(value[0])
   }
 
   const togglePictureInPicture = async () => {
-    const video = videoRef.current
-    if (!video || !(document as Document & { pictureInPictureEnabled?: boolean }).pictureInPictureEnabled) return
+    const videoEl = playerRef.current
+    if (!videoEl || !(document as Document & { pictureInPictureEnabled?: boolean }).pictureInPictureEnabled) return
 
     if (document.pictureInPictureElement) {
       await document.exitPictureInPicture()
       return
     }
 
-    await video.requestPictureInPicture()
+    await videoEl.requestPictureInPicture?.()
   }
 
   const toggleFullscreen = async () => {
-    const video = videoRef.current
-    if (!video) return
+    const wrapper = playerWrapperRef.current
+    if (!wrapper) return
 
     if (document.fullscreenElement) {
       await document.exitFullscreen()
       return
     }
 
-    await video.requestFullscreen()
+    await wrapper.requestFullscreen()
   }
 
   return (
@@ -320,17 +257,33 @@ export function VideoPlayer() {
             onClick={() => setIsPlaying(!isPlaying)}
           >
             {currentVideo.videoUrl ? (
-              <video
-                ref={videoRef}
-                className="h-full w-full object-cover"
-                playsInline
-                preload="metadata"
-                poster={currentVideo.thumbnailUrl || undefined}
-                onClick={(event) => {
-                  event.stopPropagation()
-                  setIsPlaying((prev) => !prev)
-                }}
-              />
+              <div
+                ref={playerWrapperRef}
+                className="h-full w-full"
+                onClick={(e) => { e.stopPropagation(); setIsPlaying(prev => !prev) }}
+              >
+                <ReactPlayer
+                  ref={playerRef}
+                  src={currentVideo.videoUrl}
+                  playing={isPlaying}
+                  volume={isMuted ? 0 : volume / 100}
+                  muted={isMuted}
+                  width="100%"
+                  height="100%"
+                  controls={false}
+                  playsInline
+                  onTimeUpdate={(e) => setProgress(e.currentTarget.currentTime)}
+                  onLoadedMetadata={(e) => {
+                    const d = e.currentTarget.duration
+                    setDuration(Number.isFinite(d) ? Math.round(d) : currentVideo.duration)
+                  }}
+                  onWaiting={() => setIsBuffering(true)}
+                  onPlaying={() => setIsBuffering(false)}
+                  onEnded={() => playNext()}
+                  onError={() => setIsPlaying(false)}
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             ) : currentVideo.thumbnailUrl ? (
               <img
                 src={currentVideo.thumbnailUrl}
@@ -346,8 +299,8 @@ export function VideoPlayer() {
             
             {/* Terminal overlay */}
             <div className="absolute left-3 top-3 text-xs text-primary/70">
-              <div>[SYS] VIDEO_DECODER_v3.1</div>
-              <div>[CODEC] {currentVideo.videoUrl ? "HTML5_MEDIA" : "STANDBY"}</div>
+              <div>[SYS] BONZO_VIDEO_ENGINE</div>
+              <div>[ENGINE] REACT_PLAYER_v2</div>
               <div>[STATUS] {isPlaying ? "PLAYING" : "PAUSED"}</div>
               {isBuffering && <div>[BUFFER] LOADING...</div>}
             </div>

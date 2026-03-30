@@ -1,4 +1,5 @@
 const DEFAULT_WORKER_BASE = "https://bonzo-media-hub-proxy.stolarnia-ams.workers.dev"
+const DEFAULT_APP_WORKER_BASE = "https://bonzo-media-hub.stolarnia-ams.workers.dev"
 
 function trimSlash(value: string): string {
   return value.replace(/\/+$/, "")
@@ -7,6 +8,12 @@ function trimSlash(value: string): string {
 export function getWorkerBase(): string {
   const configured = process.env.NEXT_PUBLIC_BONZO_WORKER_URL
   if (!configured || !configured.trim()) return DEFAULT_WORKER_BASE
+  return trimSlash(configured.trim())
+}
+
+export function getAppWorkerBase(): string {
+  const configured = process.env.NEXT_PUBLIC_BONZO_APP_WORKER_URL
+  if (!configured || !configured.trim()) return DEFAULT_APP_WORKER_BASE
   return trimSlash(configured.trim())
 }
 
@@ -50,6 +57,17 @@ export async function fetchJsonWithFallback<T = unknown>(
     if (workerRes.ok) return (await workerRes.json()) as T
   } catch {
     // fallback do lokalnego /api
+  }
+
+  // Dla środowisk statycznych (np. pages.dev) lokalne /api/* może nie istnieć.
+  // Wtedy próbujemy ten sam endpoint z głównego Workera aplikacji.
+  if (localApiUrl.startsWith("/api/")) {
+    try {
+      const appWorkerRes = await fetch(`${getAppWorkerBase()}${localApiUrl}`)
+      if (appWorkerRes.ok) return (await appWorkerRes.json()) as T
+    } catch {
+      // ostatni fallback poniżej
+    }
   }
 
   const localRes = await fetch(localApiUrl)
