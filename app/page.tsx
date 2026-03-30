@@ -9,6 +9,7 @@ import { VideoPlayer } from "@/components/features/video/video-player"
 import { FilmLibrary } from "@/components/film-library"
 import { LinksManager } from "@/components/features/links/links-manager"
 import { StreamsPanel } from "@/components/features/streams/streams-panel"
+import { GlobalAiChatbox } from "@/components/features/ai-tools/global-ai-chatbox"
 import { MobileHeader } from "@/components/mobile-header"
 import { OpenStandaloneButton } from "@/components/open-standalone-button"
 
@@ -38,6 +39,7 @@ function App() {
   return (
     <MediaProvider>
       <MainContent />
+      <GlobalAiChatbox />
     </MediaProvider>
   )
 }
