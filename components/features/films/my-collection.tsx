@@ -80,7 +80,6 @@ interface TmdbFullDetails {
   keywords: string[];
 }
 
-type FilterMode = "all" | "has-reviews" | "has-personal";
 type ViewMode = "grid" | "list";
 
 function resolveImageUrl(
@@ -368,29 +367,15 @@ function MovieModal({
             | undefined,
           cast: (
             (
-              d as {
-                credits?: {
-                  cast?: {
-                    name: string;
-                    character: string;
-                    profile_path: string | null;
-                  }[];
-                };
-              }
-            ).credits?.cast || []
-          )
-            .slice(0, 15)
-            .map(
-              (c: {
-                name: string;
-                character: string;
-                profile_path: string | null;
-              }) => ({
+              (d as { credits?: { cast?: { name: string; character: string; profile_path: string | null }[] } }).credits?.cast || []
+            )
+              .slice(0, 15)
+              .map((c: { name: string; character: string; profile_path: string | null }) => ({
                 name: c.name,
                 character: c.character,
                 profile_path: c.profile_path,
-              }),
-            ),
+              }))
+          ),
           keywords: (
             ((
               d as {
@@ -765,7 +750,6 @@ function MovieModal({
 
 export function MovieVault() {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<FilterMode>("all");
   const [view, setView] = useState<ViewMode>("grid");
   const [selected, setSelected] = useState<VaultMovie | null>(null);
 
@@ -776,7 +760,6 @@ export function MovieVault() {
 
   const filtered = useMemo(() => {
     let movies = db.movies;
-
     if (search) {
       const q = search.toLowerCase();
       movies = movies.filter(
@@ -787,112 +770,29 @@ export function MovieVault() {
           (m.metadata?.tags ?? []).join(" ").toLowerCase().includes(q),
       );
     }
-
-    if (filter === "has-reviews") {
-      movies = movies.filter(
-        (m) => Object.keys(m.reviews?.styles || {}).length > 0,
-      );
-    } else if (filter === "has-personal") {
-      movies = movies.filter((m) => !!m.reviews?.personal);
-    }
-
     return movies;
-  }, [db.movies, search, filter]);
-
-  const withReviews = useMemo(
-    () =>
-      db.movies.filter((m) => Object.keys(m.reviews?.styles || {}).length > 0)
-        .length,
-    [db.movies],
-  );
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape") setSelected(null);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
+  }, [db.movies, search]);
 
   return (
     <div className="flex h-full flex-col font-mono">
-      <div className="border-b border-border px-4 py-3 lg:px-6">
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2">
-            <Film className="h-5 w-5 text-primary" />
-            <h2 className="text-sm font-black uppercase tracking-widest text-primary">
-              ARCHIWUM_FILMÓW
-            </h2>
-          </div>
-
-          <div
-            className="relative flex-1"
-            style={{ minWidth: "180px", maxWidth: "420px" }}
-          >
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="> szukaj tytułu, reżysera, tagów..."
-              className="h-9 pl-9 text-sm"
-            />
-          </div>
-
-          <span className="text-xs text-muted-foreground">
-            {db.movies.length} filmów · {withReviews} z recenzjami ·{" "}
-            {filtered.length} widocznych
-          </span>
-
-          <div className="ml-auto flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setView("grid")}
-              className={cn(
-                "h-8 w-8 border",
-                view === "grid"
-                  ? "border-primary bg-primary/20"
-                  : "border-transparent",
-              )}
-            >
-              <Grid className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setView("list")}
-              className={cn(
-                "h-8 w-8 border",
-                view === "list"
-                  ? "border-primary bg-primary/20"
-                  : "border-transparent",
-              )}
-            >
-              <List className="h-4 w-4" />
-            </Button>
-          </div>
+      <div className="border-b border-border px-4 py-3 lg:px-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+        <div className="hidden sm:flex items-center gap-2">
+          <Film className="h-5 w-5 text-primary" />
+          <h2 className="text-sm font-black uppercase tracking-widest text-primary">
+            ARCHIWUM_FILMÓW
+          </h2>
         </div>
-
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
-          {(["all", "has-reviews", "has-personal"] as FilterMode[]).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={cn(
-                "border px-2.5 py-0.5 text-xs uppercase tracking-wider transition-all",
-                filter === f
-                  ? "border-primary bg-primary/20 text-primary"
-                  : "border-border text-muted-foreground hover:border-primary/50",
-              )}
-            >
-              {f === "all"
-                ? "ALL"
-                : f === "has-reviews"
-                  ? "Z RECENZJAMI"
-                  : "MOJE RECENZJE"}
-            </button>
-          ))}
+        <div
+          className="relative flex-1"
+          style={{ minWidth: "180px", maxWidth: "420px" }}
+        >
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="> szukaj tytułu, reżysera, tagów..."
+            className="h-9 pl-9 text-sm"
+          />
         </div>
       </div>
 
@@ -925,18 +825,10 @@ export function MovieVault() {
             ))}
           </div>
         )}
-
-        <p className="mt-4 text-xs text-muted-foreground">
-          [RESULTS] {filtered.length}/{db.movies.length} · [MODE]{" "}
-          {view.toUpperCase()}
-        </p>
       </div>
-
-      <MovieModal
-        movie={selected}
-        open={!!selected}
-        onClose={() => setSelected(null)}
-      />
+      {selected && (
+        <MovieModal movie={selected} open={!!selected} onClose={() => setSelected(null)} />
+      )}
     </div>
   );
 }
